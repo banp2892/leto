@@ -2,19 +2,20 @@
 #include "worm.h"
 #include <windows.h>
 
-std::string get_own_path() {
-    char buffer[MAX_PATH];
-    DWORD result = GetModuleFileNameA(NULL, buffer, MAX_PATH);
-    if (result == 0 || result == MAX_PATH)
-        return "";
-    return std::string(buffer);
+std::wstring get_own_path() {
+    wchar_t buffer[MAX_PATH];
+    DWORD result = GetModuleFileNameW(NULL, buffer, MAX_PATH);
+    if (result == 0 || result == MAX_PATH) {
+        return L"";
+    }
+    return std::wstring(buffer);
 }
 
-std::string get_drive_root_from_path(const std::string& full_path) {
-    if (full_path.size() < 3 || full_path[1] != ':' || full_path[2] != '\\')
-        return "";
-    return full_path.substr(0, 3);
-
+std::wstring get_drive_root_from_path(const std::wstring& full_path) {
+    if (full_path.size() < 3 || full_path[1] != L':' || full_path[2] != L'\\') {
+        return L"";
+    }
+    return full_path.substr(0, 3);  // Например: "C:\"
 }
 
 bool is_hidden(const fs::path& path) {
@@ -44,7 +45,8 @@ std::string get_timestamp() {
 void init_locale() {
 #ifdef _WIN32
     SetConsoleOutputCP(CP_UTF8);
-    std::locale::global(std::locale("en_US.UTF-8"));
+    std::wcout.imbue(std::locale(".UTF-8"));
+    std::wcerr.imbue(std::locale(".UTF-8"));
 #endif
 }
 
@@ -57,3 +59,5 @@ std::wstring get_filename_stem(const fs::path& filepath) {
         return L"file";
     }
 }
+
+
