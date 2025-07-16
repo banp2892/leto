@@ -40,7 +40,7 @@ public:
 		try {
 			for (const auto& entry : fs::directory_iterator(path_to_dir)) {
 				if (entry.is_directory() && !is_hidden(entry.path())) {
-					std::string dir_path = entry.path().string();
+					std::string dir_path = entry.path().u8string();
 					list_dir.push_back(dir_path);
 					search_list_dir(dir_path);
 				}
