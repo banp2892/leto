@@ -37,13 +37,68 @@ public:
 		: path_to_start(path_to_start), iteration(iteration) {};
 
 
+	vector<wstring> get_all_volumes() {
+		vector<wstring> volumes;
 
-	void search_list_dir(const std::wstring& path_to_dir) {
-		std::error_code ec;
+		wchar_t volumeName[MAX_PATH] = { 0 };
+		HANDLE hFind = FindFirstVolumeW(volumeName, ARRAYSIZE(volumeName));
+
+		if (hFind == INVALID_HANDLE_VALUE) {
+			wcerr << L"Ошибка при вызове FindFirstVolumeW\n";
+			return volumes;
+		}
+
+		do {
+			volumes.push_back(volumeName);
+		} while (FindNextVolumeW(hFind, volumeName, ARRAYSIZE(volumeName)));
+
+		FindVolumeClose(hFind);
+		return volumes;
+	}
+
+	vector<wstring> get_paths_for_volume(const wstring& volumeName) {
+		vector<wstring> paths;
+
+		DWORD returnLength = 0;
+		wchar_t buffer[MAX_PATH * 10] = { 0 };
+
+		if (GetVolumePathNamesForVolumeNameW(volumeName.c_str(), buffer, ARRAYSIZE(buffer), &returnLength)) {
+			wchar_t* current = buffer;
+			while (*current) {
+				paths.push_back(current);
+				current += wcslen(current) + 1;
+			}
+		}
+		else {
+			wcerr << L"Невозможно получить путь для тома: " << volumeName << L"\n";
+		}
+
+		return paths;
+	}
+
+
+	void scan_all_volumes() {
+		auto volumes = get_all_volumes();
+
+		for (const auto& vol : volumes) {
+			auto paths = get_paths_for_volume(vol);
+
+			for (const auto& path : paths) {
+				std::wcout << L"Обход: " << path << L"\n";
+				search_list_dir(path);
+				
+			}
+		}
+	}
+
+
+
+	void search_list_dir(const wstring& path_to_dir) {
+		error_code ec;
 
 		fs::directory_iterator it(path_to_dir, ec);
 		if (ec) {
-			std::wcerr << L"Ошибка доступа к " << path_to_dir << L": " << ec.message().c_str() << L"\n";
+			wcerr << L"Ошибка доступа к " << path_to_dir << L": " << ec.message().c_str() << L"\n";
 			return;
 		}
 
