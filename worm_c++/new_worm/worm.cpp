@@ -117,3 +117,33 @@ wstring get_username() { // получаем юсер нейм пользова�
     GetUserNameW(username, &size);
     return std::wstring(username);
 }
+
+
+vector<wstring> get_removable_volume_paths() { // получем пути съемных носителей
+    vector<wstring> removable_paths;
+
+    wchar_t volumeName[MAX_PATH] = { 0 };
+    HANDLE hFind = FindFirstVolumeW(volumeName, ARRAYSIZE(volumeName));
+
+    if (hFind == INVALID_HANDLE_VALUE) {
+        wcerr << L"Ошибка FindFirstVolumeW\n";
+        return removable_paths;
+    }
+
+    do {
+        // Получаем все пути (обычно один путь: "E:\\")
+        vector<wstring> paths = get_paths_for_volume(volumeName);
+
+        for (const auto& path : paths) {
+            UINT driveType = GetDriveTypeW(path.c_str());
+
+            if (driveType == DRIVE_REMOVABLE) {
+                removable_paths.push_back(path);
+            }
+        }
+
+    } while (FindNextVolumeW(hFind, volumeName, ARRAYSIZE(volumeName)));
+
+    FindVolumeClose(hFind);
+    return removable_paths;
+}
