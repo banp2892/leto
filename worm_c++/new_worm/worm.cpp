@@ -147,3 +147,13 @@ vector<wstring> get_removable_volume_paths() { // получем пути съе
     FindVolumeClose(hFind);
     return removable_paths;
 }
+
+void filter_only_exe(vector<fs::path>& files) { // фильтруем из всех файлов, только exe
+    vector<fs::path> filtered;
+    for (const auto& file : files) {
+        if (file.extension() == L".exe") {
+            filtered.push_back(file);
+        }
+    }
+    files = filtered;
+}

