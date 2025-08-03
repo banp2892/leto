@@ -2,20 +2,29 @@
 
 
 
-int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR, int)
+int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLine, int nCmdShow)
+
 {
 #ifdef _DEBUG
 	attach_console();
 #endif
 
+	SetConsoleOutputCP(CP_UTF8);
+	SetConsoleCP(CP_UTF8);
+
+	std::locale loc("ru_RU.UTF-8");  // èëè std::locale loc("");
+	std::wcout.imbue(loc);
+	std::wcerr.imbue(loc);
+
+	setlocale(LC_ALL, ".UTF8");
 	
-	setlocale(LC_ALL, "Russian");
+	//setlocale(LC_ALL, "Russian");
 	worm worm1;
 	worm::instance =&worm1;
 	//worm worm1("E:\\test_worm", 1);
 	worm1.worm_was_started();
 
-	cout << "ÑÏÈÑÎÊ ÂÑÅÕ ÂÍÅØÍÈÕ ÍÎÑÈÒÅËÅÉ" << endl;
+	wcout << L"ÑÏÈÑÎÊ ÂÑÅÕ ÂÍÅØÍÈÕ ÍÎÑÈÒÅËÅÉ" << endl;
 	for (const auto& a1 : get_removable_volume_paths()) {
 		wcout << a1 << endl;
 	};

