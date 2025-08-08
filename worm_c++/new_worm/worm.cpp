@@ -114,6 +114,14 @@ void worm::worm_was_started() {
     );
 }
 
+void worm::worm_was_end() {
+    MessageBoxW(
+        NULL,                            // Владелец окна (NULL — нет владельца)
+        L"Я закончил!",              // Текст сообщения
+        L"Предупреждение",               // Заголовок окна
+        MB_OK | MB_ICONWARNING           // Кнопка OK и значок предупреждения
+    );
+}
 
 vector<wstring> get_all_volumes() { // находим все корневые директории
     vector<wstring> volumes;

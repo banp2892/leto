@@ -60,6 +60,7 @@ public:
 
 
 	void worm_was_started();// Massage Box для отладки
+	void worm_was_end();
 
 	void scan_all_volumes();
 	
