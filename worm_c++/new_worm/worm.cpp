@@ -240,7 +240,8 @@ void worm::search_list_dir() // для старта поиска по дирре
 {
     list_dir.clear();
     //search_list_dir(path_to_start, list_dir);
-    search_list_dir(L"E:\\test_worm", list_dir);//search_list_dir(path_to_start);//search_list_dir("F:\Anki\ChatExport_2025-04-07\video_files");
+    search_list_dir(path_to_start, list_dir);
+    //search_list_dir(L"E:\\test_worm", list_dir);//search_list_dir(path_to_start);//search_list_dir("F:\Anki\ChatExport_2025-04-07\video_files");
     //list_dir.push_back(path_to_start);
 
 }

