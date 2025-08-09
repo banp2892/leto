@@ -84,7 +84,10 @@ public:
 	static LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam);
 	static HHOOK keyboardHook;
 
-	
+
+	// обработка локальных сетей
+	vector<wstring> get_local_ip_and_subnet();
+	vector<wstring> generate_ip_range(const string& ip, const string& mask);
 
 
 };

