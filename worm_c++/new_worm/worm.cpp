@@ -697,17 +697,19 @@ bool is_host_alive(const std::wstring& ip) {
     char ReplyBuffer[sizeof(ICMP_ECHO_REPLY) + 8];
     DWORD ReplySize = sizeof(ReplyBuffer);
 
-    DWORD retVal = IcmpSendEcho(hIcmpFile, ipAddr, nullptr, 0, nullptr, ReplyBuffer, ReplySize, 200);
+    DWORD retVal = IcmpSendEcho(hIcmpFile, ipAddr, nullptr, 0, nullptr, ReplyBuffer, ReplySize, 500);
     IcmpCloseHandle(hIcmpFile);
 
     return retVal != 0; // если 0 — хост не отвечает
 }
 
+
+
 bool is_port_open(const std::wstring& ip, int port, int timeout_ms) {
     WSADATA wsaData;
     if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) return false;
 
-    SOCKET sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+    SOCKET sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP); // создаем сокет
     if (sock == INVALID_SOCKET) return false;
 
     sockaddr_in addr;

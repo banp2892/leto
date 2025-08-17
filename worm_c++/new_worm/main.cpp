@@ -35,14 +35,16 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLin
 
 		auto range = generate_ip_range(ip, mask);
 		for (const auto& ip_ws : range) {
-			wcout << ip_ws<< " "<< is_host_alive(ip_ws) << endl;
-			if (is_host_alive(ip_ws)) {
+			bool host_bool = 0;// = is_host_alive(ip_ws); // поменять (раскоментить)
+			wcout << ip_ws<< " "<< host_bool << endl;
+			if (host_bool) {
 				alive_ip.push_back(ip_ws);
+				
 			}
 		}
 	}
 
-	std::vector<int> critical_and_popular_ports = {
+	vector<int> critical_and_popular_ports = {
 	21,    // FTP
 	22,    // SSH
 	23,    // Telnet
@@ -64,13 +66,19 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLin
 	1900,  // SSDP (UPnP)
 	3306,  // MySQL
 	3389,  // RDP
+	5357,  // еще какой то порт
 	5432   // PostgreSQL
 	};
 
+	vector<wstring> ip_vector = {L"192.168.0.147", L"192.168.0.1"}; // удалить
+	
 
-	for (wstring &ip : alive_ip) {
+	for (wstring &ip : ip_vector) { // alive_ip -> ip_vector // поменять
 		for (int port : critical_and_popular_ports) {
-			is_port_open(ip, port);
+			bool test_port = is_port_open(ip, port);
+			if (test_port) {
+
+			}
 		}
 	}
 
