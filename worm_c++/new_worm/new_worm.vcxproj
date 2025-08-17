@@ -132,9 +132,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="NetUtils.cpp" />
     <ClCompile Include="worm.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="NetUtils.h" />
     <ClInclude Include="worm.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
