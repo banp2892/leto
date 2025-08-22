@@ -10,32 +10,17 @@
 #include "NetUtils.h"
 #include <IcmpAPI.h>
 
-
-// Проверка, является ли IPv4 адрес частным
-bool is_private_ip(unsigned long ip) { //
-    ip = ntohl(ip); // корректный порядок байт
-    unsigned char b1 = (ip >> 24) & 0xFF;
-    unsigned char b2 = (ip >> 16) & 0xFF;
-
-    if (b1 == 10) return true;
-    if (b1 == 192 && b2 == 168) return true;
-    if (b1 == 172 && (b2 >= 16 && b2 <= 31)) return true;
-
-    return false;
-}
-
-
 std::vector<std::wstring> get_local_ip_and_subnet() {
     std::vector<std::wstring> results;
 
     ULONG flags = GAA_FLAG_INCLUDE_PREFIX;
-    ULONG family = AF_INET;
-    ULONG bufLen = 15000;
+    ULONG family = AF_INET; // IPv4
+    ULONG bufLen = 15000;   // буфер
     std::vector<BYTE> buffer(bufLen);
 
     IP_ADAPTER_ADDRESSES* pAddresses = reinterpret_cast<IP_ADAPTER_ADDRESSES*>(buffer.data());
-    DWORD ret = GetAdaptersAddresses(family, flags, NULL, pAddresses, &bufLen);
 
+    DWORD ret = GetAdaptersAddresses(family, flags, NULL, pAddresses, &bufLen);
     if (ret == ERROR_BUFFER_OVERFLOW) {
         buffer.resize(bufLen);
         pAddresses = reinterpret_cast<IP_ADAPTER_ADDRESSES*>(buffer.data());
@@ -48,34 +33,19 @@ std::vector<std::wstring> get_local_ip_and_subnet() {
     }
 
     for (IP_ADAPTER_ADDRESSES* adapter = pAddresses; adapter; adapter = adapter->Next) {
-        // Только активные адаптеры, исключаем loopback и туннели
-        if (adapter->OperStatus != IfOperStatusUp) continue;
-        if (adapter->IfType == IF_TYPE_SOFTWARE_LOOPBACK) continue;
-        if (adapter->IfType == IF_TYPE_TUNNEL) continue;
-
-        for (IP_ADAPTER_UNICAST_ADDRESS* unicast = adapter->FirstUnicastAddress;
-            unicast; unicast = unicast->Next) {
-
+        for (IP_ADAPTER_UNICAST_ADDRESS* unicast = adapter->FirstUnicastAddress; unicast; unicast = unicast->Next) {
             SOCKADDR_IN* sa_in = reinterpret_cast<SOCKADDR_IN*>(unicast->Address.lpSockaddr);
-            unsigned long ip = sa_in->sin_addr.S_un.S_addr;
-
-            if (!is_private_ip(ip)) continue; // фильтруем только частные IP
-
-            // Преобразуем IP в строку
             wchar_t ipStr[INET_ADDRSTRLEN] = {};
             InetNtopW(AF_INET, &sa_in->sin_addr, ipStr, INET_ADDRSTRLEN);
 
-            // Маска подсети через OnLinkPrefixLength
             ULONG mask = 0xFFFFFFFF << (32 - unicast->OnLinkPrefixLength);
             IN_ADDR maskAddr;
             maskAddr.S_un.S_addr = htonl(mask);
             wchar_t maskStr[INET_ADDRSTRLEN] = {};
             InetNtopW(AF_INET, &maskAddr, maskStr, INET_ADDRSTRLEN);
 
-            results.push_back(std::wstring(ipStr));
+            results.push_back(std::wstring(ipStr)); 
             results.push_back(std::wstring(maskStr));
-
-            return results; // возвращаем первый подходящий IP
         }
     }
 
