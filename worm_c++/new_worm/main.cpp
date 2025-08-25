@@ -71,7 +71,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLin
 	5432   // PostgreSQL
 	};
 
-	vector<wstring> ip_vector = { L"192.168.0.147", L"192.168.0.1", L"192.168.0.184", L"192.168.0.187"}; // удалить
+	vector<wstring> ip_vector = { L"192.168.0.147", L"192.168.0.1", L"192.168.0.184", L"192.168.0.187"}; // удалить 
 
 
 	for (wstring& ip : ip_vector) { // alive_ip -> ip_vector // поменять
