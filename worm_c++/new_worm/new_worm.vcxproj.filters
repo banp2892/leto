@@ -30,7 +30,7 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="NetUtils.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

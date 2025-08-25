@@ -12,7 +12,7 @@
 
 
 // Проверка, является ли IPv4 адрес частным
-bool is_private_ip(unsigned long ip) { 
+bool is_private_ip(unsigned long ip) {
     ip = ntohl(ip); // корректный порядок байт
     unsigned char b1 = (ip >> 24) & 0xFF;
     unsigned char b2 = (ip >> 16) & 0xFF;
