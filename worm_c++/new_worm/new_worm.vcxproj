@@ -131,11 +131,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DataSend.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NetUtils.cpp" />
     <ClCompile Include="worm.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DataSend.h" />
     <ClInclude Include="NetUtils.h" />
     <ClInclude Include="worm.h" />
   </ItemGroup>
