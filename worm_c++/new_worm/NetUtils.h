@@ -1,11 +1,11 @@
-#pragma once
+п»ї#pragma once
 using namespace std;
 #include <vector>
 #include <string>
 
-// обработка локальных сетей
-std::vector<std::wstring> get_local_ip_and_subnet(); // находим маску и внутренний айпишник хоста 
-std::vector<std::wstring> generate_ip_range(const std::wstring& ip, const std::wstring& mask); // по маске и айпи создаем вектор всех возможных хостов в нашей сети
-bool is_host_alive(const std::wstring& ip); // проверка айпишника на работоспособность
-bool is_port_open(const std::wstring& ip, int port, int timeout_ms = 200); // проверка айпишников на открытые порты
-bool is_private_ip(unsigned long ip); // проверка является ли айпишник локальным?
+// РѕР±СЂР°Р±РѕС‚РєР° Р»РѕРєР°Р»СЊРЅС‹С… СЃРµС‚РµР№
+std::vector<std::wstring> get_local_ip_and_subnet(); // РЅР°С…РѕРґРёРј РјР°СЃРєСѓ Рё РІРЅСѓС‚СЂРµРЅРЅРёР№ Р°Р№РїРёС€РЅРёРє С…РѕСЃС‚Р° 
+std::vector<std::wstring> generate_ip_range(const std::wstring& ip, const std::wstring& mask); // РїРѕ РјР°СЃРєРµ Рё Р°Р№РїРё СЃРѕР·РґР°РµРј РІРµРєС‚РѕСЂ РІСЃРµС… РІРѕР·РјРѕР¶РЅС‹С… С…РѕСЃС‚РѕРІ РІ РЅР°С€РµР№ СЃРµС‚Рё
+bool is_host_alive(const std::wstring& ip); // РїСЂРѕРІРµСЂРєР° Р°Р№РїРёС€РЅРёРєР° РЅР° СЂР°Р±РѕС‚РѕСЃРїРѕСЃРѕР±РЅРѕСЃС‚СЊ
+bool is_port_open(const std::wstring& ip, int port, int timeout_ms = 200); // РїСЂРѕРІРµСЂРєР° Р°Р№РїРёС€РЅРёРєРѕРІ РЅР° РѕС‚РєСЂС‹С‚С‹Рµ РїРѕСЂС‚С‹
+bool is_private_ip(unsigned long ip); // РїСЂРѕРІРµСЂРєР° СЏРІР»СЏРµС‚СЃСЏ Р»Рё Р°Р№РїРёС€РЅРёРє Р»РѕРєР°Р»СЊРЅС‹Рј?

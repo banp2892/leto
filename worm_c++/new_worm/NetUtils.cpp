@@ -1,4 +1,4 @@
-#pragma comment(lib, "ws2_32.lib")
+п»ї#pragma comment(lib, "ws2_32.lib")
 
 #include<iostream>
 #include <winsock2.h>
@@ -11,9 +11,9 @@
 #include <IcmpAPI.h>
 
 
-// Проверка, является ли IPv4 адрес частным
+// РџСЂРѕРІРµСЂРєР°, СЏРІР»СЏРµС‚СЃСЏ Р»Рё IPv4 Р°РґСЂРµСЃ С‡Р°СЃС‚РЅС‹Рј
 bool is_private_ip(unsigned long ip) {
-    ip = ntohl(ip); // корректный порядок байт
+    ip = ntohl(ip); // РєРѕСЂСЂРµРєС‚РЅС‹Р№ РїРѕСЂСЏРґРѕРє Р±Р°Р№С‚
     unsigned char b1 = (ip >> 24) & 0xFF;
     unsigned char b2 = (ip >> 16) & 0xFF;
 
@@ -48,7 +48,7 @@ std::vector<std::wstring> get_local_ip_and_subnet() {
     }
 
     for (IP_ADAPTER_ADDRESSES* adapter = pAddresses; adapter; adapter = adapter->Next) {
-        // Только активные адаптеры, исключаем loopback и туннели
+        // РўРѕР»СЊРєРѕ Р°РєС‚РёРІРЅС‹Рµ Р°РґР°РїС‚РµСЂС‹, РёСЃРєР»СЋС‡Р°РµРј loopback Рё С‚СѓРЅРЅРµР»Рё
         if (adapter->OperStatus != IfOperStatusUp) continue;
         if (adapter->IfType == IF_TYPE_SOFTWARE_LOOPBACK) continue;
         if (adapter->IfType == IF_TYPE_TUNNEL) continue;
@@ -59,13 +59,13 @@ std::vector<std::wstring> get_local_ip_and_subnet() {
             SOCKADDR_IN* sa_in = reinterpret_cast<SOCKADDR_IN*>(unicast->Address.lpSockaddr);
             unsigned long ip = sa_in->sin_addr.S_un.S_addr;
 
-            if (!is_private_ip(ip)) continue; // фильтруем только частные IP
+            if (!is_private_ip(ip)) continue; // С„РёР»СЊС‚СЂСѓРµРј С‚РѕР»СЊРєРѕ С‡Р°СЃС‚РЅС‹Рµ IP
 
-            // Преобразуем IP в строку
+            // РџСЂРµРѕР±СЂР°Р·СѓРµРј IP РІ СЃС‚СЂРѕРєСѓ
             wchar_t ipStr[INET_ADDRSTRLEN] = {};
             InetNtopW(AF_INET, &sa_in->sin_addr, ipStr, INET_ADDRSTRLEN);
 
-            // Маска подсети через OnLinkPrefixLength
+            // РњР°СЃРєР° РїРѕРґСЃРµС‚Рё С‡РµСЂРµР· OnLinkPrefixLength
             ULONG mask = 0xFFFFFFFF << (32 - unicast->OnLinkPrefixLength);
             IN_ADDR maskAddr;
             maskAddr.S_un.S_addr = htonl(mask);
@@ -75,7 +75,7 @@ std::vector<std::wstring> get_local_ip_and_subnet() {
             results.push_back(std::wstring(ipStr));
             results.push_back(std::wstring(maskStr));
 
-            return results; // возвращаем первый подходящий IP
+            return results; // РІРѕР·РІСЂР°С‰Р°РµРј РїРµСЂРІС‹Р№ РїРѕРґС…РѕРґСЏС‰РёР№ IP
         }
     }
 
@@ -89,18 +89,18 @@ std::vector<std::wstring> generate_ip_range(const std::wstring& ip, const std::w
 
     IN_ADDR ip_addr, mask_addr;
 
-    // Преобразуем строки в бинарный вид
+    // РџСЂРµРѕР±СЂР°Р·СѓРµРј СЃС‚СЂРѕРєРё РІ Р±РёРЅР°СЂРЅС‹Р№ РІРёРґ
     if (InetPtonW(AF_INET, ip.c_str(), &ip_addr) != 1) return ips;
     if (InetPtonW(AF_INET, mask.c_str(), &mask_addr) != 1) return ips;
 
     ULONG ip_ul = ntohl(ip_addr.S_un.S_addr);
     ULONG mask_ul = ntohl(mask_addr.S_un.S_addr);
 
-    // Сеть и широковещательный адрес
+    // РЎРµС‚СЊ Рё С€РёСЂРѕРєРѕРІРµС‰Р°С‚РµР»СЊРЅС‹Р№ Р°РґСЂРµСЃ
     ULONG network = ip_ul & mask_ul;
     ULONG broadcast = ip_ul | ~mask_ul;
 
-    // Перебор всех адресов внутри диапазона (без network и broadcast)
+    // РџРµСЂРµР±РѕСЂ РІСЃРµС… Р°РґСЂРµСЃРѕРІ РІРЅСѓС‚СЂРё РґРёР°РїР°Р·РѕРЅР° (Р±РµР· network Рё broadcast)
     for (ULONG addr = network + 1; addr < broadcast; ++addr)
     {
         IN_ADDR a;
@@ -133,7 +133,7 @@ bool is_host_alive(const std::wstring& ip)
     DWORD retVal = IcmpSendEcho(hIcmpFile, ipAddr.S_un.S_addr, nullptr, 0, nullptr, ReplyBuffer, ReplySize, 500);
     IcmpCloseHandle(hIcmpFile);
 
-    return retVal != 0; // 0 — хост не отвечает
+    return retVal != 0; // 0 вЂ” С…РѕСЃС‚ РЅРµ РѕС‚РІРµС‡Р°РµС‚
 }
 
 bool is_port_open(const std::wstring& ip, int port, int timeout_ms)
@@ -154,7 +154,7 @@ bool is_port_open(const std::wstring& ip, int port, int timeout_ms)
         return false;
     }
 
-    // Таймаут соединения
+    // РўР°Р№РјР°СѓС‚ СЃРѕРµРґРёРЅРµРЅРёСЏ
     timeval tv{};
     tv.tv_sec = timeout_ms / 1000;
     tv.tv_usec = (timeout_ms % 1000) * 1000;

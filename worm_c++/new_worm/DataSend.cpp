@@ -1,4 +1,4 @@
-#include "DataSend.h"
+п»ї#include "DataSend.h"
 #include <iostream>
 #include <stdexcept>
 
@@ -6,7 +6,7 @@ DataSend::DataSend(const std::string& ip, int port)
     : serverIp(ip), serverPort(port), connected(false), sock(INVALID_SOCKET) {
     WSADATA wsaData;
     if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) {
-        throw std::runtime_error("Ошибка инициализации Winsock");
+        throw std::runtime_error("РћС€РёР±РєР° РёРЅРёС†РёР°Р»РёР·Р°С†РёРё Winsock");
     }
 }
 
@@ -18,7 +18,7 @@ DataSend::~DataSend() {
 bool DataSend::connectToServer() {
     sock = socket(AF_INET, SOCK_STREAM, 0);
     if (sock == INVALID_SOCKET) {
-        std::cerr << "Ошибка создания сокета\n";
+        std::wcerr << "РћС€РёР±РєР° СЃРѕР·РґР°РЅРёСЏ СЃРѕРєРµС‚Р°\n";
         return false;
     }
 
@@ -28,7 +28,7 @@ bool DataSend::connectToServer() {
     inet_pton(AF_INET, serverIp.c_str(), &serverAddr.sin_addr);
 
     if (connect(sock, (sockaddr*)&serverAddr, sizeof(serverAddr)) == SOCKET_ERROR) {
-        std::cerr << "Ошибка подключения к серверу\n";
+        std::wcerr << L"РћС€РёР±РєР° РїРѕРґРєР»СЋС‡РµРЅРёСЏ Рє СЃРµСЂРІРµСЂСѓ\n";
         closesocket(sock);
         sock = INVALID_SOCKET;
         return false;
@@ -40,7 +40,7 @@ bool DataSend::connectToServer() {
 
 bool DataSend::sendData(const std::string& data) {
     if (!connected) {
-        std::cerr << "Не подключено к серверу\n";
+        std::wcerr << "РќРµ РїРѕРґРєР»СЋС‡РµРЅРѕ Рє СЃРµСЂРІРµСЂСѓ\n";
         return false;
     }
     int result = send(sock, data.c_str(), static_cast<int>(data.size()), 0);
