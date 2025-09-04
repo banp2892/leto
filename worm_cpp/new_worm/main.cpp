@@ -15,7 +15,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLin
 	//attach_console(); // удалить
 
 	SetConsoleOutputCP(CP_UTF8);
-	SetConsoleCP(CP_UTF8);
+	SetConsoleCP(CP_UTF8); 
 
 	std::locale loc("ru_RU.UTF-8");  // или std::locale loc("");
 	std::wcout.imbue(loc);
