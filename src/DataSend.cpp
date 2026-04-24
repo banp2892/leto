@@ -1,4 +1,9 @@
-﻿#include "DataSend.h"
+﻿/**
+ * @file DataSend.cpp
+ * @brief Реализация методов класса DataSend.
+ */
+
+#include "DataSend.h"
 #include <iostream>
 #include <stdexcept>
 

@@ -1,4 +1,9 @@
-﻿#pragma comment(lib, "ws2_32.lib")
+﻿/**
+ * @file NetUtils.cpp
+ * @brief Реализация сетевых утилит с использованием Windows API.
+ */
+
+#pragma comment(lib, "ws2_32.lib")
 
 #include<iostream>
 #include <winsock2.h>

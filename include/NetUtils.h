@@ -1,11 +1,55 @@
-﻿#pragma once
-using namespace std;
+﻿/**
+ * @file NetUtils.h
+ * @brief Набор утилит для сканирования локальной сети и анализа IP-адресов.
+ * * Данный модуль содержит функции для обнаружения активных сетевых интерфейсов,
+ * генерации диапазонов IP-адресов и проверки доступности хостов.
+ * @note Эта часть кода не дописана, возможно в дальнейшем я его закончу.
+ */
+
+#pragma once
 #include <vector>
 #include <string>
 
-// обработка локальных сетей
-std::vector<std::wstring> get_local_ip_and_subnet(); // находим маску и внутренний айпишник хоста 
-std::vector<std::wstring> generate_ip_range(const std::wstring& ip, const std::wstring& mask); // по маске и айпи создаем вектор всех возможных хостов в нашей сети
-bool is_host_alive(const std::wstring& ip); // проверка айпишника на работоспособность
-bool is_port_open(const std::wstring& ip, int port, int timeout_ms = 200); // проверка айпишников на открытые порты
-bool is_private_ip(unsigned long ip); // проверка является ли айпишник локальным?
+/**
+ * @brief Получает IP-адрес и маску подсети текущего хоста.
+ * * Функция сканирует активные сетевые адаптеры и возвращает данные первого 
+ * найденного частного (локального) интерфейса.
+ * * @return std::vector<std::wstring> Вектор, где [0] — IP-адрес, [1] — маска. 
+ * Если интерфейс не найден, возвращается пустой вектор.
+ */
+std::vector<std::wstring> get_local_ip_and_subnet();
+
+/**
+ * @brief Генерирует список всех возможных IP-адресов в подсети.
+ * * На основе IP и маски вычисляются границы сети (адрес сети и broadcast),
+ * после чего создается список всех доступных узлов между ними.
+ * * @param ip Текущий IP-адрес хоста.
+ * @param mask Маска подсети.
+ * @return std::vector<std::wstring> Список IP-адресов для сканирования.
+ */
+std::vector<std::wstring> generate_ip_range(const std::wstring& ip, const std::wstring& mask);
+
+/**
+ * @brief Проверяет доступность хоста с помощью ICMP Echo (Ping).
+ * @param ip IP-адрес целевого хоста.
+ * @return true если получен ответ, false если хост недоступен или произошла ошибка.
+ */
+bool is_host_alive(const std::wstring& ip);
+
+/**
+ * @brief Проверяет, открыт ли конкретный TCP-порт на целевом хосте.
+ * * Пытается установить TCP-соединение с заданным таймаутом.
+ * * @param ip IP-адрес хоста.
+ * @param port Номер порта.
+ * @param timeout_ms Время ожидания ответа в миллисекундах (по умолчанию 200).
+ * @return true если порт открыт и принимает соединения.
+ */
+bool is_port_open(const std::wstring& ip, int port, int timeout_ms = 200);
+
+/**
+ * @brief Проверяет, относится ли IPv4 адрес к диапазону частных сетей.
+ * * Проверка выполняется для диапазонов: 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16.
+ * * @param ip IP-адрес в числовом формате (network byte order).
+ * @return true если адрес локальный.
+ */
+bool is_private_ip(unsigned long ip);
