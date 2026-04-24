@@ -1,0 +1,266 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>worm-core: Файл include/NetUtils.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">worm-core
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Поиск');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('NetUtils_8h.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Загрузка...</div>
+<div class="SRStatus" id="Searching">Поиск...</div>
+<div class="SRStatus" id="NoMatches">Не найдено</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Функции</a>  </div>
+  <div class="headertitle"><div class="title">Файл NetUtils.h</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Граф включаемых заголовочных файлов для NetUtils.h:</div>
+<div class="dyncontent">
+<div class="center"><img src="NetUtils_8h__incl.png" border="0" usemap="#ainclude_2NetUtils_8h" alt=""/></div>
+<map name="ainclude_2NetUtils_8h" id="ainclude_2NetUtils_8h">
+<area shape="rect" title=" " alt="" coords="10,5,149,31"/>
+<area shape="rect" title=" " alt="" coords="5,79,68,104"/>
+<area shape="poly" title=" " alt="" coords="75,32,53,68,48,66,70,30"/>
+<area shape="rect" title=" " alt="" coords="93,79,151,104"/>
+<area shape="poly" title=" " alt="" coords="89,30,110,66,106,68,84,32"/>
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
+Граф файлов, в которые включается этот файл:</div>
+<div class="dyncontent">
+<div class="center"><img src="NetUtils_8h__dep__incl.png" border="0" usemap="#ainclude_2NetUtils_8hdep" alt=""/></div>
+<map name="ainclude_2NetUtils_8hdep" id="ainclude_2NetUtils_8hdep">
+<area shape="rect" title=" " alt="" coords="68,5,207,31"/>
+<area shape="rect" href="NetUtils_8cpp.html" title=" " alt="" coords="5,79,131,104"/>
+<area shape="poly" title=" " alt="" coords="118,43,81,80,77,77,115,39"/>
+<area shape="rect" href="main_8cpp.html" title=" " alt="" coords="155,79,261,104"/>
+<area shape="poly" title=" " alt="" coords="161,39,198,77,195,80,157,43"/>
+</map>
+</div>
+</div>
+<p><a href="NetUtils_8h_source.html">См. исходные тексты.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Функции</h2></td></tr>
+<tr class="memitem:ace01e1f5467b24697c72b52b7f5d42af" id="r_ace01e1f5467b24697c72b52b7f5d42af"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::wstring &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="NetUtils_8h.html#ace01e1f5467b24697c72b52b7f5d42af">get_local_ip_and_subnet</a> ()</td></tr>
+<tr class="separator:ace01e1f5467b24697c72b52b7f5d42af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afff3423bf3b77d919945a3846151017b" id="r_afff3423bf3b77d919945a3846151017b"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::wstring &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="NetUtils_8h.html#afff3423bf3b77d919945a3846151017b">generate_ip_range</a> (const std::wstring &amp;ip, const std::wstring &amp;mask)</td></tr>
+<tr class="separator:afff3423bf3b77d919945a3846151017b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7405f711068b378717e2a98eb06e350" id="r_aa7405f711068b378717e2a98eb06e350"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="NetUtils_8h.html#aa7405f711068b378717e2a98eb06e350">is_host_alive</a> (const std::wstring &amp;ip)</td></tr>
+<tr class="separator:aa7405f711068b378717e2a98eb06e350"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aafa7c98ba38e08ca572f1776a8e297b7" id="r_aafa7c98ba38e08ca572f1776a8e297b7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="NetUtils_8h.html#aafa7c98ba38e08ca572f1776a8e297b7">is_port_open</a> (const std::wstring &amp;ip, int port, int timeout_ms=200)</td></tr>
+<tr class="separator:aafa7c98ba38e08ca572f1776a8e297b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa719b7b606fd16967b5141bc30cf5ca" id="r_aaa719b7b606fd16967b5141bc30cf5ca"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="NetUtils_8h.html#aaa719b7b606fd16967b5141bc30cf5ca">is_private_ip</a> (unsigned long ip)</td></tr>
+<tr class="separator:aaa719b7b606fd16967b5141bc30cf5ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Функции</h2>
+<a id="afff3423bf3b77d919945a3846151017b" name="afff3423bf3b77d919945a3846151017b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afff3423bf3b77d919945a3846151017b">&#9670;&#160;</a></span>generate_ip_range()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; std::wstring &gt; generate_ip_range </td>
+          <td>(</td>
+          <td class="paramtype">const std::wstring &amp;&#160;</td>
+          <td class="paramname"><em>ip</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::wstring &amp;&#160;</td>
+          <td class="paramname"><em>mask</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ace01e1f5467b24697c72b52b7f5d42af" name="ace01e1f5467b24697c72b52b7f5d42af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace01e1f5467b24697c72b52b7f5d42af">&#9670;&#160;</a></span>get_local_ip_and_subnet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; std::wstring &gt; get_local_ip_and_subnet </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa7405f711068b378717e2a98eb06e350" name="aa7405f711068b378717e2a98eb06e350"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa7405f711068b378717e2a98eb06e350">&#9670;&#160;</a></span>is_host_alive()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool is_host_alive </td>
+          <td>(</td>
+          <td class="paramtype">const std::wstring &amp;&#160;</td>
+          <td class="paramname"><em>ip</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aafa7c98ba38e08ca572f1776a8e297b7" name="aafa7c98ba38e08ca572f1776a8e297b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aafa7c98ba38e08ca572f1776a8e297b7">&#9670;&#160;</a></span>is_port_open()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool is_port_open </td>
+          <td>(</td>
+          <td class="paramtype">const std::wstring &amp;&#160;</td>
+          <td class="paramname"><em>ip</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>port</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>timeout_ms</em> = <code>200</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aaa719b7b606fd16967b5141bc30cf5ca" name="aaa719b7b606fd16967b5141bc30cf5ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa719b7b606fd16967b5141bc30cf5ca">&#9670;&#160;</a></span>is_private_ip()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool is_private_ip </td>
+          <td>(</td>
+          <td class="paramtype">unsigned long&#160;</td>
+          <td class="paramname"><em>ip</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="NetUtils_8h.html">NetUtils.h</a></li>
+    <li class="footer">Создано системой <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

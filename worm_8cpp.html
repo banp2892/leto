@@ -1,0 +1,438 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>worm-core: Файл src/worm.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">worm-core
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Поиск');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('worm_8cpp.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Загрузка...</div>
+<div class="SRStatus" id="Searching">Поиск...</div>
+<div class="SRStatus" id="NoMatches">Не найдено</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Функции</a>  </div>
+  <div class="headertitle"><div class="title">Файл worm.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &quot;<a class="el" href="worm_8h_source.html">worm.h</a>&quot;</code><br />
+<code>#include &lt;windows.h&gt;</code><br />
+<code>#include &lt;set&gt;</code><br />
+<code>#include &lt;iphlpapi.h&gt;</code><br />
+<code>#include &lt;Icmpapi.h&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Граф включаемых заголовочных файлов для worm.cpp:</div>
+<div class="dyncontent">
+<div class="center"><img src="worm_8cpp__incl.png" border="0" usemap="#asrc_2worm_8cpp" alt=""/></div>
+<map name="asrc_2worm_8cpp" id="asrc_2worm_8cpp">
+<area shape="rect" title=" " alt="" coords="663,5,772,31"/>
+<area shape="rect" href="worm_8h.html" title=" " alt="" coords="601,79,671,104"/>
+<area shape="poly" title=" " alt="" coords="706,33,661,72,658,68,703,29"/>
+<area shape="rect" title=" " alt="" coords="5,152,96,177"/>
+<area shape="poly" title=" " alt="" coords="665,33,110,153,109,148,664,28"/>
+<area shape="rect" title=" " alt="" coords="696,79,739,104"/>
+<area shape="poly" title=" " alt="" coords="720,31,720,65,715,65,715,31"/>
+<area shape="rect" title=" " alt="" coords="763,79,850,104"/>
+<area shape="poly" title=" " alt="" coords="733,29,783,68,780,72,730,33"/>
+<area shape="rect" title=" " alt="" coords="874,79,961,104"/>
+<area shape="poly" title=" " alt="" coords="750,28,872,71,871,76,749,33"/>
+<area shape="poly" title=" " alt="" coords="601,98,397,118,110,155,109,149,396,113,600,93"/>
+<area shape="rect" title=" " alt="" coords="120,152,179,177"/>
+<area shape="poly" title=" " alt="" coords="601,99,429,118,314,134,193,155,192,150,313,129,429,112,600,93"/>
+<area shape="rect" title=" " alt="" coords="203,152,266,177"/>
+<area shape="poly" title=" " alt="" coords="601,100,464,121,280,155,279,149,463,116,600,95"/>
+<area shape="rect" title=" " alt="" coords="291,152,381,177"/>
+<area shape="poly" title=" " alt="" coords="601,104,396,152,395,147,600,98"/>
+<area shape="rect" title=" " alt="" coords="405,152,485,177"/>
+<area shape="poly" title=" " alt="" coords="606,107,490,149,488,144,604,102"/>
+<area shape="rect" title=" " alt="" coords="509,152,576,177"/>
+<area shape="poly" title=" " alt="" coords="623,106,570,146,567,141,619,102"/>
+<area shape="rect" title=" " alt="" coords="600,152,672,177"/>
+<area shape="poly" title=" " alt="" coords="639,104,639,138,633,138,633,104"/>
+<area shape="rect" title=" " alt="" coords="696,152,757,177"/>
+<area shape="poly" title=" " alt="" coords="652,102,703,141,699,145,649,106"/>
+<area shape="rect" title=" " alt="" coords="782,152,855,177"/>
+<area shape="poly" title=" " alt="" coords="666,102,777,144,775,149,664,107"/>
+<area shape="rect" title=" " alt="" coords="879,152,963,177"/>
+<area shape="poly" title=" " alt="" coords="672,99,867,147,865,152,671,104"/>
+<area shape="rect" title=" " alt="" coords="987,152,1061,177"/>
+<area shape="poly" title=" " alt="" coords="672,99,684,101,828,125,974,149,973,154,827,130,684,107,671,104"/>
+<area shape="rect" title=" " alt="" coords="1085,152,1150,177"/>
+<area shape="poly" title=" " alt="" coords="672,99,684,101,791,117,876,125,962,133,1072,149,1071,155,962,138,876,130,791,122,684,107,671,104"/>
+<area shape="rect" title=" " alt="" coords="1174,152,1247,177"/>
+<area shape="poly" title=" " alt="" coords="672,99,684,101,816,119,921,125,1026,132,1160,149,1160,154,1026,137,920,131,816,124,684,107,671,104"/>
+<area shape="rect" title=" " alt="" coords="1271,152,1326,177"/>
+<area shape="poly" title=" " alt="" coords="672,99,684,101,770,113,843,119,970,123,1097,128,1171,136,1258,149,1257,155,1170,141,1096,133,970,128,843,124,770,118,684,107,671,104"/>
+</map>
+</div>
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Функции</h2></td></tr>
+<tr class="memitem:a2a9891e8465acd30739680ba674795b5" id="r_a2a9891e8465acd30739680ba674795b5"><td class="memItemLeft" align="right" valign="top">std::wstring&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="worm_8cpp.html#a2a9891e8465acd30739680ba674795b5">get_own_path</a> ()</td></tr>
+<tr class="separator:a2a9891e8465acd30739680ba674795b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67e69358e6266c9bcc7569b491ad9b78" id="r_a67e69358e6266c9bcc7569b491ad9b78"><td class="memItemLeft" align="right" valign="top">std::wstring&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="worm_8cpp.html#a67e69358e6266c9bcc7569b491ad9b78">get_own_folder</a> ()</td></tr>
+<tr class="separator:a67e69358e6266c9bcc7569b491ad9b78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f7d1574eb8de8b099ad44157c9d622f" id="r_a7f7d1574eb8de8b099ad44157c9d622f"><td class="memItemLeft" align="right" valign="top">std::wstring&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="worm_8cpp.html#a7f7d1574eb8de8b099ad44157c9d622f">get_drive_root_from_path</a> (const std::wstring &amp;full_path)</td></tr>
+<tr class="separator:a7f7d1574eb8de8b099ad44157c9d622f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70ac3d6c53eea5921020cd31f94d8cd9" id="r_a70ac3d6c53eea5921020cd31f94d8cd9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="worm_8cpp.html#a70ac3d6c53eea5921020cd31f94d8cd9">is_hidden</a> (const fs::path &amp;path)</td></tr>
+<tr class="separator:a70ac3d6c53eea5921020cd31f94d8cd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a139039a2dab4e82d2c66051b55e682c3" id="r_a139039a2dab4e82d2c66051b55e682c3"><td class="memItemLeft" align="right" valign="top">wstring&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="worm_8cpp.html#a139039a2dab4e82d2c66051b55e682c3">generate_unique_suffix</a> ()</td></tr>
+<tr class="separator:a139039a2dab4e82d2c66051b55e682c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3181bb6fac7bad4c07e504aaa7095e7" id="r_aa3181bb6fac7bad4c07e504aaa7095e7"><td class="memItemLeft" align="right" valign="top">std::wstring&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="worm_8cpp.html#aa3181bb6fac7bad4c07e504aaa7095e7">get_filename_stem</a> (const fs::path &amp;filepath)</td></tr>
+<tr class="separator:aa3181bb6fac7bad4c07e504aaa7095e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2b9df655505f5f3c72e22468f277778" id="r_ae2b9df655505f5f3c72e22468f277778"><td class="memItemLeft" align="right" valign="top">vector&lt; wstring &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="worm_8cpp.html#ae2b9df655505f5f3c72e22468f277778">get_all_volumes</a> ()</td></tr>
+<tr class="separator:ae2b9df655505f5f3c72e22468f277778"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51c4bcf05323f5477701fd1c737496f7" id="r_a51c4bcf05323f5477701fd1c737496f7"><td class="memItemLeft" align="right" valign="top">vector&lt; wstring &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="worm_8cpp.html#a51c4bcf05323f5477701fd1c737496f7">get_paths_for_volume</a> (const wstring &amp;volumeName)</td></tr>
+<tr class="separator:a51c4bcf05323f5477701fd1c737496f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30c54d8d378e04c33669ab521183c6e5" id="r_a30c54d8d378e04c33669ab521183c6e5"><td class="memItemLeft" align="right" valign="top">wstring&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="worm_8cpp.html#a30c54d8d378e04c33669ab521183c6e5">get_username</a> ()</td></tr>
+<tr class="separator:a30c54d8d378e04c33669ab521183c6e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d4c144a2215b68282c59e716c452811" id="r_a8d4c144a2215b68282c59e716c452811"><td class="memItemLeft" align="right" valign="top">vector&lt; wstring &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="worm_8cpp.html#a8d4c144a2215b68282c59e716c452811">get_removable_volume_paths</a> ()</td></tr>
+<tr class="separator:a8d4c144a2215b68282c59e716c452811"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0fa582bed0bb149e4824409e971a0d2c" id="r_a0fa582bed0bb149e4824409e971a0d2c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="worm_8cpp.html#a0fa582bed0bb149e4824409e971a0d2c">filter_only_exe</a> (vector&lt; fs::path &gt; &amp;files)</td></tr>
+<tr class="separator:a0fa582bed0bb149e4824409e971a0d2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72cc05e3935370a6baf8c76645b5a43b" id="r_a72cc05e3935370a6baf8c76645b5a43b"><td class="memItemLeft" align="right" valign="top">LRESULT CALLBACK&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="worm_8cpp.html#a72cc05e3935370a6baf8c76645b5a43b">WndProc</a> (HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)</td></tr>
+<tr class="separator:a72cc05e3935370a6baf8c76645b5a43b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4c5e45f63797a19094e21af2ffc622c" id="r_ac4c5e45f63797a19094e21af2ffc622c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="worm_8cpp.html#ac4c5e45f63797a19094e21af2ffc622c">attach_console</a> ()</td></tr>
+<tr class="separator:ac4c5e45f63797a19094e21af2ffc622c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Функции</h2>
+<a id="ac4c5e45f63797a19094e21af2ffc622c" name="ac4c5e45f63797a19094e21af2ffc622c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4c5e45f63797a19094e21af2ffc622c">&#9670;&#160;</a></span>attach_console()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void attach_console </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0fa582bed0bb149e4824409e971a0d2c" name="a0fa582bed0bb149e4824409e971a0d2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0fa582bed0bb149e4824409e971a0d2c">&#9670;&#160;</a></span>filter_only_exe()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void filter_only_exe </td>
+          <td>(</td>
+          <td class="paramtype">vector&lt; fs::path &gt; &amp;&#160;</td>
+          <td class="paramname"><em>files</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a139039a2dab4e82d2c66051b55e682c3" name="a139039a2dab4e82d2c66051b55e682c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a139039a2dab4e82d2c66051b55e682c3">&#9670;&#160;</a></span>generate_unique_suffix()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">wstring generate_unique_suffix </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae2b9df655505f5f3c72e22468f277778" name="ae2b9df655505f5f3c72e22468f277778"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2b9df655505f5f3c72e22468f277778">&#9670;&#160;</a></span>get_all_volumes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">vector&lt; wstring &gt; get_all_volumes </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7f7d1574eb8de8b099ad44157c9d622f" name="a7f7d1574eb8de8b099ad44157c9d622f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f7d1574eb8de8b099ad44157c9d622f">&#9670;&#160;</a></span>get_drive_root_from_path()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::wstring get_drive_root_from_path </td>
+          <td>(</td>
+          <td class="paramtype">const std::wstring &amp;&#160;</td>
+          <td class="paramname"><em>full_path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa3181bb6fac7bad4c07e504aaa7095e7" name="aa3181bb6fac7bad4c07e504aaa7095e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3181bb6fac7bad4c07e504aaa7095e7">&#9670;&#160;</a></span>get_filename_stem()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::wstring get_filename_stem </td>
+          <td>(</td>
+          <td class="paramtype">const fs::path &amp;&#160;</td>
+          <td class="paramname"><em>filepath</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a67e69358e6266c9bcc7569b491ad9b78" name="a67e69358e6266c9bcc7569b491ad9b78"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67e69358e6266c9bcc7569b491ad9b78">&#9670;&#160;</a></span>get_own_folder()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::wstring get_own_folder </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2a9891e8465acd30739680ba674795b5" name="a2a9891e8465acd30739680ba674795b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a9891e8465acd30739680ba674795b5">&#9670;&#160;</a></span>get_own_path()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::wstring get_own_path </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a51c4bcf05323f5477701fd1c737496f7" name="a51c4bcf05323f5477701fd1c737496f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51c4bcf05323f5477701fd1c737496f7">&#9670;&#160;</a></span>get_paths_for_volume()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">vector&lt; wstring &gt; get_paths_for_volume </td>
+          <td>(</td>
+          <td class="paramtype">const wstring &amp;&#160;</td>
+          <td class="paramname"><em>volumeName</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8d4c144a2215b68282c59e716c452811" name="a8d4c144a2215b68282c59e716c452811"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d4c144a2215b68282c59e716c452811">&#9670;&#160;</a></span>get_removable_volume_paths()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">vector&lt; wstring &gt; get_removable_volume_paths </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a30c54d8d378e04c33669ab521183c6e5" name="a30c54d8d378e04c33669ab521183c6e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30c54d8d378e04c33669ab521183c6e5">&#9670;&#160;</a></span>get_username()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">wstring get_username </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a70ac3d6c53eea5921020cd31f94d8cd9" name="a70ac3d6c53eea5921020cd31f94d8cd9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70ac3d6c53eea5921020cd31f94d8cd9">&#9670;&#160;</a></span>is_hidden()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool is_hidden </td>
+          <td>(</td>
+          <td class="paramtype">const fs::path &amp;&#160;</td>
+          <td class="paramname"><em>path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a72cc05e3935370a6baf8c76645b5a43b" name="a72cc05e3935370a6baf8c76645b5a43b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72cc05e3935370a6baf8c76645b5a43b">&#9670;&#160;</a></span>WndProc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">LRESULT CALLBACK WndProc </td>
+          <td>(</td>
+          <td class="paramtype">HWND&#160;</td>
+          <td class="paramname"><em>hwnd</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UINT&#160;</td>
+          <td class="paramname"><em>msg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">WPARAM&#160;</td>
+          <td class="paramname"><em>wParam</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LPARAM&#160;</td>
+          <td class="paramname"><em>lParam</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="worm_8cpp.html">worm.cpp</a></li>
+    <li class="footer">Создано системой <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

