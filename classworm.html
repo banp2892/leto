@@ -100,60 +100,60 @@ $(document).ready(function(){initNavTree('classworm.html',''); initResizable(); 
 </div><!--header-->
 <div class="contents">
 
+<p>Класс, реализующий логику самораспространения и мониторинга.  
+ <a href="classworm.html#details">Подробнее...</a></p>
+
 <p><code>#include &lt;<a class="el" href="worm_8h_source.html">worm.h</a>&gt;</code></p>
 <div class="dynheader">
 Граф связей класса worm:</div>
 <div class="dyncontent">
 <div class="center"><img src="classworm__coll__graph.png" border="0" usemap="#aworm_coll__map" alt="Collaboration graph"/></div>
 <map name="aworm_coll__map" id="aworm_coll__map">
-<area shape="rect" title=" " alt="" coords="5,5,64,31"/>
+<area shape="rect" title="Класс, реализующий логику самораспространения и мониторинга." alt="" coords="5,5,64,31"/>
 <area shape="poly" title=" " alt="" coords="79,11,91,18,82,24,64,25,64,20,80,19,85,18,77,16"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">см. легенду</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Открытые члены</h2></td></tr>
-<tr class="memitem:a7ad5ab184d432520ee1b82bf23e3c273" id="r_a7ad5ab184d432520ee1b82bf23e3c273"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classworm.html#a7ad5ab184d432520ee1b82bf23e3c273">worm</a> (const wstring &amp;<a class="el" href="classworm.html#ab8c387f770e73de36eba37ff005a523a">path_to_start</a>=<a class="el" href="worm_8h.html#a67e69358e6266c9bcc7569b491ad9b78">get_own_folder</a>(), int <a class="el" href="classworm.html#a71d71929058459310a08d0f48b730f5c">iteration</a>=2)</td></tr>
-<tr class="separator:a7ad5ab184d432520ee1b82bf23e3c273"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8aa30cd3ef280bd98c58ee284215de4e" id="r_a8aa30cd3ef280bd98c58ee284215de4e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classworm.html#a8aa30cd3ef280bd98c58ee284215de4e">run_device_monitor</a> (HINSTANCE hInstance)</td></tr>
-<tr class="separator:a8aa30cd3ef280bd98c58ee284215de4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad7efd123369771d90bf6de71c9bb2e34" id="r_ad7efd123369771d90bf6de71c9bb2e34"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classworm.html#ad7efd123369771d90bf6de71c9bb2e34">worm_was_started</a> ()</td></tr>
-<tr class="separator:ad7efd123369771d90bf6de71c9bb2e34"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8617c96fb26b8e4e3cdc0c3bd3ed42cc" id="r_a8617c96fb26b8e4e3cdc0c3bd3ed42cc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classworm.html#a8617c96fb26b8e4e3cdc0c3bd3ed42cc">worm_was_end</a> ()</td></tr>
-<tr class="separator:a8617c96fb26b8e4e3cdc0c3bd3ed42cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca0cddb50711500bbe312c7c9cb1f48c" id="r_aca0cddb50711500bbe312c7c9cb1f48c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classworm.html#aca0cddb50711500bbe312c7c9cb1f48c">worm</a> (const std::wstring &amp;<a class="el" href="classworm.html#a7c1a2882ab9761070ede18a5c4cf3bc7">path_to_start</a>=L&quot;&quot;, int <a class="el" href="classworm.html#a71d71929058459310a08d0f48b730f5c">iteration</a>=2)</td></tr>
+<tr class="memdesc:aca0cddb50711500bbe312c7c9cb1f48c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Конструктор объекта worm.  <br /></td></tr>
+<tr class="separator:aca0cddb50711500bbe312c7c9cb1f48c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Логика распространения</div></td></tr>
 <tr class="memitem:a0ff6df52cd8b661b110d90dfa901c05f" id="r_a0ff6df52cd8b661b110d90dfa901c05f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classworm.html#a0ff6df52cd8b661b110d90dfa901c05f">scan_all_volumes</a> ()</td></tr>
+<tr class="memdesc:a0ff6df52cd8b661b110d90dfa901c05f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Сканирует локальные диски (DRIVE_FIXED).  <br /></td></tr>
 <tr class="separator:a0ff6df52cd8b661b110d90dfa901c05f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1ae370824cbad47242b29d7f6fc6520f" id="r_a1ae370824cbad47242b29d7f6fc6520f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classworm.html#a1ae370824cbad47242b29d7f6fc6520f">search_list_dir</a> (const wstring &amp;path_to_dir, vector&lt; wstring &gt; &amp;list_dir_tmp)</td></tr>
-<tr class="separator:a1ae370824cbad47242b29d7f6fc6520f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a25fbb59515545da462fc6653ddddd220" id="r_a25fbb59515545da462fc6653ddddd220"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classworm.html#a25fbb59515545da462fc6653ddddd220">search_list_dir</a> ()</td></tr>
+<tr class="memdesc:a25fbb59515545da462fc6653ddddd220"><td class="mdescLeft">&#160;</td><td class="mdescRight">Рекурсивный поиск папок.  <br /></td></tr>
 <tr class="separator:a25fbb59515545da462fc6653ddddd220"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ce454d6714e84af770404239ffe4a83" id="r_a4ce454d6714e84af770404239ffe4a83"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classworm.html#a4ce454d6714e84af770404239ffe4a83">print_list_dir</a> ()</td></tr>
-<tr class="separator:a4ce454d6714e84af770404239ffe4a83"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8b311a7460b2679b98a888f82058f853" id="r_a8b311a7460b2679b98a888f82058f853"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classworm.html#a8b311a7460b2679b98a888f82058f853">collect_visible_files</a> ()</td></tr>
+<tr class="memdesc:a8b311a7460b2679b98a888f82058f853"><td class="mdescLeft">&#160;</td><td class="mdescRight">Сбор обычных файлов.  <br /></td></tr>
 <tr class="separator:a8b311a7460b2679b98a888f82058f853"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1f37df1745c2c275a8b00b8dd7cc31c" id="r_ab1f37df1745c2c275a8b00b8dd7cc31c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classworm.html#ab1f37df1745c2c275a8b00b8dd7cc31c">collect_visible_files</a> (const vector&lt; wstring &gt; &amp;list_dir_tmp, vector&lt; fs::path &gt; &amp;collected_files)</td></tr>
-<tr class="separator:ab1f37df1745c2c275a8b00b8dd7cc31c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab4cb670ff776230ae58edbb0f6180c33" id="r_ab4cb670ff776230ae58edbb0f6180c33"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classworm.html#ab4cb670ff776230ae58edbb0f6180c33">print_file_to_copy</a> ()</td></tr>
-<tr class="separator:ab4cb670ff776230ae58edbb0f6180c33"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3573a34c1621d0647a61dc57f26c8010" id="r_a3573a34c1621d0647a61dc57f26c8010"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classworm.html#a3573a34c1621d0647a61dc57f26c8010">replicate_files</a> ()</td></tr>
+<tr class="memdesc:a3573a34c1621d0647a61dc57f26c8010"><td class="mdescLeft">&#160;</td><td class="mdescRight">Создание скрытых копий.  <br /></td></tr>
 <tr class="separator:a3573a34c1621d0647a61dc57f26c8010"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a69427903f73ce3e406809b6bcf8ae148" id="r_a69427903f73ce3e406809b6bcf8ae148"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classworm.html#a69427903f73ce3e406809b6bcf8ae148">replicate_files</a> (int <a class="el" href="classworm.html#a71d71929058459310a08d0f48b730f5c">iteration</a>=1)</td></tr>
-<tr class="separator:a69427903f73ce3e406809b6bcf8ae148"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Закрепление в системе</div></td></tr>
 <tr class="memitem:a76c3b4645ef75ea7d659724988b85992" id="r_a76c3b4645ef75ea7d659724988b85992"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classworm.html#a76c3b4645ef75ea7d659724988b85992">copy_and_hide_worm</a> ()</td></tr>
+<tr class="memdesc:a76c3b4645ef75ea7d659724988b85992"><td class="mdescLeft">&#160;</td><td class="mdescRight">Копирование в APPDATA%.  <br /></td></tr>
 <tr class="separator:a76c3b4645ef75ea7d659724988b85992"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7708c41d98e2cbf611648beeb35a2fd1" id="r_a7708c41d98e2cbf611648beeb35a2fd1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classworm.html#a7708c41d98e2cbf611648beeb35a2fd1">create_scheduled_task</a> (const wstring &amp;worm_path)</td></tr>
-<tr class="separator:a7708c41d98e2cbf611648beeb35a2fd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77df966825486703e3a3b9140efac1e2" id="r_a77df966825486703e3a3b9140efac1e2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classworm.html#a77df966825486703e3a3b9140efac1e2">create_scheduled_task</a> (const std::wstring &amp;worm_path)</td></tr>
+<tr class="memdesc:a77df966825486703e3a3b9140efac1e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Автозапуск.  <br /></td></tr>
+<tr class="separator:a77df966825486703e3a3b9140efac1e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Работа со съемными носителями</div></td></tr>
 <tr class="memitem:ae1c68fe22a03b237af35bd3ad07aff60" id="r_ae1c68fe22a03b237af35bd3ad07aff60"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classworm.html#ae1c68fe22a03b237af35bd3ad07aff60">process_all_removable_disks</a> ()</td></tr>
+<tr class="memdesc:ae1c68fe22a03b237af35bd3ad07aff60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Замена EXE на флешках.  <br /></td></tr>
 <tr class="separator:ae1c68fe22a03b237af35bd3ad07aff60"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5c6fd7c664c7aed871bed9996face781" id="r_a5c6fd7c664c7aed871bed9996face781"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classworm.html#a5c6fd7c664c7aed871bed9996face781">hide_and_replace_exe</a> (const fs::path &amp;target_exe, const std::wstring &amp;worm_path)</td></tr>
-<tr class="separator:a5c6fd7c664c7aed871bed9996face781"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3787890ffdbba5fdf65c75c88900113b" id="r_a3787890ffdbba5fdf65c75c88900113b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classworm.html#a3787890ffdbba5fdf65c75c88900113b">possible_to_write</a> (const wstring &amp;dir_path)</td></tr>
-<tr class="separator:a3787890ffdbba5fdf65c75c88900113b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a974f4fb1351f4c630e69358f8bb0fd37" id="r_a974f4fb1351f4c630e69358f8bb0fd37"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classworm.html#a974f4fb1351f4c630e69358f8bb0fd37">infected_dir</a> (const wstring &amp;dir_path)</td></tr>
-<tr class="separator:a974f4fb1351f4c630e69358f8bb0fd37"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aec72ce7fad91e6166b08b25c21947a6d" id="r_aec72ce7fad91e6166b08b25c21947a6d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classworm.html#aec72ce7fad91e6166b08b25c21947a6d">dir_was_infected</a> (const wstring &amp;dir_path)</td></tr>
-<tr class="separator:aec72ce7fad91e6166b08b25c21947a6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adcf48a4d99fc06fc21a768df1ae9a4a4" id="r_adcf48a4d99fc06fc21a768df1ae9a4a4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classworm.html#adcf48a4d99fc06fc21a768df1ae9a4a4">hide_and_replace_exe</a> (const std::filesystem::path &amp;target_exe, const std::wstring &amp;worm_path)</td></tr>
+<tr class="separator:adcf48a4d99fc06fc21a768df1ae9a4a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Вспомогательные проверки</div></td></tr>
+<tr class="memitem:a5d6b55c20efe58f4c42b65c6173907fb" id="r_a5d6b55c20efe58f4c42b65c6173907fb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classworm.html#a5d6b55c20efe58f4c42b65c6173907fb">possible_to_write</a> (const std::wstring &amp;dir_path)</td></tr>
+<tr class="memdesc:a5d6b55c20efe58f4c42b65c6173907fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Проверка прав записи.  <br /></td></tr>
+<tr class="separator:a5d6b55c20efe58f4c42b65c6173907fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5a780f3aba2439b47067edf3f3d7a07" id="r_ab5a780f3aba2439b47067edf3f3d7a07"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classworm.html#ab5a780f3aba2439b47067edf3f3d7a07">dir_was_infected</a> (const std::wstring &amp;dir_path)</td></tr>
+<tr class="memdesc:ab5a780f3aba2439b47067edf3f3d7a07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Проверка маркера.  <br /></td></tr>
+<tr class="separator:ab5a780f3aba2439b47067edf3f3d7a07"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a37daa5ac85a5f7078615b07abd287f7d" id="r_a37daa5ac85a5f7078615b07abd287f7d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classworm.html#a37daa5ac85a5f7078615b07abd287f7d">is_system_path</a> (const std::wstring &amp;path)</td></tr>
+<tr class="memdesc:a37daa5ac85a5f7078615b07abd287f7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Проверка на системную папку.  <br /></td></tr>
 <tr class="separator:a37daa5ac85a5f7078615b07abd287f7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
@@ -163,39 +163,52 @@ $(document).ready(function(){initNavTree('classworm.html',''); initResizable(); 
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Статические открытые данные</h2></td></tr>
-<tr class="memitem:a5c57218df05398306f04701d7031a268" id="r_a5c57218df05398306f04701d7031a268"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classworm.html">worm</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classworm.html#a5c57218df05398306f04701d7031a268">instance</a> = nullptr</td></tr>
-<tr class="separator:a5c57218df05398306f04701d7031a268"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a45d92a6590b3a8c3b7acd6516ca28220" id="r_a45d92a6590b3a8c3b7acd6516ca28220"><td class="memItemLeft" align="right" valign="top">static HHOOK&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classworm.html#a45d92a6590b3a8c3b7acd6516ca28220">keyboardHook</a> = nullptr</td></tr>
 <tr class="separator:a45d92a6590b3a8c3b7acd6516ca28220"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Закрытые данные</h2></td></tr>
-<tr class="memitem:ab8c387f770e73de36eba37ff005a523a" id="r_ab8c387f770e73de36eba37ff005a523a"><td class="memItemLeft" align="right" valign="top">wstring&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classworm.html#ab8c387f770e73de36eba37ff005a523a">path_to_start</a></td></tr>
-<tr class="separator:ab8c387f770e73de36eba37ff005a523a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adcf2716aaf578ac65ef8b1169e1fb98a" id="r_adcf2716aaf578ac65ef8b1169e1fb98a"><td class="memItemLeft" align="right" valign="top">vector&lt; wstring &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classworm.html#adcf2716aaf578ac65ef8b1169e1fb98a">list_dir</a></td></tr>
-<tr class="separator:adcf2716aaf578ac65ef8b1169e1fb98a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1023713ae09f70251e761c4f1b8e9842" id="r_a1023713ae09f70251e761c4f1b8e9842"><td class="memItemLeft" align="right" valign="top">vector&lt; fs::path &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classworm.html#a1023713ae09f70251e761c4f1b8e9842">file_to_copy</a></td></tr>
-<tr class="separator:a1023713ae09f70251e761c4f1b8e9842"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c1a2882ab9761070ede18a5c4cf3bc7" id="r_a7c1a2882ab9761070ede18a5c4cf3bc7"><td class="memItemLeft" align="right" valign="top">std::wstring&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classworm.html#a7c1a2882ab9761070ede18a5c4cf3bc7">path_to_start</a></td></tr>
+<tr class="memdesc:a7c1a2882ab9761070ede18a5c4cf3bc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Начальная директория для сканирования.  <br /></td></tr>
+<tr class="separator:a7c1a2882ab9761070ede18a5c4cf3bc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0a3c4ce5d26f0693fadb89d33a426eb" id="r_ab0a3c4ce5d26f0693fadb89d33a426eb"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::wstring &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classworm.html#ab0a3c4ce5d26f0693fadb89d33a426eb">list_dir</a></td></tr>
+<tr class="memdesc:ab0a3c4ce5d26f0693fadb89d33a426eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Список найденных доступных директорий.  <br /></td></tr>
+<tr class="separator:ab0a3c4ce5d26f0693fadb89d33a426eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a217c0ab8d0302a0fe83f80b9225c7c82" id="r_a217c0ab8d0302a0fe83f80b9225c7c82"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::filesystem::path &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classworm.html#a217c0ab8d0302a0fe83f80b9225c7c82">file_to_copy</a></td></tr>
+<tr class="memdesc:a217c0ab8d0302a0fe83f80b9225c7c82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Файлы для репликации.  <br /></td></tr>
+<tr class="separator:a217c0ab8d0302a0fe83f80b9225c7c82"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a71d71929058459310a08d0f48b730f5c" id="r_a71d71929058459310a08d0f48b730f5c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classworm.html#a71d71929058459310a08d0f48b730f5c">iteration</a></td></tr>
+<tr class="memdesc:a71d71929058459310a08d0f48b730f5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Количество копий на один файл.  <br /></td></tr>
 <tr class="separator:a71d71929058459310a08d0f48b730f5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2b1613c60a6f5818ed6352785de8c9b0" id="r_a2b1613c60a6f5818ed6352785de8c9b0"><td class="memItemLeft" align="right" valign="top">vector&lt; fs::path &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classworm.html#a2b1613c60a6f5818ed6352785de8c9b0">exe_on_the_flash_drive</a></td></tr>
-<tr class="separator:a2b1613c60a6f5818ed6352785de8c9b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d68369a2139a101750d59686ac946c2" id="r_a8d68369a2139a101750d59686ac946c2"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::filesystem::path &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classworm.html#a8d68369a2139a101750d59686ac946c2">exe_on_the_flash_drive</a></td></tr>
+<tr class="memdesc:a8d68369a2139a101750d59686ac946c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Список EXE на флешках.  <br /></td></tr>
+<tr class="separator:a8d68369a2139a101750d59686ac946c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader">Системный мониторинг</h2></td></tr>
+<tr class="memitem:a5c57218df05398306f04701d7031a268" id="r_a5c57218df05398306f04701d7031a268"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classworm.html">worm</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classworm.html#a5c57218df05398306f04701d7031a268">instance</a> = nullptr</td></tr>
+<tr class="memdesc:a5c57218df05398306f04701d7031a268"><td class="mdescLeft">&#160;</td><td class="mdescRight">Статический указатель для доступа из WndProc.  <br /></td></tr>
+<tr class="separator:a5c57218df05398306f04701d7031a268"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8aa30cd3ef280bd98c58ee284215de4e" id="r_a8aa30cd3ef280bd98c58ee284215de4e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classworm.html#a8aa30cd3ef280bd98c58ee284215de4e">run_device_monitor</a> (HINSTANCE hInstance)</td></tr>
+<tr class="memdesc:a8aa30cd3ef280bd98c58ee284215de4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Запускает мониторинг устройств.  <br /></td></tr>
+<tr class="separator:a8aa30cd3ef280bd98c58ee284215de4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Конструктор(ы)</h2>
-<a id="a7ad5ab184d432520ee1b82bf23e3c273" name="a7ad5ab184d432520ee1b82bf23e3c273"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7ad5ab184d432520ee1b82bf23e3c273">&#9670;&#160;</a></span>worm()</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Подробное описание</h2>
+<div class="textblock"><p>Класс, реализующий логику самораспространения и мониторинга. </p>
+<ul>
+<li>Обеспечивает рекурсивное сканирование директорий, создание скрытых копий файлов, автозагрузку и отслеживание подключения внешних накопителей. </li>
+</ul>
+</div><h2 class="groupheader">Конструктор(ы)</h2>
+<a id="aca0cddb50711500bbe312c7c9cb1f48c" name="aca0cddb50711500bbe312c7c9cb1f48c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca0cddb50711500bbe312c7c9cb1f48c">&#9670;&#160;</a></span>worm()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">worm::worm </td>
           <td>(</td>
-          <td class="paramtype">const wstring &amp;&#160;</td>
-          <td class="paramname"><em>path_to_start</em> = <code><a class="el" href="worm_8h.html#a67e69358e6266c9bcc7569b491ad9b78">get_own_folder</a>()</code>, </td>
+          <td class="paramtype">const std::wstring &amp;&#160;</td>
+          <td class="paramname"><em>path_to_start</em> = <code>L&quot;&quot;</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -209,18 +222,22 @@ $(document).ready(function(){initNavTree('classworm.html',''); initResizable(); 
           <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
+
+<p>Конструктор объекта worm. </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path_to_start</td><td>Путь старта (по умолчанию - папка запуска). </td></tr>
+    <tr><td class="paramname">iteration</td><td>Количество копий. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
 <h2 class="groupheader">Методы</h2>
 <a id="a8b311a7460b2679b98a888f82058f853" name="a8b311a7460b2679b98a888f82058f853"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8b311a7460b2679b98a888f82058f853">&#9670;&#160;</a></span>collect_visible_files() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b311a7460b2679b98a888f82058f853">&#9670;&#160;</a></span>collect_visible_files()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -234,33 +251,7 @@ $(document).ready(function(){initNavTree('classworm.html',''); initResizable(); 
       </table>
 </div><div class="memdoc">
 
-</div>
-</div>
-<a id="ab1f37df1745c2c275a8b00b8dd7cc31c" name="ab1f37df1745c2c275a8b00b8dd7cc31c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab1f37df1745c2c275a8b00b8dd7cc31c">&#9670;&#160;</a></span>collect_visible_files() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void worm::collect_visible_files </td>
-          <td>(</td>
-          <td class="paramtype">const vector&lt; wstring &gt; &amp;&#160;</td>
-          <td class="paramname"><em>list_dir_tmp</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">vector&lt; fs::path &gt; &amp;&#160;</td>
-          <td class="paramname"><em>collected_files</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
+<p>Сбор обычных файлов. </p>
 
 </div>
 </div>
@@ -279,10 +270,12 @@ $(document).ready(function(){initNavTree('classworm.html',''); initResizable(); 
       </table>
 </div><div class="memdoc">
 
+<p>Копирование в APPDATA%. </p>
+
 </div>
 </div>
-<a id="a7708c41d98e2cbf611648beeb35a2fd1" name="a7708c41d98e2cbf611648beeb35a2fd1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7708c41d98e2cbf611648beeb35a2fd1">&#9670;&#160;</a></span>create_scheduled_task()</h2>
+<a id="a77df966825486703e3a3b9140efac1e2" name="a77df966825486703e3a3b9140efac1e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77df966825486703e3a3b9140efac1e2">&#9670;&#160;</a></span>create_scheduled_task()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -290,17 +283,19 @@ $(document).ready(function(){initNavTree('classworm.html',''); initResizable(); 
         <tr>
           <td class="memname">void worm::create_scheduled_task </td>
           <td>(</td>
-          <td class="paramtype">const wstring &amp;&#160;</td>
+          <td class="paramtype">const std::wstring &amp;&#160;</td>
           <td class="paramname"><em>worm_path</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
+<p>Автозапуск. </p>
+
 </div>
 </div>
-<a id="aec72ce7fad91e6166b08b25c21947a6d" name="aec72ce7fad91e6166b08b25c21947a6d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aec72ce7fad91e6166b08b25c21947a6d">&#9670;&#160;</a></span>dir_was_infected()</h2>
+<a id="ab5a780f3aba2439b47067edf3f3d7a07" name="ab5a780f3aba2439b47067edf3f3d7a07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5a780f3aba2439b47067edf3f3d7a07">&#9670;&#160;</a></span>dir_was_infected()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -308,17 +303,19 @@ $(document).ready(function(){initNavTree('classworm.html',''); initResizable(); 
         <tr>
           <td class="memname">bool worm::dir_was_infected </td>
           <td>(</td>
-          <td class="paramtype">const wstring &amp;&#160;</td>
+          <td class="paramtype">const std::wstring &amp;&#160;</td>
           <td class="paramname"><em>dir_path</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
+<p>Проверка маркера. </p>
+
 </div>
 </div>
-<a id="a5c6fd7c664c7aed871bed9996face781" name="a5c6fd7c664c7aed871bed9996face781"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5c6fd7c664c7aed871bed9996face781">&#9670;&#160;</a></span>hide_and_replace_exe()</h2>
+<a id="adcf48a4d99fc06fc21a768df1ae9a4a4" name="adcf48a4d99fc06fc21a768df1ae9a4a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adcf48a4d99fc06fc21a768df1ae9a4a4">&#9670;&#160;</a></span>hide_and_replace_exe()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -326,7 +323,7 @@ $(document).ready(function(){initNavTree('classworm.html',''); initResizable(); 
         <tr>
           <td class="memname">void worm::hide_and_replace_exe </td>
           <td>(</td>
-          <td class="paramtype">const fs::path &amp;&#160;</td>
+          <td class="paramtype">const std::filesystem::path &amp;&#160;</td>
           <td class="paramname"><em>target_exe</em>, </td>
         </tr>
         <tr>
@@ -339,24 +336,6 @@ $(document).ready(function(){initNavTree('classworm.html',''); initResizable(); 
           <td></td>
           <td>)</td>
           <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a974f4fb1351f4c630e69358f8bb0fd37" name="a974f4fb1351f4c630e69358f8bb0fd37"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a974f4fb1351f4c630e69358f8bb0fd37">&#9670;&#160;</a></span>infected_dir()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool worm::infected_dir </td>
-          <td>(</td>
-          <td class="paramtype">const wstring &amp;&#160;</td>
-          <td class="paramname"><em>dir_path</em></td><td>)</td>
-          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -378,6 +357,8 @@ $(document).ready(function(){initNavTree('classworm.html',''); initResizable(); 
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Проверка на системную папку. </p>
 
 </div>
 </div>
@@ -423,8 +404,8 @@ $(document).ready(function(){initNavTree('classworm.html',''); initResizable(); 
 
 </div>
 </div>
-<a id="a3787890ffdbba5fdf65c75c88900113b" name="a3787890ffdbba5fdf65c75c88900113b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3787890ffdbba5fdf65c75c88900113b">&#9670;&#160;</a></span>possible_to_write()</h2>
+<a id="a5d6b55c20efe58f4c42b65c6173907fb" name="a5d6b55c20efe58f4c42b65c6173907fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d6b55c20efe58f4c42b65c6173907fb">&#9670;&#160;</a></span>possible_to_write()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -432,46 +413,14 @@ $(document).ready(function(){initNavTree('classworm.html',''); initResizable(); 
         <tr>
           <td class="memname">bool worm::possible_to_write </td>
           <td>(</td>
-          <td class="paramtype">const wstring &amp;&#160;</td>
+          <td class="paramtype">const std::wstring &amp;&#160;</td>
           <td class="paramname"><em>dir_path</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-</div>
-</div>
-<a id="ab4cb670ff776230ae58edbb0f6180c33" name="ab4cb670ff776230ae58edbb0f6180c33"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab4cb670ff776230ae58edbb0f6180c33">&#9670;&#160;</a></span>print_file_to_copy()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void worm::print_file_to_copy </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a4ce454d6714e84af770404239ffe4a83" name="a4ce454d6714e84af770404239ffe4a83"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4ce454d6714e84af770404239ffe4a83">&#9670;&#160;</a></span>print_list_dir()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void worm::print_list_dir </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
+<p>Проверка прав записи. </p>
 
 </div>
 </div>
@@ -490,10 +439,12 @@ $(document).ready(function(){initNavTree('classworm.html',''); initResizable(); 
       </table>
 </div><div class="memdoc">
 
+<p>Замена EXE на флешках. </p>
+
 </div>
 </div>
 <a id="a3573a34c1621d0647a61dc57f26c8010" name="a3573a34c1621d0647a61dc57f26c8010"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3573a34c1621d0647a61dc57f26c8010">&#9670;&#160;</a></span>replicate_files() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a3573a34c1621d0647a61dc57f26c8010">&#9670;&#160;</a></span>replicate_files()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -507,23 +458,7 @@ $(document).ready(function(){initNavTree('classworm.html',''); initResizable(); 
       </table>
 </div><div class="memdoc">
 
-</div>
-</div>
-<a id="a69427903f73ce3e406809b6bcf8ae148" name="a69427903f73ce3e406809b6bcf8ae148"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a69427903f73ce3e406809b6bcf8ae148">&#9670;&#160;</a></span>replicate_files() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void worm::replicate_files </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>iteration</em> = <code>1</code></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
+<p>Создание скрытых копий. </p>
 
 </div>
 </div>
@@ -543,6 +478,15 @@ $(document).ready(function(){initNavTree('classworm.html',''); initResizable(); 
       </table>
 </div><div class="memdoc">
 
+<p>Запускает мониторинг устройств. </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hInstance</td><td>Дескриптор приложения. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd>Код завершения. </dd></dl>
+
 </div>
 </div>
 <a id="a0ff6df52cd8b661b110d90dfa901c05f" name="a0ff6df52cd8b661b110d90dfa901c05f"></a>
@@ -560,10 +504,12 @@ $(document).ready(function(){initNavTree('classworm.html',''); initResizable(); 
       </table>
 </div><div class="memdoc">
 
+<p>Сканирует локальные диски (DRIVE_FIXED). </p>
+
 </div>
 </div>
 <a id="a25fbb59515545da462fc6653ddddd220" name="a25fbb59515545da462fc6653ddddd220"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a25fbb59515545da462fc6653ddddd220">&#9670;&#160;</a></span>search_list_dir() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a25fbb59515545da462fc6653ddddd220">&#9670;&#160;</a></span>search_list_dir()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -577,73 +523,13 @@ $(document).ready(function(){initNavTree('classworm.html',''); initResizable(); 
       </table>
 </div><div class="memdoc">
 
-</div>
-</div>
-<a id="a1ae370824cbad47242b29d7f6fc6520f" name="a1ae370824cbad47242b29d7f6fc6520f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1ae370824cbad47242b29d7f6fc6520f">&#9670;&#160;</a></span>search_list_dir() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void worm::search_list_dir </td>
-          <td>(</td>
-          <td class="paramtype">const wstring &amp;&#160;</td>
-          <td class="paramname"><em>path_to_dir</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">vector&lt; wstring &gt; &amp;&#160;</td>
-          <td class="paramname"><em>list_dir_tmp</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a8617c96fb26b8e4e3cdc0c3bd3ed42cc" name="a8617c96fb26b8e4e3cdc0c3bd3ed42cc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8617c96fb26b8e4e3cdc0c3bd3ed42cc">&#9670;&#160;</a></span>worm_was_end()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void worm::worm_was_end </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ad7efd123369771d90bf6de71c9bb2e34" name="ad7efd123369771d90bf6de71c9bb2e34"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad7efd123369771d90bf6de71c9bb2e34">&#9670;&#160;</a></span>worm_was_started()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void worm::worm_was_started </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
+<p>Рекурсивный поиск папок. </p>
 
 </div>
 </div>
 <h2 class="groupheader">Данные класса</h2>
-<a id="a2b1613c60a6f5818ed6352785de8c9b0" name="a2b1613c60a6f5818ed6352785de8c9b0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2b1613c60a6f5818ed6352785de8c9b0">&#9670;&#160;</a></span>exe_on_the_flash_drive</h2>
+<a id="a8d68369a2139a101750d59686ac946c2" name="a8d68369a2139a101750d59686ac946c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d68369a2139a101750d59686ac946c2">&#9670;&#160;</a></span>exe_on_the_flash_drive</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -652,7 +538,7 @@ $(document).ready(function(){initNavTree('classworm.html',''); initResizable(); 
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">vector&lt;fs::path&gt; worm::exe_on_the_flash_drive</td>
+          <td class="memname">std::vector&lt;std::filesystem::path&gt; worm::exe_on_the_flash_drive</td>
         </tr>
       </table>
   </td>
@@ -662,10 +548,12 @@ $(document).ready(function(){initNavTree('classworm.html',''); initResizable(); 
 </table>
 </div><div class="memdoc">
 
+<p>Список EXE на флешках. </p>
+
 </div>
 </div>
-<a id="a1023713ae09f70251e761c4f1b8e9842" name="a1023713ae09f70251e761c4f1b8e9842"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1023713ae09f70251e761c4f1b8e9842">&#9670;&#160;</a></span>file_to_copy</h2>
+<a id="a217c0ab8d0302a0fe83f80b9225c7c82" name="a217c0ab8d0302a0fe83f80b9225c7c82"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a217c0ab8d0302a0fe83f80b9225c7c82">&#9670;&#160;</a></span>file_to_copy</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -674,7 +562,7 @@ $(document).ready(function(){initNavTree('classworm.html',''); initResizable(); 
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">vector&lt;fs::path&gt; worm::file_to_copy</td>
+          <td class="memname">std::vector&lt;std::filesystem::path&gt; worm::file_to_copy</td>
         </tr>
       </table>
   </td>
@@ -683,6 +571,8 @@ $(document).ready(function(){initNavTree('classworm.html',''); initResizable(); 
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Файлы для репликации. </p>
 
 </div>
 </div>
@@ -706,6 +596,8 @@ $(document).ready(function(){initNavTree('classworm.html',''); initResizable(); 
 </table>
 </div><div class="memdoc">
 
+<p>Статический указатель для доступа из WndProc. </p>
+
 </div>
 </div>
 <a id="a71d71929058459310a08d0f48b730f5c" name="a71d71929058459310a08d0f48b730f5c"></a>
@@ -727,6 +619,8 @@ $(document).ready(function(){initNavTree('classworm.html',''); initResizable(); 
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Количество копий на один файл. </p>
 
 </div>
 </div>
@@ -752,8 +646,8 @@ $(document).ready(function(){initNavTree('classworm.html',''); initResizable(); 
 
 </div>
 </div>
-<a id="adcf2716aaf578ac65ef8b1169e1fb98a" name="adcf2716aaf578ac65ef8b1169e1fb98a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adcf2716aaf578ac65ef8b1169e1fb98a">&#9670;&#160;</a></span>list_dir</h2>
+<a id="ab0a3c4ce5d26f0693fadb89d33a426eb" name="ab0a3c4ce5d26f0693fadb89d33a426eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0a3c4ce5d26f0693fadb89d33a426eb">&#9670;&#160;</a></span>list_dir</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -762,7 +656,7 @@ $(document).ready(function(){initNavTree('classworm.html',''); initResizable(); 
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">vector&lt;wstring&gt; worm::list_dir</td>
+          <td class="memname">std::vector&lt;std::wstring&gt; worm::list_dir</td>
         </tr>
       </table>
   </td>
@@ -772,10 +666,12 @@ $(document).ready(function(){initNavTree('classworm.html',''); initResizable(); 
 </table>
 </div><div class="memdoc">
 
+<p>Список найденных доступных директорий. </p>
+
 </div>
 </div>
-<a id="ab8c387f770e73de36eba37ff005a523a" name="ab8c387f770e73de36eba37ff005a523a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab8c387f770e73de36eba37ff005a523a">&#9670;&#160;</a></span>path_to_start</h2>
+<a id="a7c1a2882ab9761070ede18a5c4cf3bc7" name="a7c1a2882ab9761070ede18a5c4cf3bc7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c1a2882ab9761070ede18a5c4cf3bc7">&#9670;&#160;</a></span>path_to_start</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -784,7 +680,7 @@ $(document).ready(function(){initNavTree('classworm.html',''); initResizable(); 
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">wstring worm::path_to_start</td>
+          <td class="memname">std::wstring worm::path_to_start</td>
         </tr>
       </table>
   </td>
@@ -793,6 +689,8 @@ $(document).ready(function(){initNavTree('classworm.html',''); initResizable(); 
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Начальная директория для сканирования. </p>
 
 </div>
 </div>
