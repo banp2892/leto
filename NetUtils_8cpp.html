@@ -95,6 +95,9 @@ $(document).ready(function(){initNavTree('NetUtils_8cpp.html',''); initResizable
   <div class="headertitle"><div class="title">Файл NetUtils.cpp</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Реализация сетевых утилит с использованием Windows API.  
+<a href="#details">Подробнее...</a></p>
 <div class="textblock"><code>#include &lt;iostream&gt;</code><br />
 <code>#include &lt;winsock2.h&gt;</code><br />
 <code>#include &lt;windows.h&gt;</code><br />
@@ -109,7 +112,7 @@ $(document).ready(function(){initNavTree('NetUtils_8cpp.html',''); initResizable
 <div class="dyncontent">
 <div class="center"><img src="NetUtils_8cpp__incl.png" border="0" usemap="#asrc_2NetUtils_8cpp" alt=""/></div>
 <map name="asrc_2NetUtils_8cpp" id="asrc_2NetUtils_8cpp">
-<area shape="rect" title=" " alt="" coords="441,5,567,31"/>
+<area shape="rect" title="Реализация сетевых утилит с использованием Windows API." alt="" coords="441,5,567,31"/>
 <area shape="rect" title=" " alt="" coords="5,79,85,104"/>
 <area shape="poly" title=" " alt="" coords="441,30,290,51,99,81,98,76,289,45,441,24"/>
 <area shape="rect" title=" " alt="" coords="110,79,205,104"/>
@@ -124,7 +127,7 @@ $(document).ready(function(){initNavTree('NetUtils_8cpp.html',''); initResizable
 <area shape="poly" title=" " alt="" coords="517,29,561,77,610,139,605,143,557,80,513,33"/>
 <area shape="rect" title=" " alt="" coords="697,152,759,177"/>
 <area shape="poly" title=" " alt="" coords="568,26,659,46,698,60,723,77,732,91,736,108,736,139,730,139,730,108,727,93,719,80,696,65,657,51,566,31"/>
-<area shape="rect" href="NetUtils_8h.html" title=" " alt="" coords="623,79,710,104"/>
+<area shape="rect" href="NetUtils_8h.html" title="Набор утилит для сканирования локальной сети и анализа IP&#45;адресов." alt="" coords="623,79,710,104"/>
 <area shape="poly" title=" " alt="" coords="531,28,629,71,626,75,529,33"/>
 <area shape="rect" title=" " alt="" coords="786,79,873,104"/>
 <area shape="poly" title=" " alt="" coords="557,28,773,75,772,80,556,33"/>
@@ -136,17 +139,24 @@ $(document).ready(function(){initNavTree('NetUtils_8cpp.html',''); initResizable
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Функции</h2></td></tr>
 <tr class="memitem:aaa719b7b606fd16967b5141bc30cf5ca" id="r_aaa719b7b606fd16967b5141bc30cf5ca"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="NetUtils_8cpp.html#aaa719b7b606fd16967b5141bc30cf5ca">is_private_ip</a> (unsigned long ip)</td></tr>
+<tr class="memdesc:aaa719b7b606fd16967b5141bc30cf5ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Проверяет, относится ли IPv4 адрес к диапазону частных сетей.  <br /></td></tr>
 <tr class="separator:aaa719b7b606fd16967b5141bc30cf5ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ace01e1f5467b24697c72b52b7f5d42af" id="r_ace01e1f5467b24697c72b52b7f5d42af"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::wstring &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="NetUtils_8cpp.html#ace01e1f5467b24697c72b52b7f5d42af">get_local_ip_and_subnet</a> ()</td></tr>
+<tr class="memdesc:ace01e1f5467b24697c72b52b7f5d42af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получает IP-адрес и маску подсети текущего хоста.  <br /></td></tr>
 <tr class="separator:ace01e1f5467b24697c72b52b7f5d42af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afff3423bf3b77d919945a3846151017b" id="r_afff3423bf3b77d919945a3846151017b"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::wstring &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="NetUtils_8cpp.html#afff3423bf3b77d919945a3846151017b">generate_ip_range</a> (const std::wstring &amp;ip, const std::wstring &amp;mask)</td></tr>
+<tr class="memdesc:afff3423bf3b77d919945a3846151017b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Генерирует список всех возможных IP-адресов в подсети.  <br /></td></tr>
 <tr class="separator:afff3423bf3b77d919945a3846151017b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa7405f711068b378717e2a98eb06e350" id="r_aa7405f711068b378717e2a98eb06e350"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="NetUtils_8cpp.html#aa7405f711068b378717e2a98eb06e350">is_host_alive</a> (const std::wstring &amp;ip)</td></tr>
+<tr class="memdesc:aa7405f711068b378717e2a98eb06e350"><td class="mdescLeft">&#160;</td><td class="mdescRight">Проверяет доступность хоста с помощью ICMP Echo (Ping).  <br /></td></tr>
 <tr class="separator:aa7405f711068b378717e2a98eb06e350"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acc8428630bad24c47c44a6cdfe61c320" id="r_acc8428630bad24c47c44a6cdfe61c320"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="NetUtils_8cpp.html#acc8428630bad24c47c44a6cdfe61c320">is_port_open</a> (const std::wstring &amp;ip, int port, int timeout_ms)</td></tr>
+<tr class="memdesc:acc8428630bad24c47c44a6cdfe61c320"><td class="mdescLeft">&#160;</td><td class="mdescRight">Проверяет, открыт ли конкретный TCP-порт на целевом хосте.  <br /></td></tr>
 <tr class="separator:acc8428630bad24c47c44a6cdfe61c320"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Функции</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Подробное описание</h2>
+<div class="textblock"><p>Реализация сетевых утилит с использованием Windows API. </p>
+</div><h2 class="groupheader">Функции</h2>
 <a id="afff3423bf3b77d919945a3846151017b" name="afff3423bf3b77d919945a3846151017b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afff3423bf3b77d919945a3846151017b">&#9670;&#160;</a></span>generate_ip_range()</h2>
 
@@ -173,6 +183,20 @@ $(document).ready(function(){initNavTree('NetUtils_8cpp.html',''); initResizable
       </table>
 </div><div class="memdoc">
 
+<p>Генерирует список всех возможных IP-адресов в подсети. </p>
+<ul>
+<li>На основе IP и маски вычисляются границы сети (адрес сети и broadcast), после чего создается список всех доступных узлов между ними.</li>
+<li><dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ip</td><td>Текущий IP-адрес хоста. </td></tr>
+    <tr><td class="paramname">mask</td><td>Маска подсети. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd>std::vector&lt;std::wstring&gt; Список IP-адресов для сканирования. </dd></dl>
+</li>
+</ul>
+
 </div>
 </div>
 <a id="ace01e1f5467b24697c72b52b7f5d42af" name="ace01e1f5467b24697c72b52b7f5d42af"></a>
@@ -189,6 +213,13 @@ $(document).ready(function(){initNavTree('NetUtils_8cpp.html',''); initResizable
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Получает IP-адрес и маску подсети текущего хоста. </p>
+<ul>
+<li>Функция сканирует активные сетевые адаптеры и возвращает данные первого найденного частного (локального) интерфейса.</li>
+<li><dl class="section return"><dt>Возвращает</dt><dd>std::vector&lt;std::wstring&gt; Вектор, где [0] — IP-адрес, [1] — маска. Если интерфейс не найден, возвращается пустой вектор. </dd></dl>
+</li>
+</ul>
 
 </div>
 </div>
@@ -207,6 +238,15 @@ $(document).ready(function(){initNavTree('NetUtils_8cpp.html',''); initResizable
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Проверяет доступность хоста с помощью ICMP Echo (Ping). </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ip</td><td>IP-адрес целевого хоста. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd>true если получен ответ, false если хост недоступен или произошла ошибка. </dd></dl>
 
 </div>
 </div>
@@ -232,7 +272,7 @@ $(document).ready(function(){initNavTree('NetUtils_8cpp.html',''); initResizable
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>timeout_ms</em>&#160;</td>
+          <td class="paramname"><em>timeout_ms</em> = <code>200</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -241,6 +281,21 @@ $(document).ready(function(){initNavTree('NetUtils_8cpp.html',''); initResizable
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Проверяет, открыт ли конкретный TCP-порт на целевом хосте. </p>
+<ul>
+<li>Пытается установить TCP-соединение с заданным таймаутом.</li>
+<li><dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ip</td><td>IP-адрес хоста. </td></tr>
+    <tr><td class="paramname">port</td><td>Номер порта. </td></tr>
+    <tr><td class="paramname">timeout_ms</td><td>Время ожидания ответа в миллисекундах (по умолчанию 200). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd>true если порт открыт и принимает соединения. </dd></dl>
+</li>
+</ul>
 
 </div>
 </div>
@@ -259,6 +314,19 @@ $(document).ready(function(){initNavTree('NetUtils_8cpp.html',''); initResizable
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Проверяет, относится ли IPv4 адрес к диапазону частных сетей. </p>
+<ul>
+<li>Проверка выполняется для диапазонов: 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16.</li>
+<li><dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ip</td><td>IP-адрес в числовом формате (network byte order). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd>true если адрес локальный. </dd></dl>
+</li>
+</ul>
 
 </div>
 </div>

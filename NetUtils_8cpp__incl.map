@@ -1,5 +1,5 @@
 <map id="src/NetUtils.cpp" name="src/NetUtils.cpp">
-<area shape="rect" id="Node000001" title=" " alt="" coords="441,5,567,31"/>
+<area shape="rect" id="Node000001" title="Реализация сетевых утилит с использованием Windows API." alt="" coords="441,5,567,31"/>
 <area shape="rect" id="Node000002" title=" " alt="" coords="5,79,85,104"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="441,30,290,51,99,81,98,76,289,45,441,24"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="110,79,205,104"/>
@@ -14,7 +14,7 @@
 <area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="517,29,561,77,610,139,605,143,557,80,513,33"/>
 <area shape="rect" id="Node000008" title=" " alt="" coords="697,152,759,177"/>
 <area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="568,26,659,46,698,60,723,77,732,91,736,108,736,139,730,139,730,108,727,93,719,80,696,65,657,51,566,31"/>
-<area shape="rect" id="Node000009" href="$NetUtils_8h.html" title=" " alt="" coords="623,79,710,104"/>
+<area shape="rect" id="Node000009" href="$NetUtils_8h.html" title="Набор утилит для сканирования локальной сети и анализа IP&#45;адресов." alt="" coords="623,79,710,104"/>
 <area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="531,28,629,71,626,75,529,33"/>
 <area shape="rect" id="Node000010" title=" " alt="" coords="786,79,873,104"/>
 <area shape="poly" id="edge11_Node000001_Node000010" title=" " alt="" coords="557,28,773,75,772,80,556,33"/>
