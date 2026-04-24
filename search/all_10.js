@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['_7edatasend_0',['~DataSend',['../classDataSend.html#a39ef3d8903a40cc9c9733278649a3470',1,'DataSend']]]
+  ['netutils_2ecpp_0',['NetUtils.cpp',['../NetUtils_8cpp.html',1,'']]],
+  ['netutils_2eh_1',['NetUtils.h',['../NetUtils_8h.html',1,'']]]
 ];

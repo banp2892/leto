@@ -1,11 +1,8 @@
 var searchData=
 [
-  ['infected_5fdir_0',['infected_dir',['../classworm.html#a821a1a0b283ad079fb54a72ad0baefc9',1,'worm']]],
-  ['instance_1',['instance',['../classworm.html#a5c57218df05398306f04701d7031a268',1,'worm']]],
-  ['is_5fhidden_2',['is_hidden',['../worm_8cpp.html#a1876227f61d1b348a62a7e282460cf41',1,'worm.cpp']]],
-  ['is_5fhost_5falive_3',['is_host_alive',['../NetUtils_8cpp.html#aa7405f711068b378717e2a98eb06e350',1,'is_host_alive(const std::wstring &amp;ip):&#160;NetUtils.cpp'],['../NetUtils_8h.html#aa7405f711068b378717e2a98eb06e350',1,'is_host_alive(const std::wstring &amp;ip):&#160;NetUtils.cpp']]],
-  ['is_5fport_5fopen_4',['is_port_open',['../NetUtils_8cpp.html#acc8428630bad24c47c44a6cdfe61c320',1,'is_port_open(const std::wstring &amp;ip, int port, int timeout_ms):&#160;NetUtils.cpp'],['../NetUtils_8h.html#aafa7c98ba38e08ca572f1776a8e297b7',1,'is_port_open(const std::wstring &amp;ip, int port, int timeout_ms=200):&#160;NetUtils.cpp']]],
-  ['is_5fprivate_5fip_5',['is_private_ip',['../NetUtils_8cpp.html#aaa719b7b606fd16967b5141bc30cf5ca',1,'is_private_ip(unsigned long ip):&#160;NetUtils.cpp'],['../NetUtils_8h.html#aaa719b7b606fd16967b5141bc30cf5ca',1,'is_private_ip(unsigned long ip):&#160;NetUtils.cpp']]],
-  ['is_5fsystem_5fpath_6',['is_system_path',['../classworm.html#a37daa5ac85a5f7078615b07abd287f7d',1,'worm']]],
-  ['iteration_7',['iteration',['../classworm.html#a71d71929058459310a08d0f48b730f5c',1,'worm']]]
+  ['datasend_0',['datasend',['../classDataSend.html',1,'DataSend'],['../classDataSend.html#ab16d3e015f006e70cbc8097a57390e12',1,'DataSend::DataSend()']]],
+  ['datasend_2ecpp_1',['DataSend.cpp',['../DataSend_8cpp.html',1,'']]],
+  ['datasend_2eh_2',['DataSend.h',['../DataSend_8h.html',1,'']]],
+  ['dir_5fwas_5finfected_3',['dir_was_infected',['../classworm.html#ab5a780f3aba2439b47067edf3f3d7a07',1,'worm']]],
+  ['disconnect_4',['disconnect',['../classDataSend.html#ac529a0ec7347e97ca5662521418a7f8e',1,'DataSend']]]
 ];
