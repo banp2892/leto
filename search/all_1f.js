@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['червя_0',['2. Тело червя',['../md_README.html#autotoc_md4',1,'']]]
+  ['фильтрация_0',['1. Сканирование и фильтрация',['../md_README.html#autotoc_md3',1,'']]]
 ];

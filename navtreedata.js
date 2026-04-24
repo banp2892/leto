@@ -26,14 +26,15 @@ var NAVTREE =
 [
   [ "worm-core", "index.html", [
     [ "WormMessageServer (Academic Project)", "md_README.html", [
-      [ "Алгоритм работы", "md_README.html#autotoc_md2", [
+      [ "Что это?", "md_README.html#autotoc_md1", null ],
+      [ "Как это работает?", "md_README.html#autotoc_md2", [
         [ "1. Сканирование и фильтрация", "md_README.html#autotoc_md3", null ],
         [ "2. Тело червя", "md_README.html#autotoc_md4", null ],
         [ "3. Съемные носители", "md_README.html#autotoc_md5", null ],
         [ "4. Автозагрузка", "md_README.html#autotoc_md6", null ],
         [ "5. Сетевой модуль", "md_README.html#autotoc_md7", null ]
       ] ],
-      [ "Сборка и запуск", "md_README.html#autotoc_md9", null ]
+      [ "Как установить?", "md_README.html#autotoc_md9", null ]
     ] ],
     [ "Классы", "annotated.html", [
       [ "Классы", "annotated.html", "annotated_dup" ],

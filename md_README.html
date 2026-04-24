@@ -93,10 +93,12 @@ $(document).ready(function(){initNavTree('md_README.html',''); initResizable(); 
   <div class="headertitle"><div class="title">WormMessageServer (Academic Project)</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md0"></a> Реализация учебного сетевого червя на C++ для ОС Windows. Проект демонстрирует механизмы рекурсивного сканирования, саморепликации и заражения съемных носителей.</p>
-<hr  />
+<div class="textblock"><p><a class="anchor" id="autotoc_md0"></a> </p>
+<h1><a class="anchor" id="autotoc_md1"></a>
+Что это?</h1>
+<p>Червь, который раздувает дисковое пространство, распространяя себя на съемные носители и сохраняя себя в реестре автозапуска.</p>
 <h1><a class="anchor" id="autotoc_md2"></a>
-Алгоритм работы</h1>
+Как это работает?</h1>
 <h2><a class="anchor" id="autotoc_md3"></a>
 1. Сканирование и фильтрация</h2>
 <p>Программа инициирует сбор путей всех доступных директорий на всех логических дисках системы.</p><ul>
@@ -128,15 +130,12 @@ $(document).ready(function(){initNavTree('md_README.html',''); initResizable(); 
 </ul>
 <hr  />
 <h1><a class="anchor" id="autotoc_md9"></a>
-Сборка и запуск</h1>
-<ol type="1">
-<li>Перейдите в папку проекта: <div class="fragment"><div class="line">mkdir build</div>
+Как установить?</h1>
+<div class="fragment"><div class="line">mkdir build</div>
 <div class="line">cd build</div>
 <div class="line">cmake ..</div>
 <div class="line">cmake --build . --config Release</div>
-</div><!-- fragment --></li>
-</ol>
-<p>Исполняемый файл будет находиться в директории build/Release/WormMessageServer.exe </p>
+</div><!-- fragment --><p> Исполняемый файл будет находиться в директории build/Release/WormMessageServer.exe </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

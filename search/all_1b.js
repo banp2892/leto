@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['работы_0',['Алгоритм работы',['../md_README.html#autotoc_md2',1,'']]]
+  ['работает_0',['Как это работает?',['../md_README.html#autotoc_md2',1,'']]]
 ];
